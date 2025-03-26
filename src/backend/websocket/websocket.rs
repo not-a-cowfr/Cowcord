@@ -1,6 +1,3 @@
-use std::cell::RefCell;
-use std::rc::Rc;
-
 use gloo_timers::callback::Interval;
 use serde_json::{Value, json};
 use wasm_bindgen::closure::Closure;

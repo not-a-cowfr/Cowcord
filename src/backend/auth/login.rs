@@ -1,5 +1,3 @@
-use std::error::Error;
-
 use serde::{Deserialize, Serialize};
 use web_sys::console;
 
@@ -25,7 +23,7 @@ pub async fn login(info: LoginRequest) -> Result<LoginResponse, Box<dyn Error>> 
 
 	let response = client
 		.post("https://discord.com/api/v9/auth/login")
-		.json(&login_request)
+		.json(&info)
 		.send()
 		.await?;
 
