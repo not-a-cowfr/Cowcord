@@ -5,6 +5,14 @@ edition = "2024"
 
 [dependencies]
 dioxus = { version = "0.6.3", features = ["router", "fullstack"] }
+gloo-timers = "0.3.0"
+js-sys = "0.3.77"
+reqwest = { version = "0.12.15", features = ["json", "blocking"] }
+serde = "1.0.219"
+serde_json = "1.0.140"
+tokio = "1.44.1"
+wasm-bindgen = "0.2.100"
+wasm-bindgen-futures = "0.4.50"
 web-sys = { version = "0.3.77", features = ["Window", "Element", "DomRect", "WebSocket", "MessageEvent", "BinaryType", "ErrorEvent", "CloseEvent", "console"]}
 
 [features]
@@ -12,8 +20,6 @@ default = ["web"]
 web = ["dioxus/web"]
 desktop = ["dioxus/desktop"]
 mobile = ["dioxus/mobile"]
-
-[profile]
 
 [profile.wasm-dev]
 inherits = "dev"

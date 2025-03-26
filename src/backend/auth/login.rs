@@ -1,5 +1,6 @@
+use std::error::Error;
+
 use serde::{Deserialize, Serialize};
-use web_sys::console;
 
 use crate::backend::save_value_to_storage;
 
