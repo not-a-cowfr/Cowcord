@@ -2,6 +2,7 @@ use wasm_bindgen::JsValue;
 use web_sys::window;
 
 pub mod auth;
+pub mod websocket;
 
 pub fn get_value_from_storage(key: &str) -> Option<String> {
     if let Some(window) = window() {

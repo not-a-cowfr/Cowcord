@@ -2,7 +2,7 @@ use serde::{Deserialize, Serialize};
 use std::error::Error;
 use web_sys::console;
 
-use super::save_value_to_storage;
+use crate::backend::save_value_to_storage;
 
 #[derive(Serialize, Deserialize)]
 struct LoginRequest {
@@ -58,18 +58,11 @@ pub async fn login(email: String, password: String) -> Result<LoginResponse, Box
 
                                 return match code {
                                     "ACCOUNT_COMPROMISED_RESET_PASSWORD" => {
-                                        Err(format!(
-                                            "Account security notice: {}",
-                                            error_message
-                                        )
-                                        .into());
+                                        Err(format!("Account security notice: {}", error_message)
+                                            .into())
                                     }
-                                    _ => {
-                                        Err(
-                                            format!("Login error: {}", error_message).into()
-                                        );
-                                    }
-                                }
+                                    _ => Err(format!("Login error: {}", error_message).into()),
+                                };
                             }
                         }
                     }
