@@ -6,6 +6,7 @@ version = 4
 name = "Cowcord"
 version = "0.0.1"
 dependencies = [
+ "console_error_panic_hook",
  "dioxus",
  "gloo-timers",
  "js-sys",

@@ -4,6 +4,7 @@ version = "0.0.1"
 edition = "2024"
 
 [dependencies]
+console_error_panic_hook = "0.1.7"
 dioxus = { version = "0.6.3", features = ["router", "fullstack"] }
 gloo-timers = "0.3.0"
 js-sys = "0.3.77"
@@ -20,6 +21,26 @@ default = ["web"]
 web = ["dioxus/web"]
 desktop = ["dioxus/desktop"]
 mobile = ["dioxus/mobile"]
+
+# [unstable]
+# build-std = ["std", "panic_abort", "core", "alloc"]
+# build-std-features = ["panic_immediate_abort"]
+
+# [build]
+# rustflags = [
+#     "-Clto",
+#     "-Zvirtual-function-elimination",
+#     "-Zlocation-detail=none"
+# ]
+
+[profile.release]
+opt-level = "z"
+debug = false
+lto = true
+codegen-units = 1
+panic = "abort"
+strip = true
+incremental = false
 
 [profile.wasm-dev]
 inherits = "dev"
