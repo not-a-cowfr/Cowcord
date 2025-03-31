@@ -1,4 +1,4 @@
-name: github pages
+name: Deploy to Github Pages
 
 on:
   push:
@@ -19,7 +19,7 @@ jobs:
         run: cargo install dioxus-cli
 
       - name: Build
-        run: dx build --release && cp -r ./target/dx/hocg-deck-convert/release/web/public ./dist
+        run: dx build --release
 
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@v4
