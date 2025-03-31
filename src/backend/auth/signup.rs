@@ -10,6 +10,7 @@ pub struct RegisterRequest {
 	pub email:         String,
 	pub fingerprint:   String,
 	pub global_name:   String,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	pub invite:        Option<String>,
 	pub password:      String,
 	pub username:      String,

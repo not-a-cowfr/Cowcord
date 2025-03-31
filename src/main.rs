@@ -1,7 +1,9 @@
 use dioxus::prelude::*;
 
 mod views;
-use views::{Home, Login};
+use views::{Home, Login, Register};
+
+pub mod backend;
 
 #[derive(Debug, Clone, Routable, PartialEq)]
 #[rustfmt::skip]
@@ -10,6 +12,8 @@ enum Route {
     Home {},
     #[route("/login")]
     Login {},
+    #[route("/register")]
+    Register {},
 }
 
 const TAILWIND_CSS: Asset = asset!("/assets/tailwind.css");

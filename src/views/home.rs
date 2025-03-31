@@ -1,6 +1,17 @@
 use dioxus::prelude::*;
 
+use crate::backend::get_value_from_storage;
+
 #[component]
 pub fn Home() -> Element {
-    rsx! {}
+	let navigator = use_navigator();
+
+	let redirect = match get_value_from_storage("token") {
+		| Some(_token) => "/me",
+		| None => "/login",
+	};
+
+	navigator.replace(redirect);
+
+	rsx! {}
 }
