@@ -1,4 +1,4 @@
-name: Deploy to Github pages
+name: github pages
 
 on:
   push:
@@ -6,21 +6,24 @@ on:
       - main
 
 jobs:
-  build-and-deploy:
+  build-deploy:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Build and deploy
-        uses: DioxusLabs/deploy-action@v1
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
         with:
-          project-path: .
-          platform: web
-          release: true
-          deploy: true
-          deploy-branch: gh-pages
-          deploy-folder: .
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          target: wasm32-unknown-unknown
+      - uses: Swatinem/rust-cache@v2
+
+      - name: Install Dioxus CLI
+        run: cargo install dioxus-cli
+
+      - name: Build
+        run: dx build --release && cp -r ./target/dx/hocg-deck-convert/release/web/public ./dist
+
+      - name: Deploy
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: gh-pages
+          folder: ./dist
+          clean: true
