@@ -6,6 +6,7 @@ use web_sys::console;
 
 use crate::backend::save_value_to_storage;
 use crate::components::modals::mfa_code::Modal;
+use crate::views::auth::{SmsMfaRequest, send_sms_mfa};
 
 // https://docs.discord.sex/authentication#login-source
 #[derive(Serialize)]
@@ -53,7 +54,7 @@ struct LoginResponse {
 	webauthn: Option<String>,
 }
 
-#[derive(Deserialize, Serialize)]
+#[derive(Deserialize)]
 pub struct LoginSettings {
 	locale: String,
 	theme:  String,
@@ -151,6 +152,14 @@ pub fn Login() -> Element {
 						| Ok(login_response) => {
 							if login_response.mfa.unwrap_or(false) {
 								if let Some(ticket_value) = login_response.ticket {
+									let sms_request = SmsMfaRequest {
+										token: ticket_value.clone(),
+									};
+									match send_sms_mfa(sms_request).await {
+										| Ok(_) => {},
+										| Err(e) => console::error_1(&format!("Error sending sms MFA code: {}", e).into()),
+									}
+
 									ticket.set(Some(ticket_value));
 									show_modal.set(true);
 								} else {
