@@ -6,6 +6,9 @@ base_path = "/"
 
 [web.resource]
 
+[web.build]
+out_dir = "dist"
+
 style = []
 
 script = []

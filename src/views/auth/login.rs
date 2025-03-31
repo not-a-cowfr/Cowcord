@@ -148,7 +148,7 @@ pub fn Login() -> Element {
 					};
 
 					match login(request).await {
-						Ok(login_response) => {
+						| Ok(login_response) => {
 							if login_response.mfa.unwrap_or(false) {
 								if let Some(ticket_value) = login_response.ticket {
 									ticket.set(Some(ticket_value));
@@ -158,7 +158,7 @@ pub fn Login() -> Element {
 								}
 							}
 						},
-						Err(e) => console::error_1(&format!("Login failed: {}", e).into()),
+						| Err(e) => console::error_1(&format!("Login failed: {}", e).into()),
 					}
 				});
 			},
@@ -183,8 +183,8 @@ pub fn Login() -> Element {
 
 						spawn(async move {
 							match mfa_login(mfa_request).await {
-								Ok(_) => console::log_1(&"MFA login successful!".into()),
-								Err(e) => console::error_1(&format!("MFA Login failed: {}", e).into()),
+								| Ok(_login_response) => {}, // token is already saved in function so I dont _think_ this has any use
+								| Err(e) => console::error_1(&format!("MFA Login failed: {}", e).into()),
 							}
 						});
 					} else {
