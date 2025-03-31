@@ -4,6 +4,7 @@ mod views;
 use views::{Home, Login, Register};
 
 pub mod backend;
+pub mod components;
 
 #[derive(Debug, Clone, Routable, PartialEq)]
 #[rustfmt::skip]

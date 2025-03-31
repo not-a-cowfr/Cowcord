@@ -1,8 +1,8 @@
 [application]
 
 [web.app]
-
 title = "Discord"
+base_path = "/"
 
 [web.resource]
 

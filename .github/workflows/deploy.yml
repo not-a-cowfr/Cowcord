@@ -1,4 +1,4 @@
-name: Deploy Dioxus App to GitHub Pages
+name: Deploy to GitHub Pages
 
 on:
   push:
@@ -24,7 +24,7 @@ jobs:
       - name: Install Dioxus CLI
         run: cargo install dioxus-cli
 
-      - name: Build Dioxus App
+      - name: Build App
         run: |
           dx build --release --platform web
         working-directory: .

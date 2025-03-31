@@ -2,8 +2,10 @@ use std::error::Error;
 
 use dioxus::prelude::*;
 use serde::{Deserialize, Serialize};
+use web_sys::console;
 
 use crate::backend::save_value_to_storage;
+use crate::components::modals::mfa_code::Modal;
 
 // https://docs.discord.sex/authentication#login-source
 #[derive(Serialize)]
@@ -120,75 +122,76 @@ async fn mfa_login(info: MfaRequest) -> Result<LoginResponse, Box<dyn Error>> {
 
 #[component]
 pub fn Login() -> Element {
+	let mut show_modal = use_signal(|| false);
+	let mut ticket = use_signal(|| None);
+
 	rsx! {
 		form {
-			onsubmit: async move |event: Event<FormData>| {
+			onsubmit: move |event: Event<FormData>| {
 				event.prevent_default();
+				console::log_1(&format!("test submit\n\n{:#?}", event).into());
 
-				console::log_1(&format!("{event:#?}").into());
+				spawn(async move {
+					let identifier = event.values().get("identifier")
+						.and_then(|val| val.get(0).cloned())
+						.unwrap_or_default();
 
-				// TODO: phone number must be formatted with E.164 format
-				let identifier: String = event.values().get("identifier")
-					.and_then(|val| val.get(0).cloned())
-					.unwrap_or_else(|| "".to_string());
+					let password = event.values().get("password")
+						.and_then(|val| val.get(0).cloned())
+						.unwrap_or_default();
 
-				let password: String = event.values().get("password")
-					.and_then(|val| val.get(0).cloned())
-					.unwrap_or_else(|| "".to_string());
+					let request = LoginRequest {
+						login: identifier,
+						password,
+						undelete: None,
+						login_source: None,
+					};
 
-				let request = LoginRequest {
-					login: identifier,
-					password: password,
-					undelete: None,
-					login_source: None,
-				};
-
-				match login(request).await {
-					| Ok(login_response) => {
-						if login_response.mfa.unwrap_or(false) {
-							if let Some(ticket) =  login_response.ticket.unwrap() {
-
-								// using 2 matches when 1 could be used is kinda stupid, but I dont feel like changing it with the excuse of that it might be useful
-								let mfa_type = match (
-									login_response.totp,
-									login_response.sms,
-									login_response.backup,
-								) {
-									| (Some(true), _, _) => "TOTP",
-									| (_, Some(true), _) => "SMS",
-									| (_, _, Some(true)) => "backup",
-									| _ => {
-										console::error_1(&"WebAuthn mfa is currently unsupported!".into());
-										panic!()
-									},
-								};
-
-								match mfa_type {
-									| "SMS" => send_sms_mfa(ticket),
-								}
-
-								// need to first create the popup modal for mfa thingys then get the code from that modal, also prob move the rest of this logic to that modal?
-								// ui and dioxus components are not my strong suit (yet) so im gonna delay doing that
-
-								let mfa_request = MfaRequest {
-									ticket: ticket,
-									code: /* needs to be gotten from the mfa modal */,
-									login_source: None,
-								};
-
-								match mfa_login(mfa_request).await {
-									| Ok(_login_response) => {}, // token is already saved in function so I dont _think_ this has any use
-									| Err(e) => console::error_1(&format!("Login failed: {}", e).into()),
+					match login(request).await {
+						Ok(login_response) => {
+							if login_response.mfa.unwrap_or(false) {
+								if let Some(ticket_value) = login_response.ticket {
+									ticket.set(Some(ticket_value));
+									show_modal.set(true);
+								} else {
+									console::error_1(&"MFA required, but no ticket received!".into());
 								}
 							}
-						}
+						},
+						Err(e) => console::error_1(&format!("Login failed: {}", e).into()),
 					}
-					| Err(e) => console::error_1(&format!("Login failed: {}", e).into()),
-				}
+				});
 			},
-			input { name: "identifier", placeholder: "Email or Phone number", class: "email" }
-			input { name: "password", placeholder: "Password", class: "password" }
-			input { r#type: "submit" }
+			input { name: "identifier", placeholder: "Email or Phone number" }
+			input { name: "password", placeholder: "Password" }
+			input { r#type: "submit", value: "Login" }
+		}
+
+		if show_modal() {
+			Modal {
+				on_submit: move |code: String| {
+					show_modal.set(false);
+
+					console::log_1(&"test mfa modal submit".into());
+
+					if let Some(ticket_value) = ticket() {
+						let mfa_request = MfaRequest {
+							ticket: ticket_value,
+							code,
+							login_source: None,
+						};
+
+						spawn(async move {
+							match mfa_login(mfa_request).await {
+								Ok(_) => console::log_1(&"MFA login successful!".into()),
+								Err(e) => console::error_1(&format!("MFA Login failed: {}", e).into()),
+							}
+						});
+					} else {
+						console::error_1(&"No ticket found for MFA submission!".into());
+					}
+				}
+			}
 		}
 	}
 }
