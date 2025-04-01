@@ -4,4 +4,5 @@ pub mod auth;
 pub mod chat;
 pub mod guild;
 pub mod mfa;
+pub mod types;
 pub mod user;

@@ -2,7 +2,8 @@ use iso8601_timestamp::Timestamp;
 use serde::{Deserialize, Serialize};
 
 use super::guild::GuildMember;
-use super::user::{Nick, Snowflake, ThreadMember, User};
+use super::types::Snowflake;
+use super::user::{Nick, ThreadMember, User};
 
 #[derive(Deserialize, Debug)]
 pub struct MessageHistoryResponse {

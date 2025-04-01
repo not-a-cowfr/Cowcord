@@ -1,7 +1,8 @@
 use iso8601_timestamp::Timestamp;
 use serde::Deserialize;
 
-use super::user::{AvatarDecorationData, Snowflake, User};
+use super::types::Snowflake;
+use super::user::{AvatarDecorationData, User};
 
 #[derive(Deserialize, Debug)]
 pub struct GuildMember {

@@ -1,6 +1,6 @@
 use serde::{Deserialize, Serialize};
 
-use crate::models::user::Snowflake;
+use crate::models::types::Snowflake;
 
 // https://docs.discord.sex/authentication#login-source
 #[derive(Serialize)]
