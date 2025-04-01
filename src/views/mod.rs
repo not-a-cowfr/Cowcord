@@ -6,7 +6,7 @@ pub use home::Home;
 mod auth;
 pub use auth::{Login, Register};
 
-mod server;
-pub use server::channel::channel::Channel;
-pub use server::channel::channels_and_roles::Roles;
-pub use server::server::Server;
+mod chats;
+pub use chats::server::channel::channel::Channel;
+pub use chats::server::channel::channels_and_roles::Roles;
+pub use chats::server::server::Server;

@@ -26,7 +26,7 @@ pub enum MfaMethods {
 
 #[derive(Deserialize)]
 pub struct MfaMethod {
-	r#type: String,
-	challenge: Option<String>,
+	r#type:                String,
+	challenge:             Option<String>,
 	backupd_codes_allowed: Option<String>,
 }

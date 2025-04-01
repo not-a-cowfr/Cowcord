@@ -10,4 +10,4 @@ match_arm_leading_pipes = 'Always'
 match_block_trailing_comma = true
 imports_granularity = 'Module'
 group_imports = 'StdExternalCrate'
-struct_field_align_threshold = 10
+struct_field_align_threshold = 100

@@ -1,5 +1,7 @@
 use serde::{Deserialize, Serialize};
 
+use crate::models::user::Snowflake;
+
 // https://docs.discord.sex/authentication#login-source
 #[derive(Serialize)]
 #[allow(non_camel_case_types)]
@@ -34,16 +36,16 @@ pub struct MfaRequest {
 #[derive(Deserialize)]
 #[allow(dead_code)]
 pub struct LoginResponse {
-	pub user_id: String,
-	pub token: Option<String>,
-	pub user_settings: Option<LoginSettings>,
+	pub user_id:          Snowflake,
+	pub token:            Option<String>,
+	pub user_settings:    Option<LoginSettings>,
 	pub required_actions: Option<Vec<RequiredActions>>,
-	pub ticket: Option<String>,
-	pub mfa: Option<bool>,
-	pub totp: Option<bool>,
-	pub sms: Option<bool>,
-	pub backup: Option<bool>,
-	pub webauthn: Option<String>,
+	pub ticket:           Option<String>,
+	pub mfa:              Option<bool>,
+	pub totp:             Option<bool>,
+	pub sms:              Option<bool>,
+	pub backup:           Option<bool>,
+	pub webauthn:         Option<String>,
 }
 
 #[derive(Deserialize)]
