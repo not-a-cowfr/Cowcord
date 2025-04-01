@@ -74,7 +74,6 @@ pub fn Login() -> Element {
 		form {
 			onsubmit: move |event: Event<FormData>| {
 				event.prevent_default();
-				console::log_1(&format!("test submit\n\n{:#?}", event).into());
 
 				spawn(async move {
 					let identifier = event.values().get("identifier")
@@ -125,8 +124,6 @@ pub fn Login() -> Element {
 			Modal {
 				on_submit: move |code: String| {
 					show_modal.set(false);
-
-					console::log_1(&"test mfa modal submit".into());
 
 					if let Some(ticket_value) = ticket() {
 						let mfa_request = MfaRequest {
