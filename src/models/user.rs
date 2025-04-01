@@ -54,13 +54,13 @@ pub struct PrimaryGuild {
 }
 
 #[derive(Deserialize, Debug)]
-struct LinkedUser {
-	created_at:   Timestamp,
-	updated_at:   Timestamp,
-	link_status:  u8, // https://docs.discord.sex/resources/family-center#link-status
-	link_type:    u8, // https://docs.discord.sex/resources/family-center#link-type
-	requestor_id: String,
-	user_id:      String,
+pub struct LinkedUser {
+	pub created_at:   Timestamp,
+	pub updated_at:   Timestamp,
+	pub link_status:  u8, // https://docs.discord.sex/resources/family-center#link-status
+	pub link_type:    u8, // https://docs.discord.sex/resources/family-center#link-type
+	pub requestor_id: String,
+	pub user_id:      String,
 }
 
 #[derive(Deserialize, Debug)]

@@ -76,14 +76,14 @@ pub struct Channel {
 
 #[derive(Deserialize, Debug)]
 pub struct DefaultReaction {
-	emoji_id:   Option<Snowflake>,
-	emoji_name: Option<String>,
+	pub emoji_id:   Option<Snowflake>,
+	pub emoji_name: Option<String>,
 }
 
 #[derive(Deserialize, Debug)]
 pub struct IconEmoji {
-	emoji_id:   Option<Snowflake>,
-	emoji_name: Option<String>,
+	pub emoji_id:   Option<Snowflake>,
+	pub emoji_name: Option<String>,
 }
 
 #[derive(Deserialize, Debug)]

@@ -3,15 +3,15 @@ use serde::Deserialize;
 // json response when mfa is required for an action
 #[derive(Deserialize)]
 pub struct MfaRequired {
-	message: String,
-	code:    u64,
-	mfa:     MfaObject,
+	pub message: String,
+	pub code:    u64,
+	pub mfa:     MfaObject,
 }
 
 #[derive(Deserialize)]
 pub struct MfaObject {
-	ticket:  String,
-	methods: Vec<MfaMethods>,
+	pub ticket:  String,
+	pub methods: Vec<MfaMethods>,
 }
 
 #[allow(non_camel_case_types)]
@@ -26,7 +26,7 @@ pub enum MfaMethods {
 
 #[derive(Deserialize)]
 pub struct MfaMethod {
-	r#type:                String,
-	challenge:             Option<String>,
-	backupd_codes_allowed: Option<String>,
+	pub r#type:                String,
+	pub challenge:             Option<String>,
+	pub backupd_codes_allowed: Option<String>,
 }
