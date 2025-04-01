@@ -1,16 +1,10 @@
 [application]
-default_platform = "web"
-out_dir = "dist"
-asset_dir = "assets"
 
 [web.app]
+
 title = "Discord"
-base_path = "/"
 
 [web.resource]
-
-[web.build]
-out_dir = "dist"
 
 style = []
 

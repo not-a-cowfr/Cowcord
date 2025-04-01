@@ -10,8 +10,8 @@ use crate::views::auth::{SmsMfaRequest, send_sms_mfa};
 
 // https://docs.discord.sex/authentication#login-source
 #[derive(Serialize)]
+#[allow(non_camel_case_types)]
 enum LoginSource {
-	// idfk what causes these warnings or how to fix/ignore them
 	gift,
 	guild_template,
 	guild_invite,
@@ -117,6 +117,8 @@ async fn mfa_login(info: MfaRequest) -> Result<LoginResponse, Box<dyn Error>> {
 	}
 
 	Err(match status.as_u16() {
+		| 400 => "Invalid MFA code. Please try again.".into(),
+		| 429 => "Too many attempts. Please try again later.".into(),
 		| _ => format!("Unhandled status: {}", status).into(),
 	})
 }
@@ -155,13 +157,14 @@ pub fn Login() -> Element {
 									let sms_request = SmsMfaRequest {
 										token: ticket_value.clone(),
 									};
-									match send_sms_mfa(sms_request).await {
-										| Ok(_) => {},
-										| Err(e) => console::error_1(&format!("Error sending sms MFA code: {}", e).into()),
-									}
 
-									ticket.set(Some(ticket_value));
-									show_modal.set(true);
+									match send_sms_mfa(sms_request).await {
+										  Ok(_) => {
+											 ticket.set(Some(ticket_value));
+											 show_modal.set(true);
+										  }
+										  Err(e) => console::error_1(&format!("Error sending sms MFA code: {}", e).into()),
+									}
 								} else {
 									console::error_1(&"MFA required, but no ticket received!".into());
 								}
@@ -192,8 +195,13 @@ pub fn Login() -> Element {
 
 						spawn(async move {
 							match mfa_login(mfa_request).await {
-								| Ok(_login_response) => {}, // token is already saved in function so I dont _think_ this has any use
-								| Err(e) => console::error_1(&format!("MFA Login failed: {}", e).into()),
+								Ok(_login_response) => {
+									ticket.set(None);
+									show_modal.set(false);
+								}
+								Err(e) => {
+									console::error_1(&format!("MFA Login failed: {}", e).into());
+								}
 							}
 						});
 					} else {
