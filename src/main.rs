@@ -3,8 +3,9 @@ use dioxus::prelude::*;
 mod views;
 use views::{Home, Login, Register};
 
-pub mod backend;
 pub mod components;
+pub mod models;
+pub mod utils;
 
 #[derive(Debug, Clone, Routable, PartialEq)]
 #[rustfmt::skip]

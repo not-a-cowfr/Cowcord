@@ -1,6 +1,6 @@
 use dioxus::prelude::*;
 
-use crate::backend::get_value_from_storage;
+use crate::utils::local_storage::get_value_from_storage;
 
 #[component]
 pub fn Home() -> Element {

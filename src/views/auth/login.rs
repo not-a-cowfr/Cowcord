@@ -1,70 +1,12 @@
 use std::error::Error;
 
 use dioxus::prelude::*;
-use serde::{Deserialize, Serialize};
 use web_sys::console;
 
-use crate::backend::save_value_to_storage;
 use crate::components::modals::mfa_code::Modal;
+use crate::models::auth::login::{LoginRequest, LoginResponse, MfaRequest};
+use crate::utils::local_storage::save_value_to_storage;
 use crate::views::auth::{SmsMfaRequest, send_sms_mfa};
-
-// https://docs.discord.sex/authentication#login-source
-#[derive(Serialize)]
-#[allow(non_camel_case_types)]
-enum LoginSource {
-	gift,
-	guild_template,
-	guild_invite,
-	dm_invite,
-	friend_invite,
-	role_subscription,
-	role_subscription_setting,
-}
-
-#[derive(Serialize)]
-struct LoginRequest {
-	login:        String,
-	password:     String,
-	#[serde(skip_serializing_if = "Option::is_none")]
-	undelete:     Option<bool>,
-	#[serde(skip_serializing_if = "Option::is_none")]
-	login_source: Option<LoginSource>,
-}
-
-#[derive(Serialize)]
-struct MfaRequest {
-	ticket:       String,
-	code:         String,
-	#[serde(skip_serializing_if = "Option::is_none")]
-	login_source: Option<String>,
-}
-
-#[derive(Deserialize)]
-#[allow(dead_code)]
-struct LoginResponse {
-	user_id: String,
-	token: Option<String>,
-	user_settings: Option<LoginSettings>,
-	required_actions: Option<Vec<RequiredActions>>,
-	ticket: Option<String>,
-	mfa: Option<bool>,
-	totp: Option<bool>,
-	sms: Option<bool>,
-	backup: Option<bool>,
-	webauthn: Option<String>,
-}
-
-#[derive(Deserialize)]
-pub struct LoginSettings {
-	locale: String,
-	theme:  String,
-}
-
-#[derive(Deserialize)]
-#[allow(non_camel_case_types)]
-enum RequiredActions {
-	update_password,
-}
 
 async fn login(info: LoginRequest) -> Result<LoginResponse, Box<dyn Error>> {
 	let client = reqwest::Client::new();
