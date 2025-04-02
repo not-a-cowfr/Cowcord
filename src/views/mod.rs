@@ -3,6 +3,9 @@
 mod home;
 pub use home::Home;
 
+mod app;
+pub use app::FateDecider;
+
 mod auth;
 pub use auth::{Login, Register};
 

@@ -50,8 +50,8 @@ pub struct LoginResponse {
 
 #[derive(Deserialize)]
 pub struct LoginSettings {
-	pub locale: String,
-	pub theme:  String,
+	pub locale: String, // https://docs.discord.sex/reference#locales
+	pub theme:  String, // "dark" or "light"
 }
 
 #[derive(Deserialize)]
