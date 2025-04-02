@@ -11,8 +11,6 @@ pub fn Modal(on_submit: EventHandler<String>) -> Element {
 				class: "modal-content",
 				form {
 					onsubmit: move |event: Event<FormData>| {
-						event.prevent_default();
-
 						let value = event.values().get("mfa_code")
 							.and_then(|val| val.get(0).cloned())
 							.unwrap_or_default();

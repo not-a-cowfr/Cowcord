@@ -73,8 +73,6 @@ pub fn Login() -> Element {
 	rsx! {
 		form {
 			onsubmit: move |event: Event<FormData>| {
-				event.prevent_default();
-
 				spawn(async move {
 					let identifier = event.values().get("identifier")
 						.and_then(|val| val.get(0).cloned())

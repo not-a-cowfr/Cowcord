@@ -1,12 +1,15 @@
+use std::num::ParseIntError;
+use std::str::FromStr;
 use std::sync::atomic::{AtomicU16, Ordering};
 use std::time::{SystemTime, UNIX_EPOCH};
 
-use serde::{Deserialize, Serialize};
+use serde::{Deserialize, Deserializer, Serialize};
 
 const DISCORD_EPOCH: u64 = 1420070400000;
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Deserialize, Serialize)]
-pub struct Snowflake(u64);
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
+#[serde(transparent)]
+pub struct Snowflake(#[serde(deserialize_with = "deserialize_snowflake_from_string")] u64);
 
 impl Snowflake {
 	pub fn new(id: u64) -> Self { Snowflake(id) }
@@ -60,4 +63,21 @@ impl std::fmt::Display for Snowflake {
 	) -> std::fmt::Result {
 		write!(f, "{}", self.0)
 	}
+}
+
+impl FromStr for Snowflake {
+	type Err = ParseIntError;
+
+	fn from_str(s: &str) -> Result<Self, Self::Err> {
+		let id = s.parse::<u64>()?;
+		Ok(Snowflake(id))
+	}
+}
+
+fn deserialize_snowflake_from_string<'de, D>(deserializer: D) -> Result<u64, D::Error>
+where
+	D: Deserializer<'de>,
+{
+	let s = String::deserialize(deserializer)?;
+	s.parse::<u64>().map_err(serde::de::Error::custom)
 }
