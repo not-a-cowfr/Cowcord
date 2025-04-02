@@ -369,7 +369,7 @@ pub enum GuildActivityStatusRestriction {
 
 #[derive(Deserialize)]
 pub struct NotificationSettings {
-	flags: u8, // https://docs.discord.sex/resources/user-settings#notification-settings-flags
+	pub flags: u8, // https://docs.discord.sex/resources/user-settings#notification-settings-flags
 }
 
 #[derive(Deserialize)]
