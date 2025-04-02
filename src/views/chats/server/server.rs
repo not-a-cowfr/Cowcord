@@ -3,7 +3,5 @@ use dioxus::prelude::*;
 
 #[component]
 pub fn Server() -> Element {
-	rsx! {
-	   Outlet::<crate::Route> {}
-	}
+	rsx! {}
 }
