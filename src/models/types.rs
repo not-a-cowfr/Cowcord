@@ -56,21 +56,21 @@ impl From<u64> for Snowflake {
 	fn from(value: u64) -> Self { Snowflake(value) }
 }
 
-impl std::fmt::Display for Snowflake {
-	fn fmt(
-		&self,
-		f: &mut std::fmt::Formatter<'_>,
-	) -> std::fmt::Result {
-		write!(f, "{}", self.0)
-	}
-}
-
 impl FromStr for Snowflake {
 	type Err = ParseIntError;
 
 	fn from_str(s: &str) -> Result<Self, Self::Err> {
 		let id = s.parse::<u64>()?;
 		Ok(Snowflake(id))
+	}
+}
+
+impl std::fmt::Display for Snowflake {
+	fn fmt(
+		&self,
+		f: &mut std::fmt::Formatter<'_>,
+	) -> std::fmt::Result {
+		write!(f, "{}", self.0)
 	}
 }
 
