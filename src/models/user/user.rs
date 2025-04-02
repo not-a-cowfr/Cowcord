@@ -1,8 +1,8 @@
 use iso8601_timestamp::Timestamp;
 use serde::Deserialize;
 
-use super::guild::GuildMember;
-use super::types::Snowflake;
+use crate::models::guild::GuildMember;
+use crate::models::types::Snowflake;
 
 #[derive(Deserialize, Debug)]
 pub struct User {
@@ -84,4 +84,13 @@ pub struct ThreadMember {
 pub struct MuteConfig {
 	pub end_time:             Option<Timestamp>,
 	pub selected_time_window: isize,
+}
+
+#[derive(Deserialize)]
+pub struct CustomStatusProto {
+	pub text:          String,
+	pub emoji_id:      u64,
+	pub emoji_name:    String,
+	pub expires_at_ms: u64,
+	pub created_at_ms: u64,
 }

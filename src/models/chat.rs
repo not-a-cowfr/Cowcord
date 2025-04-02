@@ -3,7 +3,7 @@ use serde::{Deserialize, Serialize};
 
 use super::guild::GuildMember;
 use super::types::Snowflake;
-use super::user::{Nick, ThreadMember, User};
+use super::user::user::{Nick, ThreadMember, User};
 
 #[derive(Deserialize, Debug)]
 pub struct MessageHistoryResponse {
@@ -72,6 +72,34 @@ pub struct Channel {
 	pub status:                             Option<String>, // max 500 characters
 	pub hd_streaming_until:                 Option<Timestamp>,
 	pub hd_streaming_buyer_id:              Option<Snowflake>,
+}
+
+#[derive(Deserialize)]
+pub struct ChannelSettings {
+	pub collapsed_in_inbox:               bool,
+	pub icon_emoji:                       ChannelIconEmoji,
+	pub custom_notification_sound_config: CustomNotifSoundConfig,
+}
+
+#[derive(Deserialize)]
+pub struct ChannelIconEmoji {
+	pub id:    Option<u64>,
+	pub name:  Option<String>,
+	pub color: Option<u64>,
+}
+
+#[derive(Deserialize)]
+pub struct CustomNotifSoundConfig {
+	pub notification_sound_pack_id: Option<String>,
+}
+
+#[derive(Deserialize)]
+#[allow(non_camel_case_types)]
+pub enum DmSpamFilterV2 {
+	UNSET,
+	DISABLED,
+	NON_FRIENDS,
+	FRIENDS_AND_NON_FRIENDS,
 }
 
 #[derive(Deserialize, Debug)]
