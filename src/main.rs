@@ -25,19 +25,19 @@ pub mod utils;
 pub enum Route {
     #[layout(ServerList)]
         #[nest("/channels")]
-            #[layout(Server)]
-                #[route("/:server_id")]
-                Roles { server_id: u64 },
+        #[layout(Server)]
+            #[route("/:server_id")]
+            Roles { server_id: u64 },
 
-                #[route("/:server_id/:channel_id")]
-                Channel { server_id: u64, channel_id: u64 },
-            #[end_layout]
+            #[route("/:server_id/:channel_id")]
+            Channel { server_id: u64, channel_id: u64 },
+        #[end_layout]
 
-            #[nest("/@me")]
+            // #[nest("/@me")]
             // #[layout()]
                 // todo
             // #[end_layout]
-            #[end_nest]
+            // #[end_nest]
         #[end_nest]
     #[end_layout]
 
