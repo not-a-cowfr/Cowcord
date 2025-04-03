@@ -27,10 +27,10 @@ pub enum Route {
         #[nest("/channels")]
         #[layout(Server)]
             #[route("/:server_id")]
-            Roles { server_id: u64 },
+            Roles { server_id: String },
 
             #[route("/:server_id/:channel_id")]
-            Channel { server_id: u64, channel_id: u64 },
+            Channel { server_id: String, channel_id: String },
         #[end_layout]
 
             // #[nest("/@me")]

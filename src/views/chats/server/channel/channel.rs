@@ -2,8 +2,8 @@ use dioxus::prelude::*;
 
 #[component]
 pub fn Channel(
-	server_id: u64,
-	channel_id: u64,
+	server_id: String,
+	channel_id: String,
 ) -> Element {
 	rsx! {}
 }

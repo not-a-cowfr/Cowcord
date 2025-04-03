@@ -1,6 +1,6 @@
 use dioxus::prelude::*;
 
 #[component]
-pub fn Roles(server_id: u64) -> Element {
+pub fn Roles(server_id: String) -> Element {
 	rsx! {}
 }
