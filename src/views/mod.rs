@@ -9,6 +9,9 @@ pub use app::FateDecider;
 mod auth;
 pub use auth::{Login, Register};
 
+mod not_found;
+pub use not_found::PageNotFound;
+
 mod chats;
 pub use chats::server::channel::channel::Channel;
 pub use chats::server::channel::channels_and_roles::Roles;
