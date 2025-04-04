@@ -1,0 +1,43 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - beta
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    if: "!contains(github.event.head_commit.message, 'skip_deploy')"
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: dtolnay/rust-toolchain@nightly
+        with:
+          target: wasm32-unknown-unknown
+
+      - uses: Swatinem/rust-cache@v2
+
+      - name: Install Dioxus CLI
+        run: cargo install dioxus-cli
+
+      - name: Install wasm-opt
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y binaryen
+
+      - name: Build
+        run: |
+          dx build --profile beta
+          wasm-opt -Oz target/wasm32-unknown-unknown/beta/Cowcord.wasm -o target/wasm32-unknown-unknown/beta/Cowcord-optimized.wasm
+          mv target/wasm32-unknown-unknown/beta/Cowcord-optimized.wasm target/wasm32-unknown-unknown/beta/Cowcord.wasm
+          cp -r target/dx/Cowcord/beta/web/public ./dist
+          cp dist/index.html dist/404.html
+
+      - name: Deploy
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: gh-pages-beta
+          folder: ./dist
+          clean: false
+          token: ${{ secrets.ACCESS_TOKEN }}

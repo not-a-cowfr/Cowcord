@@ -3,7 +3,7 @@ name: Deploy to Github Pages
 on:
   push:
     branches:
-      - main
+      - release
 
 jobs:
   deploy:
@@ -19,9 +19,18 @@ jobs:
       - name: Install Dioxus CLI
         run: cargo install dioxus-cli
 
-      - name: Build
-        run: dx build --release && cp -r ./target/dx/Cowcord/release/web/public ./dist && cp dist/index.html dist/404.html
+      - name: Install wasm-opt
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y binaryen
 
+      - name: Build
+        run: |
+          dx build --release
+          wasm-opt -Oz target/wasm32-unknown-unknown/beta/Cowcord.wasm -o target/wasm32-unknown-unknown/beta/Cowcord-optimized.wasm
+          mv target/wasm32-unknown-unknown/beta/Cowcord-optimized.wasm target/wasm32-unknown-unknown/beta/Cowcord.wasm
+          cp -r target/dx/Cowcord/beta/web/public ./dist
+          cp dist/index.html dist/404.html
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@v4
         with:
