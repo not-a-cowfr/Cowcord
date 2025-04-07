@@ -1,4 +1,4 @@
-name: Deploy to GitHub Pages
+name: Deploy Beta
 
 on:
   push:
@@ -27,17 +27,17 @@ jobs:
           sudo apt-get install -y binaryen
 
       - name: Build
+        run: dx build --profile beta
+
+      - name: Optimize WASM
         run: |
-          dx build --profile beta
           wasm-opt -Oz target/wasm32-unknown-unknown/beta/Cowcord.wasm -o target/wasm32-unknown-unknown/beta/Cowcord-optimized.wasm
           mv target/wasm32-unknown-unknown/beta/Cowcord-optimized.wasm target/wasm32-unknown-unknown/beta/Cowcord.wasm
-          cp -r target/dx/Cowcord/beta/web/public ./dist
-          cp dist/index.html dist/404.html
 
       - name: Deploy
-        uses: JamesIves/github-pages-deploy-action@v4
+        uses: netlify/actions/cli@master
         with:
-          branch: gh-pages-beta
-          folder: ./dist
-          clean: false
-          token: ${{ secrets.ACCESS_TOKEN }}
+          args: deploy --dir=target/dx/Cowcord/beta/web/public --prod
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID_BETA }}

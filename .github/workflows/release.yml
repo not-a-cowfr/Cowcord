@@ -1,9 +1,11 @@
-name: Deploy to Github Pages
+name: Deploy Release
 
 on:
   push:
     branches:
-      - release
+      - main
+    tags:
+      - "v*"
 
 jobs:
   deploy:
@@ -11,6 +13,7 @@ jobs:
     if: "!contains(github.event.head_commit.message, 'skip_deploy')"
     steps:
       - uses: actions/checkout@v4
+
       - uses: dtolnay/rust-toolchain@stable
         with:
           target: wasm32-unknown-unknown
@@ -25,16 +28,17 @@ jobs:
           sudo apt-get install -y binaryen
 
       - name: Build
+        run: dx build --release
+
+      - name: Optimize WASM
         run: |
-          dx build --release
-          wasm-opt -Oz target/wasm32-unknown-unknown/beta/Cowcord.wasm -o target/wasm32-unknown-unknown/beta/Cowcord-optimized.wasm
-          mv target/wasm32-unknown-unknown/beta/Cowcord-optimized.wasm target/wasm32-unknown-unknown/beta/Cowcord.wasm
-          cp -r target/dx/Cowcord/beta/web/public ./dist
-          cp dist/index.html dist/404.html
+          wasm-opt -Oz target/wasm32-unknown-unknown/release/Cowcord.wasm -o target/wasm32-unknown-unknown/release/Cowcord-optimized.wasm
+          mv target/wasm32-unknown-unknown/release/Cowcord-optimized.wasm target/wasm32-unknown-unknown/release/Cowcord.wasm
+
       - name: Deploy
-        uses: JamesIves/github-pages-deploy-action@v4
+        uses: netlify/actions/cli@master
         with:
-          branch: gh-pages
-          folder: ./dist
-          clean: false
-          token: ${{ secrets.ACCESS_TOKEN }}
+          args: deploy --dir=target/dx/Cowcord/release/web/public --prod
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID_RELEASE }}
