@@ -63,6 +63,8 @@ jobs:
           prerelease: true
           files: dist/*.exe
           body: |
+            Beta releases are more likely to be buggy and possibly crash, however they get updates sooner and *should* run better
+
             - Commit: ${{ github.sha }}
             - Built on: ${{ github.event_name }}
         env:
