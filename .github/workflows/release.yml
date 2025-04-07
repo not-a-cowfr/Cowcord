@@ -27,7 +27,7 @@ jobs:
       - name: Install Dioxus CLI
         run: cargo install dioxus-cli
         env:
-          RUSTFLAGS: ${{ matrix.os == 'windows-latest' && '-C link-arg=/LIBPATH:"C:\\Program Files (x86)\\Windows Kits\\10\\Lib\\10.0.22621.0\\um\\x64" -C link-arg=advapi32.lib -C link-arg=crypt32.lib' || '' }}
+          PATH: ${{ matrix.os == 'windows-latest' && 'C:\Program Files (x86)\Windows Kits\10\Lib\10.0.22621.0\um\x64;' + env.PATH || env.PATH }}
 
       - name: Install wasm-opt
         if: matrix.os == 'ubuntu-latest'
