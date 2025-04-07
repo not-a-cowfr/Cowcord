@@ -3,7 +3,7 @@ use std::error::Error;
 use dioxus::prelude::*;
 use web_sys::console;
 
-use crate::models::data::message::{Message, MessageHistoryRequest, MessageHistoryResponse};
+use crate::models::chat::{Message, MessageHistoryRequest, MessageHistoryResponse};
 
 async fn get_channel_messages(
 	channel_id: u64,

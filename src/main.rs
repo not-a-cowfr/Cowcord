@@ -3,7 +3,7 @@ use std::rc::Rc;
 
 use dioxus::prelude::*;
 use gloo_timers::callback::Interval;
-use models::data::websocket::GatewayRecieveEvent;
+use models::websocket::GatewayRecieveEvent;
 use serde_json::json;
 use wasm_bindgen::closure::Closure;
 use wasm_bindgen::prelude::*;
@@ -52,9 +52,6 @@ pub enum Route {
 
     #[route("/register")]
     Register {},
-
-    #[route("/:..route")]
-    PageNotFound { route: Vec<String> },
 }
 
 const TAILWIND_CSS: Asset = asset!("/assets/tailwind.css");
