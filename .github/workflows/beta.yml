@@ -18,7 +18,6 @@ jobs:
 
       - uses: dtolnay/rust-toolchain@nightly
         with:
-          toolchain: stable
           targets: ${{ matrix.os == 'ubuntu-latest' && 'wasm32-unknown-unknown' || '' }}
 
       - uses: Swatinem/rust-cache@v2
