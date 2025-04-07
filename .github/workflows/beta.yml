@@ -22,10 +22,13 @@ jobs:
 
       - uses: Swatinem/rust-cache@v2
 
+      - name: Update PATH
+        if: matrix.os == 'windows-latest'
+        run: echo "PATH=C:\Program Files (x86)\Windows Kits\10\Lib\10.0.22621.0\um\x64;%PATH%" >> $GITHUB_ENV
+        shell: bash
+
       - name: Install Dioxus CLI
         run: cargo install dioxus-cli
-        env:
-          PATH: ${{ matrix.os == 'windows-latest' && 'C:\Program Files (x86)\Windows Kits\10\Lib\10.0.22621.0\um\x64;' + env.PATH || env.PATH }}
 
       - name: Install wasm-opt
         if: matrix.os == 'ubuntu-latest'
