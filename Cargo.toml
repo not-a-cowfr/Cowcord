@@ -6,7 +6,7 @@ edition = "2024"
 [dependencies]
 base64 = "0.22.1"
 console_error_panic_hook = "0.1.7"
-dioxus = { version = "0.6.3", features = ["router", "fullstack"] }
+dioxus = { version = "0.6.3", features = ["router"] }
 gloo-timers = "0.3.0"
 iso8601-timestamp = "0.3.3"
 js-sys = "0.3.77"

@@ -11,7 +11,7 @@ jobs:
     if: "!contains(github.event.head_commit.message, 'skip_deploy')"
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest]
+        os: [ubuntu-latest]
 
     steps:
       - uses: actions/checkout@v4
@@ -21,56 +21,55 @@ jobs:
           targets: ${{ matrix.os == 'ubuntu-latest' && 'wasm32-unknown-unknown' || '' }}
 
       - uses: Swatinem/rust-cache@v2
-
-      - name: Update PATH
-        if: matrix.os == 'windows-latest'
-        run: echo "PATH=C:\Program Files (x86)\Windows Kits\10\Lib\10.0.22621.0\um\x64;%PATH%" >> $GITHUB_ENV
-        shell: bash
-
-      - name: Install Dioxus CLI
-        run: cargo install dioxus-cli
-
-      - name: Install wasm-opt
-        if: matrix.os == 'ubuntu-latest'
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y binaryen
-
-      - name: Build Web
-        if: matrix.os == 'ubuntu-latest'
-        run: dx build --profile beta
-
-      - name: Optimize WASM
-        if: matrix.os == 'ubuntu-latest'
-        run: |
-          wasm-opt -Oz target/wasm32-unknown-unknown/beta/Cowcord.wasm -o target/wasm32-unknown-unknown/beta/Cowcord-optimized.wasm
-          mv target/wasm32-unknown-unknown/beta/Cowcord-optimized.wasm target/wasm32-unknown-unknown/beta/Cowcord.wasm
-
-      - name: Deploy Web
-        if: matrix.os == 'ubuntu-latest'
-        uses: netlify/actions/cli@master
         with:
-          args: deploy --dir=target/dx/Cowcord/beta/web/public --prod
-        env:
-          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID_BETA }}
+          cache-targets: "bin"
+          key: "deploy-beta"
 
-      - name: Build Desktop
-        if: matrix.os == 'windows-latest'
-        run: dx bundle --platform desktop --profile beta
+      - name: Install Dioxus cli
+        run: |
+          if ! command -v dx &> /dev/null; then
+            cargo install dioxus-cli
+          fi
 
-      - name: Create Pre-release
-        if: matrix.os == 'windows-latest'
-        uses: softprops/action-gh-release@v2
+      # - name: Install wasm-opt
+      #   if: matrix.os == 'ubuntu-latest'
+      #   run: |
+      #     sudo apt-get update
+      #     sudo apt-get install -y binaryen
+
+      - name: Build web
+        if: matrix.os == 'ubuntu-latest'
+        run: dx build --profile beta && cp -r ./target/dx/Cowcord/debug/web/public ./dist
+
+      # - name: Optimize wasm
+      #   if: matrix.os == 'ubuntu-latest'
+      #   run: wasm-opt dist/assets/dioxus/Cowcord_bg.wasm -o dist/assets/dioxus/Cowcord_bg.wasm -O4
+
+      - name: Deploy web
+        if: matrix.os == 'ubuntu-latest'
+        uses: JamesIves/github-pages-deploy-action@v4
         with:
-          tag_name: "v${{ github.run_number }}-beta"
-          name: "Beta Release ${{ github.run_number }}"
-          prerelease: true
-          files: dist/*.exe
-          body: |
-            Beta releases are more likely to be buggy and possibly crash, however they get updates sooner and *should* run better
+          branch: gh-pages
+          folder: ./dist
+          clean: true
+          token: ${{ secrets.ACCESS_TOKEN }}
 
-            - Commit: ${{ github.sha }}
-            - Built on: ${{ github.event_name }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # - name: Build Desktop
+      #   if: matrix.os == 'windows-latest'
+      #   run: dx bundle --platform desktop --profile beta
+
+      # - name: Create Pre-release
+      #   if: matrix.os == 'windows-latest'
+      #   uses: softprops/action-gh-release@v2
+      #   with:
+      #     tag_name: "v${{ github.run_number }}-beta"
+      #     name: "Beta Release ${{ github.run_number }}"
+      #     prerelease: true
+      #     files: dist/*.exe
+      #     body: |
+      #       Beta releases are more likely to be buggy and possibly crash, however they get updates sooner and *should* run better
+
+      #       - Commit: ${{ github.sha }}
+      #       - Built on: ${{ github.event_name }}
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
