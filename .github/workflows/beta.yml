@@ -21,6 +21,8 @@ jobs:
           targets: ${{ matrix.os == 'ubuntu-latest' && 'wasm32-unknown-unknown' || '' }}
 
       - uses: Swatinem/rust-cache@v2
+        with:
+          cache-targets: "bin"
 
       - name: Install Dioxus cli
         run: |
