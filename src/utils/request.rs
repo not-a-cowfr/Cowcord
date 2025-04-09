@@ -1,0 +1,100 @@
+
+use reqwest::{Client, Response, StatusCode};
+use serde::{de::DeserializeOwned, Serialize};
+use std::error::Error;
+
+pub struct RequestClient {
+    client: Client,
+    api_version: String,
+}
+
+const DISCORD = "https://discord.com/"
+const API_VERSION = "9"
+
+impl RequestClient {
+    pub fn new() -> Self {
+        RequestClient {
+            client: Client::new(),
+            api_base: format!("/api/v{}", API_VERSION),
+        }
+    }
+
+    async fn handle_response<T>(response: Response) -> Result<T, Box<dyn Error>>
+    where
+        T: DeserializeOwned,
+    {
+        let status = response.status();
+        let response_text = response.text().await?;
+
+        if status.is_success() {
+            let result: T = serde_json::from_str(&response_text)?;
+            Ok(result)
+        } else {
+            Err(format!("Request failed with status: {}. Response: {}", status, response_text).into())
+        }
+    }
+
+    pub async fn post<T, R>(&self, endpoint: &str, body: &T) -> Result<R, Box<dyn Error>>
+    where
+        T: Serialize,
+        R: DeserializeOwned,
+    {
+        let url = format!("{}{}{}", DISCORD, self.api_base, endpoint);
+
+        let response = self
+            .client
+            .post(&url)
+            .json(body)
+            .header("Origin", DISCORD)
+            .send()
+            .await?;
+
+        Self::handle_response(response).await
+    }
+
+    pub async fn get<R>(&self, endpoint: &str) -> Result<R, Box<dyn Error>>
+    where
+        R: DeserializeOwned,
+    {
+        let url = format!("{}{}{}", DISCORD, self.api_base, endpoint);
+
+        let response = self
+            .client
+            .get(&url)
+            .header("Origin", DISCORD)
+            .send()
+            .await?;
+
+        Self::handle_response(response).await
+    }
+
+    pub async fn delete<R>(&self, endpoint: &str) -> Result<R, Box<dyn Error>>
+    where
+        R: DeserializeOwned,
+    {
+        let url = format!("{}{}{}", DISCORD, self.api_base, endpoint);
+
+        let response = self
+            .client
+            .delete(&url)
+            .header("Origin", DISCORD)
+            .send()
+            .await?;
+
+        Self::handle_response(response).await
+    }
+}
+
+async fn main() -> Result<(), Box<dyn Error>> {
+    let request_client = RequestClient::new();
+
+    let response: LoginResponse = request_client
+        .post("/auth/login", &login_info)
+        .await?;
+
+    if let Some(token) = &response.token {
+        save_value_to_storage("token", token);
+    }
+
+    Ok(())
+}

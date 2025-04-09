@@ -16,24 +16,14 @@ struct SmsMfaResponse {
 	phone: String, // phone number in response is redacted, eg. "+*******6080"
 }
 
-pub async fn send_sms_mfa(info: SmsMfaRequest) -> Result<String, Box<dyn Error>> {
-	let client = reqwest::Client::new();
+pub async fn send_sms_mfa(
+    info: SmsMfaRequest
+) -> Result<String, Box<dyn Error>> {
+    let client = RequestClient::new();
 
-	let response = client
-		.post("https://discord.com/mfa/sms/send")
-		.json(&info)
-		.send()
-		.await?;
+    let mfa_response: SmsMfaResponse = client
+        .post("/mfa/sms/send", &info)
+        .await?;
 
-	let status = response.status();
-	let response_text = response.text().await?;
-
-	if status.is_success() {
-		let mfa_response: SmsMfaResponse = serde_json::from_str(&response_text)?;
-		return Ok(mfa_response.phone);
-	}
-
-	Err(match status.as_u16() {
-		| _ => format!("Unhandled status: {}", status).into(),
-	})
+    Ok(mfa_response.phone)
 }

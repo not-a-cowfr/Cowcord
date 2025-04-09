@@ -9,30 +9,15 @@ use crate::utils::local_storage::save_value_to_storage;
 use crate::views::auth::{SmsMfaRequest, send_sms_mfa};
 
 async fn login(info: LoginRequest) -> Result<LoginResponse, Box<dyn Error>> {
-	let client = reqwest::Client::new();
+    let client = RequestClient::new();
 
-	let response = client
-		.post("https://discord.com/api/v9/auth/login")
-		.json(&info)
-		.send()
-		.await?;
+    let response: LoginResponse = client
+        .post("/auth/login", &login_info)
+        .await?;
 
-	let status = response.status();
-	let response_text = response.text().await?;
-
-	if status.is_success() {
-		let login_response: LoginResponse = serde_json::from_str(&response_text)?;
-		if let Some(token) = &login_response.token {
-			save_value_to_storage("token", token);
-		}
-		return Ok(login_response);
-	}
-
-	Err(match status.as_u16() {
-		| 401 => "Invalid email or password. Please try again.".into(),
-		| 429 => "Too many login attempts. Please try again later.".into(),
-		| _ => format!("Unhandled status: {}", status).into(),
-	})
+    if let Some(token) = &response.token {
+        save_value_to_storage("token", token);
+    }
 }
 
 async fn mfa_login(info: MfaRequest) -> Result<LoginResponse, Box<dyn Error>> {
