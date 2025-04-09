@@ -10,36 +10,31 @@ use crate::utils::request::RequestClient;
 use crate::views::auth::{SmsMfaRequest, send_sms_mfa};
 
 async fn login(info: LoginRequest) -> Result<LoginResponse, Box<dyn Error>> {
-    let client = RequestClient::new();
+	let client = RequestClient::new();
 
-    let response: LoginResponse = client
-        .post(&format!(
-			"/auth/mfa/{}",
-			info.code.to_lowercase()
-		), &info)
-        .await?;
+	let response: LoginResponse = client.post("/auth/login", &info).await?;
 
-    if let Some(token) = &response.token {
-        save_value_to_storage("token", token);
-        return Ok(response);
-    } else {
-        return Err(response.into());
-    }
+	if let Some(token) = &response.token {
+		save_value_to_storage("token", token);
+		return Ok(response);
+	} else {
+		return Err(response.into());
+	}
 }
 
 async fn mfa_login(info: MfaRequest) -> Result<LoginResponse, Box<dyn Error>> {
-    let client = RequestClient::new();
+	let client = RequestClient::new();
 
-    let response: SmsMfaResponse = client
-        .post("/auth/login", &info)
-        .await?;
+	let response: SmsMfaResponse = client
+		.post(&format!("/auth/mfa/{}", info.code.to_lowercase()), &info)
+		.await?;
 
-    if let Some(token) = &response.token {
-        save_value_to_storage("token", token);
-        return Ok(response);
-    } else {
-        return Err(response.into());
-    }
+	if let Some(token) = &response.token {
+		save_value_to_storage("token", token);
+		return Ok(response);
+	} else {
+		return Err(response.into());
+	}
 }
 
 #[component]
