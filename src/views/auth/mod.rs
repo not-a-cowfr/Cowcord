@@ -5,6 +5,7 @@ pub use login::Login;
 mod register;
 pub use register::Register;
 use serde::{Deserialize, Serialize};
+use crate::utils::request::RequestClient;
 
 #[derive(Serialize)]
 pub struct SmsMfaRequest {

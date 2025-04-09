@@ -6,6 +6,7 @@ use web_sys::console;
 use crate::components::modals::mfa_code::Modal;
 use crate::models::auth::login::{LoginRequest, LoginResponse, MfaRequest};
 use crate::utils::local_storage::save_value_to_storage;
+use crate::utils::request::RequestClient;
 use crate::views::auth::{SmsMfaRequest, send_sms_mfa};
 
 async fn login(info: LoginRequest) -> Result<LoginResponse, Box<dyn Error>> {
