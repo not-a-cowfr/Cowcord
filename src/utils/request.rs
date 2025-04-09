@@ -8,8 +8,8 @@ pub struct RequestClient {
     api_base: String,
 }
 
-const DISCORD = "https://discord.com/"
-const API_VERSION = "9"
+const DISCORD: &str = "https://discord.com/"
+const API_VERSION: &str = "9"
 
 impl RequestClient {
     pub fn new() -> Self {

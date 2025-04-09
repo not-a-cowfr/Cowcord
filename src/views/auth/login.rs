@@ -17,6 +17,7 @@ async fn login(info: LoginRequest) -> Result<LoginResponse, Box<dyn Error>> {
 
     if let Some(token) = &response.token {
         save_value_to_storage("token", token);
+        return Ok(response);
     }
 }
 
