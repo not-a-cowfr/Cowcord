@@ -35,9 +35,9 @@ jobs:
         if: matrix.os == 'ubuntu-latest'
         run: dx build --profile beta && cp -r ./target/dx/Cowcord/debug/web/public ./dist
 
-      - name: Optimize wasm
-        if: matrix.os == 'ubuntu-latest'
-        run: wasm-opt dist/assets/dioxus/Cowcord_bg.wasm -o dist/assets/dioxus/Cowcord_bg.wasm -O4
+      # - name: Optimize wasm
+      #   if: matrix.os == 'ubuntu-latest'
+      #   run: wasm-opt dist/assets/dioxus/Cowcord_bg.wasm -o dist/assets/dioxus/Cowcord_bg.wasm -O4
 
       - name: Deploy web
         if: matrix.os == 'ubuntu-latest'
