@@ -16,10 +16,8 @@ async fn login(info: LoginRequest) -> Result<LoginResponse, Box<dyn Error>> {
 
 	if let Some(token) = &response.token {
 		save_value_to_storage("token", token);
-		return Ok(response);
-	} else {
-		return Err("Token not found".into());
 	}
+	Ok(response)
 }
 
 async fn mfa_login(info: MfaRequest) -> Result<LoginResponse, Box<dyn Error>> {
@@ -31,10 +29,8 @@ async fn mfa_login(info: MfaRequest) -> Result<LoginResponse, Box<dyn Error>> {
 
 	if let Some(token) = &response.token {
 		save_value_to_storage("token", token);
-		return Ok(response);
-	} else {
-		return Err("Token not found".into());
 	}
+	Ok(response)
 }
 
 #[component]
