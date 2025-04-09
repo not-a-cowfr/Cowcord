@@ -46,6 +46,7 @@ jobs:
           branch: gh-pages
           folder: ./dist
           clean: true
+          token: ${{ secrets.ACCESS_TOKEN }}
 
       # - name: Build Desktop
       #   if: matrix.os == 'windows-latest'
