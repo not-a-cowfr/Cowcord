@@ -5,7 +5,7 @@ use std::error::Error;
 
 pub struct RequestClient {
     client: Client,
-    api_version: String,
+    api_base: String,
 }
 
 const DISCORD = "https://discord.com/"
@@ -83,18 +83,4 @@ impl RequestClient {
 
         Self::handle_response(response).await
     }
-}
-
-async fn main() -> Result<(), Box<dyn Error>> {
-    let request_client = RequestClient::new();
-
-    let response: LoginResponse = request_client
-        .post("/auth/login", &login_info)
-        .await?;
-
-    if let Some(token) = &response.token {
-        save_value_to_storage("token", token);
-    }
-
-    Ok(())
 }
