@@ -23,6 +23,7 @@ jobs:
       - uses: Swatinem/rust-cache@v2
         with:
           cache-targets: "bin"
+          key: "deploy-beta"
 
       - name: Install Dioxus cli
         run: |
