@@ -22,7 +22,7 @@ jobs:
 
       - uses: Swatinem/rust-cache@v2
 
-      - name: Install Dioxus CLI
+      - name: Install Dioxus cli
         run: cargo install dioxus-cli
 
       - name: Install wasm-opt
@@ -31,41 +31,38 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y binaryen
 
-      - name: Build Web
+      - name: Build web
         if: matrix.os == 'ubuntu-latest'
-        run: dx build --profile beta
+        run: dx build --profile beta && cp -r ./target/dx/Cowcord/release/web/public ./dist
 
-      - name: Optimize WASM
+      - name: Optimize wasm
         if: matrix.os == 'ubuntu-latest'
-        run: |
-          wasm-opt -Oz target/wasm32-unknown-unknown/beta/Cowcord.wasm -o target/wasm32-unknown-unknown/beta/Cowcord-optimized.wasm
-          mv target/wasm32-unknown-unknown/beta/Cowcord-optimized.wasm target/wasm32-unknown-unknown/beta/Cowcord.wasm
+        run: wasm-opt dist/assets/dioxus/Cowcord_bg.wasm -o dist/assets/dioxus/Cowcord_bg.wasm -O4
 
-      - name: Deploy Web
+      - name: Deploy web
         if: matrix.os == 'ubuntu-latest'
-        uses: netlify/actions/cli@master
+        uses: JamesIves/github-pages-deploy-action@v4
         with:
-          args: deploy --dir=target/dx/Cowcord/beta/web/public --prod
-        env:
-          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID_BETA }}
+          branch: gh-pages
+          folder: ./dist
+          clean: true
 
-      - name: Build Desktop
-        if: matrix.os == 'windows-latest'
-        run: dx bundle --platform desktop --profile beta
+      # - name: Build Desktop
+      #   if: matrix.os == 'windows-latest'
+      #   run: dx bundle --platform desktop --profile beta
 
-      - name: Create Pre-release
-        if: matrix.os == 'windows-latest'
-        uses: softprops/action-gh-release@v2
-        with:
-          tag_name: "v${{ github.run_number }}-beta"
-          name: "Beta Release ${{ github.run_number }}"
-          prerelease: true
-          files: dist/*.exe
-          body: |
-            Beta releases are more likely to be buggy and possibly crash, however they get updates sooner and *should* run better
+      # - name: Create Pre-release
+      #   if: matrix.os == 'windows-latest'
+      #   uses: softprops/action-gh-release@v2
+      #   with:
+      #     tag_name: "v${{ github.run_number }}-beta"
+      #     name: "Beta Release ${{ github.run_number }}"
+      #     prerelease: true
+      #     files: dist/*.exe
+      #     body: |
+      #       Beta releases are more likely to be buggy and possibly crash, however they get updates sooner and *should* run better
 
-            - Commit: ${{ github.sha }}
-            - Built on: ${{ github.event_name }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #       - Commit: ${{ github.sha }}
+      #       - Built on: ${{ github.event_name }}
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
