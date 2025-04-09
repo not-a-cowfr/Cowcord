@@ -18,7 +18,7 @@ async fn login(info: LoginRequest) -> Result<LoginResponse, Box<dyn Error>> {
 		save_value_to_storage("token", token);
 		return Ok(response);
 	} else {
-		return Err(response.into());
+		return Err("Token not found".into());
 	}
 }
 
@@ -33,7 +33,7 @@ async fn mfa_login(info: MfaRequest) -> Result<LoginResponse, Box<dyn Error>> {
 		save_value_to_storage("token", token);
 		return Ok(response);
 	} else {
-		return Err(response.into());
+		return Err("Token not found".into());
 	}
 }
 
