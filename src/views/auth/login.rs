@@ -13,7 +13,10 @@ async fn login(info: LoginRequest) -> Result<LoginResponse, Box<dyn Error>> {
     let client = RequestClient::new();
 
     let response: LoginResponse = client
-        .post("/auth/login", &login_info)
+        .post(format!(
+			"/auth/mfa/{}",
+			info.code.to_lowercase()
+		), &info)
         .await?;
 
     if let Some(token) = &response.token {
@@ -23,33 +26,16 @@ async fn login(info: LoginRequest) -> Result<LoginResponse, Box<dyn Error>> {
 }
 
 async fn mfa_login(info: MfaRequest) -> Result<LoginResponse, Box<dyn Error>> {
-	let client = reqwest::Client::new();
+    let client = RequestClient::new();
 
-	let response = client
-		.post(format!(
-			"https://discord.com/api/v9/auth/mfa/{}",
-			info.code.to_lowercase()
-		))
-		.json(&info)
-		.send()
-		.await?;
+    let response: LoginResponse = client
+        .post("/auth/login", &info)
+        .await?;
 
-	let status = response.status();
-	let response_text = response.text().await?;
-
-	if status.is_success() {
-		let login_response: LoginResponse = serde_json::from_str(&response_text)?;
-		if let Some(token) = &login_response.token {
-			save_value_to_storage("token", token);
-		}
-		return Ok(login_response);
-	}
-
-	Err(match status.as_u16() {
-		| 400 => "Invalid MFA code. Please try again.".into(),
-		| 429 => "Too many attempts. Please try again later.".into(),
-		| _ => format!("Unhandled status: {}", status).into(),
-	})
+    if let Some(token) = &response.token {
+        save_value_to_storage("token", token);
+        return Ok(response);
+    }
 }
 
 #[component]

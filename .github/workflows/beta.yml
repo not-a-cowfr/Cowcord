@@ -25,11 +25,11 @@ jobs:
       - name: Install Dioxus cli
         run: cargo install dioxus-cli
 
-      - name: Install wasm-opt
-        if: matrix.os == 'ubuntu-latest'
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y binaryen
+      # - name: Install wasm-opt
+      #   if: matrix.os == 'ubuntu-latest'
+      #   run: |
+      #     sudo apt-get update
+      #     sudo apt-get install -y binaryen
 
       - name: Build web
         if: matrix.os == 'ubuntu-latest'
