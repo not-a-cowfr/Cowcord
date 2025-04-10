@@ -2,7 +2,7 @@ use js_sys::Reflect::{get, set};
 use wasm_bindgen::JsValue;
 use web_sys::window;
 
-pub fn get_value_from_storage(key: &str) -> Option<String> {
+pub fn get_value(key: &str) -> Option<String> {
 	if let Some(window) = window() {
 		if let Ok(local_storage) = get(&window, &JsValue::from_str("localStorage")) {
 			if let Ok(token_value) = get(&local_storage, &JsValue::from_str(key)) {
@@ -19,7 +19,7 @@ pub fn get_value_from_storage(key: &str) -> Option<String> {
 	None
 }
 
-pub fn save_value_to_storage(
+pub fn save_value(
 	key: &str,
 	value: &str,
 ) {
@@ -34,7 +34,7 @@ pub fn save_value_to_storage(
 	}
 }
 
-pub fn remove_value_from_storage(key: &str) {
+pub fn remove_value(key: &str) {
 	if let Some(window) = window() {
 		if let Ok(local_storage) = get(&window, &JsValue::from_str("localStorage")) {
 			let remove_item = JsValue::from_str("removeItem");
