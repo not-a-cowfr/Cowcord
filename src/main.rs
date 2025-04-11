@@ -24,21 +24,8 @@ pub mod utils;
 #[allow(clippy::empty_line_after_outer_attr)]
 pub enum Route {
     #[layout(ServerList)]
-        #[nest("/channels")]
-        #[layout(Server)]
-            #[route("/:server_id")]
-            Roles { server_id: String },
-
-            #[route("/:server_id/:channel_id")]
-            Channel { server_id: String, channel_id: String },
-        #[end_layout]
-
-            // #[nest("/@me")]
-            // #[layout()]
-                // todo
-            // #[end_layout]
-            // #[end_nest]
-        #[end_nest]
+        // #[nest("/channels")]
+        // #[end_nest]
     #[end_layout]
 
     #[route("/")]

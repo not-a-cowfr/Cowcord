@@ -20,3 +20,7 @@ script = []
 [web.resource.dev]
 
 script = []
+
+[bundle]
+identifier = "fr.notacow"
+publisher = "notacow"

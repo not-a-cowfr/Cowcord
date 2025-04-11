@@ -5,26 +5,24 @@ pub use login::Login;
 mod register;
 pub use register::Register;
 use serde::{Deserialize, Serialize};
+
 use crate::utils::request::RequestClient;
 
 #[derive(Serialize)]
 pub struct SmsMfaRequest {
-	token: String,
+	pub token: String,
 }
 
-#[derive(Deserialize)]
+#[derive(Deserialize, Default)]
+#[serde(default)]
 struct SmsMfaResponse {
 	phone: String, // phone number in response is redacted, eg. "+*******6080"
 }
 
-pub async fn send_sms_mfa(
-    info: SmsMfaRequest
-) -> Result<String, Box<dyn Error>> {
-    let client = RequestClient::new();
+pub async fn send_sms_mfa(info: SmsMfaRequest) -> Result<String, Box<dyn Error>> {
+	let client = RequestClient::new();
 
-    let mfa_response: SmsMfaResponse = client
-        .post("/mfa/sms/send", &info)
-        .await?;
+	let mfa_response: SmsMfaResponse = client.post("/mfa/sms/send", &info).await?;
 
-    Ok(mfa_response.phone)
+	Ok(mfa_response.phone)
 }
