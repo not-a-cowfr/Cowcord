@@ -39,7 +39,6 @@ impl RequestClient {
 		}
 	}
 
-	#[server]
 	pub async fn post<T, R>(
 		&self,
 		endpoint: &str,
@@ -62,7 +61,6 @@ impl RequestClient {
 		Self::handle_response(response).await
 	}
 
-	#[server]
 	pub async fn get<R>(
 		&self,
 		endpoint: &str,
@@ -82,7 +80,6 @@ impl RequestClient {
 		Self::handle_response(response).await
 	}
 
-	#[server]
 	pub async fn delete<R>(
 		&self,
 		endpoint: &str,
