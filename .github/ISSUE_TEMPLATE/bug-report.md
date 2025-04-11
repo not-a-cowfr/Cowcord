@@ -31,11 +31,13 @@ assignees: ''
 3.  
 4. 
 
+<!-- Optional -->
 <details><summary><strong>Screenshots</strong></summary>
 
 <!-- put image here if applicable -->
 
 </details>
 
+<!-- Optional -->
 **Additional Info**:  
 <!-- any other details you think to be relevant -->
