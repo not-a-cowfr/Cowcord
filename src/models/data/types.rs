@@ -3,11 +3,12 @@ use std::str::FromStr;
 use std::sync::atomic::{AtomicU16, Ordering};
 use std::time::{SystemTime, UNIX_EPOCH};
 
+use iso8601_timestamp::Timestamp as isoTimestamp;
 use serde::{Deserialize, Deserializer, Serialize};
 
 const DISCORD_EPOCH: u64 = 1420070400000;
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize, Hash, Default)]
 #[serde(transparent)]
 pub struct Snowflake(#[serde(deserialize_with = "deserialize_snowflake_from_string")] u64);
 
@@ -80,4 +81,12 @@ where
 {
 	let s = String::deserialize(deserializer)?;
 	s.parse::<u64>().map_err(serde::de::Error::custom)
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(transparent)]
+pub struct Timestamp(pub Option<isoTimestamp>);
+
+impl Default for Timestamp {
+	fn default() -> Self { Timestamp(None) }
 }

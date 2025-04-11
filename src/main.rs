@@ -3,7 +3,7 @@ use std::rc::Rc;
 
 use dioxus::prelude::*;
 use gloo_timers::callback::Interval;
-use models::websocket::GatewayRecieveEvent;
+use models::data::websocket::GatewayRecieveEvent;
 use serde_json::json;
 use wasm_bindgen::closure::Closure;
 use wasm_bindgen::prelude::*;
