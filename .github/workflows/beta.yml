@@ -24,6 +24,7 @@ jobs:
         with:
           cache-targets: "bin"
           key: "deploy-beta"
+          cache-all-crates: true
 
       - name: Install Dioxus cli
         run: |
