@@ -5,7 +5,7 @@ use web_sys::console;
 
 use crate::components::modals::mfa_code::Modal;
 use crate::models::auth::login::{LoginRequest, LoginResponse, MfaRequest};
-use crate::utils::local_storage::save_value_to_storage;
+use crate::utils::local_storage::save_value;
 use crate::utils::request::RequestClient;
 use crate::views::auth::{SmsMfaRequest, send_sms_mfa};
 
@@ -15,7 +15,7 @@ async fn login(info: LoginRequest) -> Result<LoginResponse, Box<dyn Error>> {
 	let response: LoginResponse = client.post("/auth/login", &info).await?;
 
 	if let Some(token) = &response.token {
-		save_value_to_storage("token", token);
+		save_value("token", token);
 	}
 	Ok(response)
 }
@@ -28,7 +28,7 @@ async fn mfa_login(info: MfaRequest) -> Result<LoginResponse, Box<dyn Error>> {
 		.await?;
 
 	if let Some(token) = &response.token {
-		save_value_to_storage("token", token);
+		save_value("token", token);
 	}
 	Ok(response)
 }
