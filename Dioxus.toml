@@ -4,7 +4,6 @@ out_dir = "dist"
 asset_dir = "assets"
 
 [web.app]
-
 title = "Discord"
 base_path = "/"
 
@@ -12,11 +11,12 @@ base_path = "/"
 
 [web.build]
 out_dir = "dist"
-
 style = []
-
 script = []
 
 [web.resource.dev]
-
 script = []
+
+[web.watcher]
+index_on_404 = true
+reload = false
