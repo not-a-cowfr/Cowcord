@@ -19,7 +19,8 @@ pub struct DiscoverableGuild {
 	pub banner:                     Option<String>,
 	pub splash:                     Option<String>,
 	pub discovery_splash:           Option<String>,
-	pub features:                   Vec<String>, // https://docs.discord.sex/resources/guild#guild-features
+	/// https://docs.discord.sex/resources/guild#guild-features
+	pub features:                   Vec<String>,
 	pub vanity_url_code:            Option<String>,
 	pub preferred_locale:           String,
 	pub premium_subscription_count: u32,

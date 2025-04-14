@@ -30,8 +30,10 @@ pub struct LogEntry {
 	pub changes:     Vec<LogChange>,
 	pub user_id:     Option<Snowflake>,
 	pub id:          Snowflake,
-	pub action_type: u8, // https://docs.discord.sex/resources/audit-log#audit-log-events
-	pub options:     Option<OptionalLogInfo>, // https://docs.discord.sex/resources/audit-log#optional-audit-entry-info
+	/// https://docs.discord.sex/resources/audit-log#audit-log-events
+	pub action_type: u8,
+	/// https://docs.discord.sex/resources/audit-log#optional-audit-entry-info
+	pub options:     Option<OptionalLogInfo>,
 	pub reason:      String,
 }
 
@@ -116,13 +118,15 @@ pub enum LogEvents {
 pub struct OptionalLogInfo {
 	pub application_id:                    Snowflake,
 	pub auto_moderation_rule_name:         String,
-	pub auto_moderation_rule_trigger_type: String, // https://docs.discord.sex/resources/auto-moderation#automod-trigger-type
+	/// https://docs.discord.sex/resources/auto-moderation#automod-trigger-type
+	pub auto_moderation_rule_trigger_type: String,
 	pub channel_id:                        Snowflake,
 	pub count:                             String,
 	pub delete_member_days:                String,
 	pub event_exception_id:                Snowflake,
 	pub id:                                Snowflake,
-	pub integration_type:                  String, // https://docs.discord.sex/resources/integration#integration-type
+	/// https://docs.discord.sex/resources/integration#integration-type
+	pub integration_type:                  String,
 	pub members_removed:                   String,
 	pub message_id:                        Snowflake,
 	pub role_name:                         String,

@@ -13,7 +13,8 @@ pub struct Team {
 	pub icon:                      Option<String>,
 	pub owner_user_id:             Snowflake,
 	pub members:                   Vec<Member>,
-	pub payout_account_status:     Option<u8>, // https://docs.discord.sex/resources/team#team-payout-account-status
+	/// https://docs.discord.sex/resources/team#team-payout-account-status
+	pub payout_account_status:     Option<u8>,
 	pub stripe_connect_account_id: String,
 }
 
@@ -31,8 +32,10 @@ pub enum PayoutAccountStatus {
 pub struct Member {
 	pub user:             User,
 	pub team_id:          Snowflake,
-	pub membership_state: u8, // https://docs.discord.sex/resources/team#membership-state
-	pub role:             String, // https://docs.discord.sex/resources/team#team-member-role-types
+	/// https://docs.discord.sex/resources/team#membership-state
+	pub membership_state: u8,
+	/// https://docs.discord.sex/resources/team#team-member-role-types
+	pub role:             String,
 }
 
 pub enum MembershipState {
@@ -52,7 +55,8 @@ pub struct Payout {
 	pub id:                                 Snowflake,
 	pub user_id:                            Snowflake,
 	pub amount:                             u32,
-	pub status:                             u8, // https://docs.discord.sex/resources/team#team-payout-status
+	/// https://docs.discord.sex/resources/team#team-payout-status
+	pub status:                             u8,
 	pub period_start:                       Timestamp,
 	pub period_end:                         Option<Timestamp>,
 	pub payout_date:                        Option<Timestamp>,

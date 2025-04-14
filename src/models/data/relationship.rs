@@ -9,7 +9,8 @@ use super::user::User;
 #[serde(default)]
 pub struct Relationship {
 	pub id:                    String,
-	pub r#type:                u8, // https://docs.discord.sex/resources/relationships#relationship-type
+	/// https://docs.discord.sex/resources/relationships#relationship-type
+	pub r#type:                u8,
 	pub user:                  User,
 	pub nickname:              Option<String>,
 	pub is_spam_request:       bool,

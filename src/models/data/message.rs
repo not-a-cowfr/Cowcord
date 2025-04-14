@@ -32,11 +32,13 @@ pub struct Message {
 	pub nonce:                  NonceResponseType,
 	pub pinned:                 bool,
 	pub webhook_id:             Snowflake,
-	pub r#type:                 u8, // https://docs.discord.sex/resources/message#message-type
+	/// https://docs.discord.sex/resources/message#message-type
+	pub r#type:                 u8,
 	pub activity:               MessageActivity,
 	pub application:            IntegrationApplication,
 	pub application_id:         Snowflake,
-	pub flags:                  u32, // https://docs.discord.sex/resources/message#message-flags
+	/// https://docs.discord.sex/resources/message#message-flags
+	pub flags:                  u32,
 	pub message_reference:      MessageReference,
 	pub referenced_message:     Option<Message>,
 	pub message_snapshots:      Vec<MessageSnapshot>,
@@ -145,7 +147,8 @@ pub enum MessageFlags {
 #[derive(Deserialize, Default)]
 #[serde(default)]
 pub struct MessageActivity {
-	pub r#type:     u8, // https://docs.discord.sex/resources/presence#activity-action-type
+	/// https://docs.discord.sex/resources/presence#activity-action-type
+	pub r#type:     u8,
 	pub session_id: String,
 	pub party_id:   String,
 }
@@ -161,10 +164,13 @@ pub struct MessageCall {
 #[serde(default)]
 pub struct MessageInteractionMetadata {
 	pub id:                              Snowflake,
-	pub r#type:                          u8, // https://docs.discord.sex/interactions/receiving-and-responding#interaction-type
+	/// https://docs.discord.sex/interactions/receiving-and-responding#interaction-type
+	pub r#type:                          u8,
 	pub name:                            String,
-	pub command_type:                    u8, // https://docs.discord.sex/interactions/application-commands#application-command-types
-	pub ephemerality_reason:             u8, // https://docs.discord.sex/resources/message#ephemerality-reason
+	/// https://docs.discord.sex/interactions/application-commands#application-command-types
+	pub command_type:                    u8,
+	/// https://docs.discord.sex/resources/message#ephemerality-reason
+	pub ephemerality_reason:             u8,
 	pub user:                            User,
 	pub authorizing_integration_owners:  HashMap<u32, Snowflake>,
 	pub original_response_message_id:    Snowflake,
@@ -208,7 +214,8 @@ pub struct MessageRoleSubscription {
 #[derive(Deserialize, Default)]
 #[serde(default)]
 pub struct MessagePurchaseNotification {
-	pub r#type:                 u8, // https://docs.discord.sex/resources/message#message-purchase-notification-type
+	/// https://docs.discord.sex/resources/message#message-purchase-notification-type
+	pub r#type:                 u8,
 	pub guild_product_purchase: Option<GuildProductPurchase>,
 }
 
@@ -239,7 +246,8 @@ pub struct MessageSoundboardSound {
 #[derive(Deserialize, Default)]
 #[serde(default)]
 pub struct MessageReference {
-	pub r#type:             u8, // https://docs.discord.sex/resources/message#message-reference-type
+	/// https://docs.discord.sex/resources/message#message-reference-type
+	pub r#type:             u8,
 	pub message_id:         Snowflake,
 	pub channel_id:         Snowflake,
 	pub guild_id:           Snowflake,
@@ -275,8 +283,10 @@ pub struct SnapshotMessage {
 	pub mention_roles:     Vec<Snowflake>,
 	pub attachments:       Vec<MessageAttachment>,
 	pub embeds:            Vec<MessageEmbed>,
-	pub r#type:            u8, // https://docs.discord.sex/resources/message#message-type
-	pub flags:             u32, // https://docs.discord.sex/resources/message#message-flags
+	/// https://docs.discord.sex/resources/message#message-type
+	pub r#type:            u8,
+	/// https://docs.discord.sex/resources/message#message-flags
+	pub flags:             u32,
 	pub components:        Vec<MessageComponent>,
 	pub sticker_items:     Vec<StickerItem>,
 	pub soundboard_sounds: Vec<SoundboardSound>,
@@ -309,7 +319,8 @@ pub enum MessageReactionType {
 #[serde(default)]
 pub struct MessageEmbed {
 	pub title:                String,
-	pub r#type:               String, // https://docs.discord.sex/resources/message#embed-type
+	/// https://docs.discord.sex/resources/message#embed-type
+	pub r#type:               String,
 	pub description:          String,
 	pub url:                  String,
 	pub timestamp:            Timestamp,
@@ -323,7 +334,8 @@ pub struct MessageEmbed {
 	pub fields:               Vec<EmbedField>,
 	pub reference_id:         Snowflake,
 	pub content_scan_version: u8,
-	pub flags:                u8, // https://docs.discord.sex/resources/message#embed-flags
+	/// https://docs.discord.sex/resources/message#embed-flags
+	pub flags:                u8,
 }
 
 pub enum EmbedType {
@@ -353,7 +365,8 @@ pub struct EmbedMedia {
 	pub proxy_url:             String,
 	pub height:                u16,
 	pub width:                 u16,
-	pub flags:                 u8, // https://docs.discord.sex/resources/message#attachment-flags
+	/// https://docs.discord.sex/resources/message#attachment-flags
+	pub flags:                 u8,
 	pub content_scan_metadata: String,
 	pub placeholder_version:   u8,
 	pub placeholder:           String,
@@ -394,7 +407,8 @@ pub struct EmbedField {
 #[derive(Deserialize, Default)]
 #[serde(default)]
 pub struct ContentScanMetadata {
-	pub flags:   u8, // https://docs.discord.sex/resources/message#content-scan-flags
+	/// https://docs.discord.sex/resources/message#content-scan-flags
+	pub flags:   u8,
 	pub version: u8,
 }
 
@@ -465,7 +479,8 @@ pub struct Poll {
 	pub answers:           Vec<PollAnswer>,
 	pub expiry:            Option<Timestamp>,
 	pub allow_multiselect: bool,
-	pub layout_type:       u8, // https://docs.discord.sex/resources/message#poll-layout-type
+	/// https://docs.discord.sex/resources/message#poll-layout-type
+	pub layout_type:       u8,
 	pub results:           PollResults,
 }
 
@@ -476,7 +491,8 @@ pub struct PollCreate {
 	pub answers:           Vec<PollAnswer>,
 	pub duraction:         u32,
 	pub allow_multiselect: bool,
-	pub layout_type:       u8, // https://docs.discord.sex/resources/message#poll-layout-type
+	/// https://docs.discord.sex/resources/message#poll-layout-type
+	pub layout_type:       u8,
 }
 
 pub enum PollLayoutType {
@@ -558,8 +574,10 @@ pub struct ConversationSummary {
 	pub start_id:    Snowflake,
 	pub end_id:      Snowflake,
 	pub count:       u16,
-	pub source:      u8, // https://docs.discord.sex/resources/message#summary-source
-	pub r#type:      u8, // https://docs.discord.sex/resources/message#summary-type
+	/// https://docs.discord.sex/resources/message#summary-source
+	pub source:      u8,
+	/// https://docs.discord.sex/resources/message#summary-type
+	pub r#type:      u8,
 }
 
 pub enum SummarySource {

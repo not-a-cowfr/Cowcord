@@ -15,14 +15,17 @@ pub struct Clan {
 	pub icon_hash:                  Option<String>,
 	pub member_count:               u8,
 	pub description:                Option<String>,
-	pub play_style:                 u8, // https://docs.discord.sex/resources/clan#clan-play-style
+	/// https://docs.discord.sex/resources/clan#clan-play-style
+	pub play_style:                 u8,
 	pub search_terms:               Vec<String>,
 	pub game_application_ids:       Vec<Snowflake>,
-	pub badge:                      u8, // https://docs.discord.sex/resources/clan#clan-badge-type
+	/// https://docs.discord.sex/resources/clan#clan-badge-type
+	pub badge:                      u8,
 	pub badge_hask:                 String,
 	pub badge_color_primary:        String, // hex format
 	pub badge_color_secondary:      String, // hex format
-	pub banner:                     u8, // https://docs.discord.sex/resources/clan#clan-banner-style
+	/// https://docs.discord.sex/resources/clan#clan-banner-style
+	pub banner:                     u8,
 	pub banner_hash:                String,
 	pub brand_color_primary:        String, // hex format
 	pub brand_color_secondary:      String, // hex format

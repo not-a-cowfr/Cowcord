@@ -9,7 +9,8 @@ pub struct StageInstance {
 	pub guild_id:                 Snowflake,
 	pub channel_id:               Snowflake,
 	pub topic:                    String,
-	pub privacy_level:            u8, // https://docs.discord.sex/resources/guild#privacy-level
+	/// https://docs.discord.sex/resources/guild#privacy-level
+	pub privacy_level:            u8,
 	pub invite_code:              Option<String>,
 	#[deprecated]
 	pub discoverable_disabled:    bool,

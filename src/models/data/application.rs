@@ -18,8 +18,10 @@ pub struct Application {
 	pub icon:                              Option<String>,
 	pub cover_image:                       Option<String>,
 	pub splash:                            String,
-	pub r#type:                            Option<u8>, // https://docs.discord.sex/resources/application#application-type
-	pub flags:                             u32, // https://docs.discord.sex/resources/application#application-flags
+	/// https://docs.discord.sex/resources/application#application-type
+	pub r#type:                            Option<u8>,
+	/// https://docs.discord.sex/resources/application#application-flags
+	pub flags:                             u32,
 	pub primary_sku_id:                    Snowflake,
 	pub verify_key:                        String,
 	pub guild_id:                          Snowflake,
@@ -30,7 +32,8 @@ pub struct Application {
 	pub third_party_skus:                  Vec<ApplicationSKU>,
 	pub hook:                              bool,
 	pub overlay:                           bool,
-	pub overlay_methods:                   u8, // https://docs.discord.sex/resources/application#overlay-method-flags
+	/// https://docs.discord.sex/resources/application#overlay-method-flags
+	pub overlay_methods:                   u8,
 	pub overlay_warn:                      bool,
 	pub overlay_compatibility_hook:        bool,
 	pub bot:                               User,
@@ -51,32 +54,44 @@ pub struct Application {
 	pub bot_quarantined:                   bool,
 	pub approximate_guild_count:           u32,
 	pub approximate_user_install_count:    u32,
-	pub internal_guild_restriction:        u8, // https://docs.discord.sex/resources/application#internal-guild-restriction
+	/// https://docs.discord.sex/resources/application#internal-guild-restriction
+	pub internal_guild_restriction:        u8,
 	pub terms_of_service_url:              String,
 	pub privacy_policy_url:                String,
 	pub role_connections_verification_url: Option<String>,
 	pub interactions_endpoint_url:         String,
-	pub interactions_version:              u8, // https://docs.discord.sex/resources/application#application-interactions-version
+	/// https://docs.discord.sex/resources/application#application-interactions-version
+	pub interactions_version:              u8,
 	pub interactions_event_types:          Vec<String>,
-	pub event_webhooks_status:             u8, // https://docs.discord.sex/resources/application#event-webhooks-status
+	/// https://docs.discord.sex/resources/application#event-webhooks-status
+	pub event_webhooks_status:             u8,
 	pub event_webhooks_url:                String,
-	pub event_webhooks_types:              Vec<String>, // https://docs.discord.sex/resources/application#event-webhooks-type
-	pub explicit_content_filter:           u8, // https://docs.discord.sex/resources/application#explicit-content-filter-level
+	/// https://docs.discord.sex/resources/application#event-webhooks-type
+	pub event_webhooks_types:              Vec<String>,
+	/// https://docs.discord.sex/resources/application#explicit-content-filter-level
+	pub explicit_content_filter:           u8,
 	pub tags:                              Vec<String>,
 	pub install_params:                    ApplicationInstallParams,
 	pub custom_install_url:                String,
 	pub integration_types_config:          HashMap<u32, Option<ApplicationIntegrationType>>,
 	pub is_verified:                       bool,
-	pub verification_state:                u8, // https://docs.discord.sex/resources/application#application-verification-state
-	pub store_application_state:           u8, // https://docs.discord.sex/resources/application#store-application-state
-	pub rpc_application_state:             u8, // https://docs.discord.sex/resources/application#rpc-application-state
-	pub creator_monetization_state:        u32, // https://docs.discord.sex/resources/application#creator-monetization-state
+	/// https://docs.discord.sex/resources/application#application-verification-state
+	pub verification_state:                u8,
+	/// https://docs.discord.sex/resources/application#store-application-state
+	pub store_application_state:           u8,
+	/// https://docs.discord.sex/resources/application#rpc-application-state
+	pub rpc_application_state:             u8,
+	/// https://docs.discord.sex/resources/application#creator-monetization-state
+	pub creator_monetization_state:        u32,
 	pub is_discoverable:                   bool,
-	pub discoverability_state:             u8, // https://docs.discord.sex/resources/application#application-discoverability-state
-	pub discovery_eligibility_flags:       u16, // https://docs.discord.sex/resources/application#application-discovery-eligibility-flags
+	/// https://docs.discord.sex/resources/application#application-discoverability-state
+	pub discoverability_state:             u8,
+	/// https://docs.discord.sex/resources/application#application-discovery-eligibility-flags
+	pub discovery_eligibility_flags:       u16,
 	pub is_monetized:                      bool,
 	pub storefront_available:              bool,
-	pub monetization_state:                u8, // https://docs.discord.sex/resources/application#application-monetization-state
+	/// https://docs.discord.sex/resources/application#application-monetization-state
+	pub monetization_state:                u8,
 	pub monetization_eligibility_flags:    u32,
 	pub max_participants:                  i32,
 	pub embedded_activity_config:          EmbeddedActivityConfig,
@@ -267,7 +282,8 @@ pub struct ApplicationExecutable {
 pub struct ApplicationSKU {
 	pub id:          Option<String>,
 	pub sku:         Option<String>,
-	pub distributor: String, // https://docs.discord.sex/resources/application#distributor-type
+	/// https://docs.discord.sex/resources/application#distributor-type
+	pub distributor: String,
 }
 
 pub enum DistributorType {
@@ -285,7 +301,8 @@ pub enum DistributorType {
 #[derive(Deserialize, Default)]
 #[serde(default)]
 pub struct ApplicationInstallParams {
-	pub scopes:       Vec<String>, // https://docs.discord.sex/topics/oauth2#oauth2-scopes
+	/// https://docs.discord.sex/topics/oauth2#oauth2-scopes
+	pub scopes:       Vec<String>,
 	pub permissiongs: String,      // https://docs.discord.sex/topics/permissions
 }
 
@@ -318,13 +335,17 @@ pub struct ProxyMap {
 pub struct EmbeddedActivityConfig {
 	pub application_id:                        Snowflake,
 	pub activity_preview_video_asset_id:       Option<Snowflake>,
-	pub supported_platforms:                   Vec<String>, // https://docs.discord.sex/resources/application#embedded-activity-platform-type
-	pub default_orientation_lock_state:        u8, // https://docs.discord.sex/resources/application#embedded-activity-orientation-lock-state-type
-	pub tablet_default_orientation_lock_state: u8, // https://docs.discord.sex/resources/application#embedded-activity-orientation-lock-state-type
+	/// https://docs.discord.sex/resources/application#embedded-activity-platform-type
+	pub supported_platforms:                   Vec<String>,
+	/// https://docs.discord.sex/resources/application#embedded-activity-orientation-lock-state-type
+	pub default_orientation_lock_state:        u8,
+	/// https://docs.discord.sex/resources/application#embedded-activity-orientation-lock-state-type
+	pub tablet_default_orientation_lock_state: u8,
 	pub requires_age_gate:                     bool,
 	pub legacy_responsive_aspect_ratio:        bool,
 	#[deprecated]
-	pub premium_tier_requirement:              Option<u8>, // https://docs.discord.sex/resources/guild#premium-tier
+	/// https://docs.discord.sex/resources/guild#premium-tier
+	pub premium_tier_requirement:              Option<u8>,
 	#[deprecated]
 	pub free_period_starts_at:                 Option<Timestamp>,
 	#[deprecated]
@@ -350,9 +371,11 @@ pub enum EmbeddedActivityOrientationLockStateType {
 #[derive(Deserialize, Default)]
 #[serde(default)]
 pub struct EmbeddedActivityPlatformConfig {
-	pub label_type:    u8, // https://docs.discord.sex/resources/application#embedded-activity-label-type
+	/// https://docs.discord.sex/resources/application#embedded-activity-label-type
+	pub label_type:    u8,
 	pub label_until:   Option<Timestamp>,
-	pub release_phase: String, // https://docs.discord.sex/resources/application#embedded-activity-release-phase
+	/// https://docs.discord.sex/resources/application#embedded-activity-release-phase
+	pub release_phase: String,
 }
 
 pub enum EmbeddedActivityLabelType {
@@ -390,7 +413,8 @@ pub struct RoleConnection {
 #[derive(Deserialize, Default)]
 #[serde(default)]
 pub struct ApplicationRoleConnectionMetadata {
-	pub r#type:                    u8, // https://docs.discord.sex/resources/guild#role-connection-operator-type
+	/// https://docs.discord.sex/resources/guild#role-connection-operator-type
+	pub r#type:                    u8,
 	pub key:                       String,
 	pub name:                      String,
 	pub name_localizations:        HashMap<String, String>,

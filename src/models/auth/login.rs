@@ -51,7 +51,8 @@ pub struct LoginResponse {
 #[derive(Deserialize, Default)]
 #[serde(default)]
 pub struct LoginSettings {
-	pub locale: String, // https://docs.discord.sex/reference#locales
+	/// https://docs.discord.sex/reference#locales
+	pub locale: String,
 	pub theme:  String, // "dark" or "light"
 }
 

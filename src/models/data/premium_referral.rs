@@ -25,10 +25,12 @@ pub struct PremiumReferralEligibility {
 	pub sent_user_ids:              Vec<Snowflake>,
 	pub refresh_at:                 Option<Timestamp>,
 	pub has_eligible_friends:       bool,
-	pub recipient_status:           HashMap<Snowflake, u8>, // https://docs.discord.sex/resources/premium-referral#premium-referral-recipient-status
+	/// https://docs.discord.sex/resources/premium-referral#premium-referral-recipient-status
+	pub recipient_status:           HashMap<Snowflake, u8>,
 	pub is_eligible_for_incentive:  bool,
 	pub is_qualified_for_incentive: bool,
-	pub referral_incentive_status:  u8, // https://docs.discord.sex/resources/premium-referral#premium-referral-incentive-status
+	/// https://docs.discord.sex/resources/premium-referral#premium-referral-incentive-status
+	pub referral_incentive_status:  u8,
 }
 
 pub enum PremiumReferralRecipientStatus {

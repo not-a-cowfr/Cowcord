@@ -25,25 +25,32 @@ pub struct User {
 	pub system:                  bool,
 	pub mfa_enabled:             bool,
 	pub nsfw_allowed:            Option<bool>,
-	pub age_verification_status: u8, // https://docs.discord.sex/resources/user#age-verification-status
+	/// https://docs.discord.sex/resources/user#age-verification-status
+	pub age_verification_status: u8,
 	pub pronouns:                String,
 	pub bio:                     String,
 	pub banner:                  Option<String>,
 	pub accent_color:            Option<u32>,
-	pub locale:                  String, // https://docs.discord.sex/reference#locales
+	/// https://docs.discord.sex/reference#locales
+	pub locale:                  String,
 	pub verified:                bool,
 	pub email:                   Option<String>,
 	pub phone:                   Option<String>,
-	pub premium_type:            u8, // https://docs.discord.sex/resources/user#premium-type
+	/// https://docs.discord.sex/resources/user#premium-type
+	pub premium_type:            u8,
 	pub personal_connection_id:  Snowflake,
-	pub flags:                   u64, // https://docs.discord.sex/resources/user#user-flags
+	/// https://docs.discord.sex/resources/user#user-flags
+	pub flags:                   u64,
 	pub public_flags:            u64,
-	pub purchased_flags:         u8, // https://docs.discord.sex/resources/user#purchased-flags
-	pub premium_flags:           u8, // https://docs.discord.sex/resources/user#premium-usage-flags
+	/// https://docs.discord.sex/resources/user#purchased-flags
+	pub purchased_flags:         u8,
+	/// https://docs.discord.sex/resources/user#premium-usage-flags
+	pub premium_flags:           u8,
 	pub desktop:                 bool,
 	pub mobile:                  bool,
 	pub has_bounced_email:       bool,
-	pub authenticator_types:     Vec<u8>, // https://docs.discord.sex/resources/user#authenticator-type
+	/// https://docs.discord.sex/resources/user#authenticator-type
+	pub authenticator_types:     Vec<u8>,
 }
 
 // not doing all this bro https://docs.discord.sex/resources/user#user-flags
@@ -183,12 +190,15 @@ pub struct DataHarvest {
 	pub harvest_id:       Snowflake,
 	pub user_id:          Snowflake,
 	pub email:            String,
-	pub state:            String, // https://docs.discord.sex/resources/user#harvest-state
-	pub status:           String, // https://docs.discord.sex/resources/user#harvest-status
+	/// https://docs.discord.sex/resources/user#harvest-state
+	pub state:            String,
+	/// https://docs.discord.sex/resources/user#harvest-status
+	pub status:           String,
 	pub created_at:       Timestamp,
 	pub completed_at:     Option<Timestamp>,
 	pub polled_at:        Option<Timestamp>,
-	pub backends:         HashMap<String, String>, // https://docs.discord.sex/resources/user#harvest-backend-internal-type and https://docs.discord.sex/resources/user#harvest-backend-state
+	/// https://docs.discord.sex/resources/user#harvest-backend-internal-type and https://docs.discord.sex/resources/user#harvest-backend-state
+	pub backends:         HashMap<String, String>,
 	pub updated_at:       Timestamp,
 	pub shadow_run:       bool,
 	pub harvest_metadata: HarvestMetadata,
@@ -240,7 +250,8 @@ pub struct UserSurvey {
 	pub prompt:             String,
 	pub cta:                String,
 	pub url:                String,
-	pub guild_requirements: Vec<String>, // https://docs.discord.sex/resources/user#survey-requirement-type
+	/// https://docs.discord.sex/resources/user#survey-requirement-type
+	pub guild_requirements: Vec<String>,
 	pub guild_size:         Vec<(Option<u32>, Option<u32>)>,
 	pub guild_permissions:  Vec<String>,
 }
@@ -270,7 +281,8 @@ pub struct Connection {
 	pub friend_sync:         bool,
 	pub show_activity:       bool,
 	pub two_way_link:        bool,
-	pub visibility:          u8, // https://docs.discord.sex/resources/user#visibility-type
+	/// https://docs.discord.sex/resources/user#visibility-type
+	pub visibility:          u8,
 	pub access_token:        String,
 }
 

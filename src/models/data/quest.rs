@@ -52,11 +52,13 @@ pub enum ContentType {
 #[derive(Deserialize, Default)]
 #[serde(default)]
 pub struct Config {
-	pub config_version: u8, // https://docs.discord.sex/resources/quests#quest-config-version
+	/// https://docs.discord.sex/resources/quests#quest-config-version
+	pub config_version: u8,
 	pub id:             Snowflake,
 	pub starts_at:      Timestamp,
 	pub expires_at:     Timestamp,
-	pub features:       Vec<u8>, // https://docs.discord.sex/resources/quests#quest-feature
+	/// https://docs.discord.sex/resources/quests#quest-feature
+	pub features:       Vec<u8>,
 	pub experiments:    Rollout,
 	pub application:    Application,
 	pub assets:         Assets,
@@ -139,7 +141,8 @@ pub struct Messages {
 #[derive(Deserialize, Default)]
 #[serde(default)]
 pub struct TaskConfig {
-	pub r#type:                   u8, // https://docs.discord.sex/resources/quests#quest-task-config-type
+	/// https://docs.discord.sex/resources/quests#quest-task-config-type
+	pub r#type:                   u8,
 	pub join_operator:            String, // "and" or "or"
 	pub enrollment_url:           String,
 	pub developer_application_id: Snowflake,
@@ -154,7 +157,8 @@ pub enum TaskConfigType {
 #[derive(Deserialize, Default)]
 #[serde(default)]
 pub struct Task {
-	pub event_name:   String, // https://docs.discord.sex/resources/quests#quest-task-event-name
+	/// https://docs.discord.sex/resources/quests#quest-task-event-name
+	pub event_name:   String,
 	pub target:       u32,
 	pub external_ids: Vec<String>,
 	pub description:  String,
@@ -173,10 +177,12 @@ pub enum TaskEventName {
 #[derive(Deserialize, Default)]
 #[serde(default)]
 pub struct RewardsConfig {
-	pub assignment_method: u8, // https://docs.discord.sex/resources/quests#quest-reward-assignment-method
+	/// https://docs.discord.sex/resources/quests#quest-reward-assignment-method
+	pub assignment_method: u8,
 	pub rewards:           Vec<Reward>,
 	pub rewards_expire_at: Option<Timestamp>,
-	pub platforms:         Vec<u8>, // https://docs.discord.sex/resources/quests#quest-platform-type
+	/// https://docs.discord.sex/resources/quests#quest-platform-type
+	pub platforms:         Vec<u8>,
 }
 
 pub enum RewardAssignmentMethod {
@@ -195,7 +201,8 @@ pub enum PlatformType {
 #[derive(Deserialize, Default)]
 #[serde(default)]
 pub struct Reward {
-	pub r#type:             u8, // https://docs.discord.sex/resources/quests#quest-reward-type
+	/// https://docs.discord.sex/resources/quests#quest-reward-type
+	pub r#type:             u8,
 	pub sku_id:             Snowflake,
 	pub asset:              Option<String>,
 	pub asset_video:        Option<String>,
@@ -204,7 +211,8 @@ pub struct Reward {
 	pub redemption_link:    Option<String>,
 	pub expires_at:         Option<Timestamp>,
 	pub expires_at_premium: Option<Timestamp>,
-	pub expiration_mode:    u8, // https://docs.discord.sex/resources/quests#quest-reward-expiration-mode
+	/// https://docs.discord.sex/resources/quests#quest-reward-expiration-mode
+	pub expiration_mode:    u8,
 	pub orb_quantity:       u32,
 	pub quantity:           u8,
 }
@@ -275,7 +283,8 @@ pub struct ClaimedConfig {
 	pub id:         Snowflake,
 	pub starts_at:  Timestamp,
 	pub expires_at: Timestamp,
-	pub features:   Vec<u8>, // https://docs.discord.sex/resources/quests#quest-feature
+	/// https://docs.discord.sex/resources/quests#quest-feature
+	pub features:   Vec<u8>,
 	pub colors:     Gradient,
 	pub assets:     Assets,
 	pub messages:   Messages,
@@ -285,7 +294,8 @@ pub struct ClaimedConfig {
 #[derive(Deserialize, Default)]
 #[serde(default)]
 pub struct ClaimedQuestReward {
-	pub r#type:              u8, // https://docs.discord.sex/resources/quests#quest-reward-type
+	/// https://docs.discord.sex/resources/quests#quest-reward-type
+	pub r#type:              u8,
 	pub sku_id:              Snowflake,
 	pub name:                String,
 	pub name_with_article:   String,
@@ -306,7 +316,8 @@ pub struct UserStatus {
 	pub claimed_tier:             Option<u8>,
 	pub last_stream_heartbeat_at: Option<Timestamp>,
 	pub stream_progress_seconds:  Timestamp,
-	pub dismissed_quest_content:  u8, // https://docs.discord.sex/resources/quests#dismissible-quest-content-flags
+	/// https://docs.discord.sex/resources/quests#dismissible-quest-content-flags
+	pub dismissed_quest_content:  u8,
 	pub progress:                 HashMap<String, TaskProgress>,
 }
 
@@ -339,7 +350,8 @@ pub struct TaskHeartbeat {
 pub struct RewardCode {
 	pub quest_id:   Snowflake,
 	pub code:       String,
-	pub platform:   String, // https://docs.discord.sex/resources/quests#quest-platform-type
+	/// https://docs.discord.sex/resources/quests#quest-platform-type
+	pub platform:   String,
 	pub user_id:    Snowflake,
 	pub claimed_at: Timestamp,
 	pub tier:       Option<u8>,

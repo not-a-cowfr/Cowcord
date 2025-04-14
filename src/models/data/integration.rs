@@ -11,14 +11,17 @@ use super::user::User;
 pub struct Integration {
 	pub id:                        Snowflake,
 	pub name:                      String,
-	pub r#type:                    String, // https://docs.discord.sex/resources/integration#integration-type
+	/// https://docs.discord.sex/resources/integration#integration-type
+	pub r#type:                    String,
 	pub enabled:                   bool,
 	pub account:                   IntegrationAccount,
 	pub syncing:                   bool,
 	pub role_id:                   Snowflake,
 	pub enable_emoticons:          bool,
-	pub expire_behavior:           u8, // https://docs.discord.sex/resources/integration#integration-expire-behavior
-	pub expire_grace_period:       u8, // https://docs.discord.sex/topics/oauth2#oauth2-scopes
+	/// https://docs.discord.sex/resources/integration#integration-expire-behavior
+	pub expire_behavior:           u8,
+	/// https://docs.discord.sex/topics/oauth2#oauth2-scopes
+	pub expire_grace_period:       u8,
 	pub synced_at:                 Timestamp,
 	pub subscriber_count:          u32,
 	pub revoked:                   bool,
@@ -56,7 +59,8 @@ pub struct IntegrationApplication {
 	pub icon:                              Option<String>,
 	pub cover_image:                       String,
 	pub splash:                            String,
-	pub r#type:                            Option<u8>, // https://docs.discord.sex/resources/integration#integration-type
+	/// https://docs.discord.sex/resources/integration#integration-type
+	pub r#type:                            Option<u8>,
 	pub primary_sku_id:                    Snowflake,
 	pub bot:                               User,
 	pub deeplink_uri:                      Option<String>,

@@ -18,7 +18,8 @@ pub struct Presence {
 pub struct Activity {
 	pub id:                  String,
 	pub name:                String,
-	pub r#type:              u8, // https://docs.discord.sex/resources/presence#activity-type
+	/// https://docs.discord.sex/resources/presence#activity-type
+	pub r#type:              u8,
 	pub url:                 Option<String>,
 	pub created_at:          u32,
 	pub session_id:          Option<String>,
@@ -29,7 +30,8 @@ pub struct Activity {
 	pub details:             Option<String>,
 	pub state:               Option<String>,
 	pub sync_id:             String,
-	pub flags:               u8, // https://docs.discord.sex/resources/presence#activity-flags
+	/// https://docs.discord.sex/resources/presence#activity-flags
+	pub flags:               u8,
 	pub buttons:             Vec<String>,
 	pub emoji:               Option<ActivityEmoji>,
 	pub party:               ActivityParty,
@@ -63,7 +65,8 @@ pub struct ActivityParty {
 #[derive(Deserialize, Default)]
 #[serde(default)]
 pub struct ActivityAssets {
-	pub large_image: String, // https://docs.discord.sex/resources/presence#activity-asset-image
+	/// https://docs.discord.sex/resources/presence#activity-asset-image
+	pub large_image: String,
 	pub large_text:  String,
 	pub small_image: String,
 	pub small_text:  String,

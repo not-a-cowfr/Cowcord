@@ -6,11 +6,13 @@ use super::types::Snowflake;
 
 #[derive(Deserialize, Default)]
 pub struct Entry {
-	pub r#type:                u8, // https://docs.discord.sex/resources/directory#directory-entry-type
+	/// https://docs.discord.sex/resources/directory#directory-entry-type
+	pub r#type:                u8,
 	pub directory_channel_id:  Snowflake,
 	pub entity_id:             Snowflake,
 	pub created_at:            String,
-	pub primary_category_id:   u8, // https://docs.discord.sex/resources/directory#directory-category
+	/// https://docs.discord.sex/resources/directory#directory-category
+	pub primary_category_id:   u8,
 	pub description:           Option<String>,
 	pub author_id:             Snowflake,
 	pub guild:                 Guild,

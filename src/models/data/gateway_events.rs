@@ -25,7 +25,8 @@ pub struct GatewayGuild {
 	pub presences:                  Vec<Presence>,
 	pub stage_instances:            Vec<StageInstance>,
 	pub guild_scheduled_events:     Vec<GuildScheduledEvent>,
-	pub data_mode:                  String, // https://docs.discord.sex/topics/gateway-events#data-mode
+	/// https://docs.discord.sex/topics/gateway-events#data-mode
+	pub data_mode:                  String,
 	pub properties:                 Guild,
 	pub stickers:                   Vec<Sticker>,
 	pub roles:                      Vec<Role>,

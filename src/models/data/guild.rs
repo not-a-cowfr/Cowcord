@@ -32,14 +32,18 @@ pub struct Guild {
 	pub afk_timeout:                   u16,
 	pub widget_enabled:                bool,
 	pub widget_channel_id:             Option<Snowflake>,
-	pub verification_level:            u8, // https://docs.discord.sex/resources/guild#verification-level
-	pub default_message_notifications: u8, // https://docs.discord.sex/resources/guild#message-notification-level
+	/// https://docs.discord.sex/resources/guild#verification-level
+	pub verification_level:            u8,
+	/// https://docs.discord.sex/resources/guild#message-notification-level
+	pub default_message_notifications: u8,
 	pub explicit_content_filter:       u8, //https://docs.discord.sex/resources/guild#explicit-content-filter-level
-	pub features:                      Vec<String>, // https://docs.discord.sex/resources/guild#guild-features
+	/// https://docs.discord.sex/resources/guild#guild-features
+	pub features:                      Vec<String>,
 	pub roles:                         Vec<Role>,
 	pub emojis:                        Vec<Emoji>,
 	pub stickers:                      Vec<Sticker>,
-	pub mfa_level:                     u8, // https://docs.discord.sex/resources/guild#mfa-level
+	/// https://docs.discord.sex/resources/guild#mfa-level
+	pub mfa_level:                     u8,
 	pub system_channel_id:             Option<Snowflake>,
 	pub public_updates_channel_id:     Option<Snowflake>,
 	pub safety_alerts_channel_id:      Option<Snowflake>,
@@ -53,8 +57,10 @@ pub struct Guild {
 	pub max_stage_video_channel_users: u16,
 	#[deprecated]
 	pub nsfw:                          bool,
-	pub nsfw_level:                    u8, // https://docs.discord.sex/resources/guild#nsfw-level
-	pub hub_type:                      Option<u8>, // https://docs.discord.sex/resources/guild#hub-type
+	/// https://docs.discord.sex/resources/guild#nsfw-level
+	pub nsfw_level:                    u8,
+	/// https://docs.discord.sex/resources/guild#hub-type
+	pub hub_type:                      Option<u8>,
 	pub premium_progress_bar_enabled:  bool,
 	pub latest_onboarding_question_id: Option<Snowflake>,
 	pub incidents_data:                Option<AutomodIncedentsData>,
@@ -370,7 +376,8 @@ pub struct Role {
 	pub permissions:   String,
 	pub managed:       bool,
 	pub mentionable:   bool,
-	pub flags:         u8, // https://docs.discord.sex/resources/guild#role-flags
+	/// https://docs.discord.sex/resources/guild#role-flags
+	pub flags:         u8,
 	pub tags:          RoleTags,
 }
 
@@ -395,7 +402,8 @@ pub struct RoleTags {
 pub struct RoleConnectionConfig {
 	pub connection_type:           String,
 	pub connection_metadata_field: Option<String>,
-	pub operator:                  Option<u8>, // https://docs.discord.sex/resources/guild#role-connection-operator-type
+	/// https://docs.discord.sex/resources/guild#role-connection-operator-type
+	pub operator:                  Option<u8>,
 	pub value:                     Option<String>,
 	pub application_id:            Snowflake,
 	pub application:               IntegrationApplication,
@@ -431,7 +439,8 @@ pub struct GuildMember {
 	pub pending:                      bool,
 	pub communication_disabled_until: Option<Timestamp>,
 	pub unusual_dm_activity_until:    Option<Timestamp>,
-	pub flags:                        u16, // https://docs.discord.sex/resources/guild#guild-member-flags
+	/// https://docs.discord.sex/resources/guild#guild-member-flags
+	pub flags:                        u16,
 	pub permissions:                  String,
 }
 
@@ -506,7 +515,8 @@ pub struct MemberVerification {
 #[derive(Deserialize, Default)]
 #[serde(default)]
 pub struct MemberVerificationForm {
-	pub field_type:  String, // https://docs.discord.sex/resources/guild#member-verification-form-field-type
+	/// https://docs.discord.sex/resources/guild#member-verification-form-field-type
+	pub field_type:  String,
 	pub label:       String,
 	pub choices:     Vec<String>,
 	pub values:      Option<Vec<String>>,
