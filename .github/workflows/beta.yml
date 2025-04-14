@@ -24,6 +24,7 @@ jobs:
         with:
           cache-targets: "bin"
           key: "deploy-beta"
+          cache-all-crates: true
 
       - name: Install Dioxus cli
         run: |
@@ -39,7 +40,10 @@ jobs:
 
       - name: Build web
         if: matrix.os == 'ubuntu-latest'
-        run: dx build --profile beta && cp -r ./target/dx/Cowcord/debug/web/public ./dist
+        run: |
+          dx build --release --profile beta
+          cp -r ./target/dx/Cowcord/release/web/public ./dist
+          cp ./dist/index.html ./dist/404.html
 
       # - name: Optimize wasm
       #   if: matrix.os == 'ubuntu-latest'
