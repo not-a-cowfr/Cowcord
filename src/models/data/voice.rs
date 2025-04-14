@@ -1,7 +1,7 @@
 use serde::Deserialize;
 
 use super::guild::GuildMember;
-use super::types::{Snowflake, Timestamp};
+use crate::models::types::{Snowflake, Timestamp};
 
 #[derive(Deserialize, Default)]
 #[serde(default)]

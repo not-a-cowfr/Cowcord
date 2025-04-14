@@ -4,8 +4,8 @@ use std::collections::HashMap;
 
 use serde::Deserialize;
 
-use super::types::{Snowflake, Timestamp};
 use super::user::Collectibles;
+use crate::models::types::{Snowflake, Timestamp};
 
 #[derive(Deserialize, Default)]
 #[serde(default)]

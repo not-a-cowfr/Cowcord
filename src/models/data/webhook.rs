@@ -3,7 +3,7 @@
 use serde::Deserialize;
 
 use super::integration::IntegrationGuild;
-use super::types::Snowflake;
+use crate::models::types::Snowflake;
 use super::user::User;
 
 #[derive(Deserialize, Default)]

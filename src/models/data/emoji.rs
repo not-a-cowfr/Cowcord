@@ -1,6 +1,6 @@
 use serde::Deserialize;
 
-use super::types::Snowflake;
+use crate::models::types::Snowflake;
 use super::user::User;
 
 #[derive(Deserialize, Default)]

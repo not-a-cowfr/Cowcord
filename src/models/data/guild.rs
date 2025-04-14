@@ -10,8 +10,8 @@ use super::clan::Clan;
 use super::emoji::Emoji;
 use super::integration::IntegrationApplication;
 use super::sticker::Sticker;
-use super::types::{Snowflake, Timestamp};
 use super::user::{AvatarDecorationData, User};
+use crate::models::types::{Snowflake, Timestamp};
 
 #[derive(Deserialize, Default)]
 #[serde(default)]

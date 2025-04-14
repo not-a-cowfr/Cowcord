@@ -10,8 +10,8 @@ use super::emoji::Emoji;
 use super::integration::IntegrationApplication;
 use super::soundboard::SoundboardSound;
 use super::sticker::{Sticker, StickerItem};
-use super::types::{Snowflake, Timestamp};
 use super::user::User;
+use crate::models::types::{Snowflake, Timestamp};
 
 #[derive(Deserialize, Default)]
 #[serde(default)]

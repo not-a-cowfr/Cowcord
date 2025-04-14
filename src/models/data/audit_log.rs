@@ -6,9 +6,9 @@ use super::auto_moderation::AutomodRules;
 use super::channel::Channel;
 use super::guild_scheduled_event::GuildScheduledEvent;
 use super::integration::{Integration, IntegrationAccount};
-use super::types::Snowflake;
 use super::user::User;
 use super::webhook::Webhook;
+use crate::models::types::Snowflake;
 
 #[derive(Deserialize, Default)]
 #[serde(default)]

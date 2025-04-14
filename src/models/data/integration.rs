@@ -3,8 +3,8 @@
 use serde::Deserialize;
 
 use super::application::{ApplicationRoleConnectionMetadata, ApplicationSKU};
-use super::types::{Snowflake, Timestamp};
 use super::user::User;
+use crate::models::types::{Snowflake, Timestamp};
 
 #[derive(Deserialize, Default)]
 #[serde(default)]

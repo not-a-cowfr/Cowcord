@@ -6,7 +6,7 @@ use serde::Deserialize;
 
 use super::integration::Integration;
 use super::team::{Company, Team};
-use super::types::{Snowflake, Timestamp};
+use crate::models::types::{Snowflake, Timestamp};
 use super::user::User;
 
 #[derive(Deserialize, Default)]

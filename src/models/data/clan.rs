@@ -4,7 +4,7 @@ use std::collections::HashMap;
 
 use serde::Deserialize;
 
-use super::types::Snowflake;
+use crate::models::types::Snowflake;
 
 #[derive(Deserialize, Default)]
 #[serde(default)]

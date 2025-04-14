@@ -6,8 +6,8 @@ use super::application::Application;
 use super::channel::Channel;
 use super::directory::GuildScheduledEvent;
 use super::guild::GuildMember;
-use super::types::{Snowflake, Timestamp};
 use super::user::User;
+use crate::models::types::{Snowflake, Timestamp};
 
 #[derive(Deserialize, Default)]
 #[serde(default)]

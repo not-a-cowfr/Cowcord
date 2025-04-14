@@ -1,7 +1,6 @@
-use super::types::Timestamp;
 use serde::Deserialize;
 
-use super::types::Snowflake;
+use crate::models::types::{Snowflake, Timestamp};
 
 #[derive(Deserialize, Default)]
 #[serde(default)]

@@ -1,11 +1,10 @@
 #![allow(non_camel_case_types)]
 
-use super::types::Timestamp;
 use serde::Deserialize;
 
 use super::guild::GuildMember;
-use super::types::Snowflake;
 use super::user::User;
+use crate::models::types::{Snowflake, Timestamp};
 
 #[derive(Deserialize, Default)]
 #[serde(default)]

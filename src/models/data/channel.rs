@@ -1,10 +1,10 @@
 #![allow(non_camel_case_types)]
 
-use super::types::Timestamp;
+use crate::models::types::Timestamp;
 use serde::Deserialize;
 
 use super::guild::GuildMember;
-use super::types::Snowflake;
+use crate::models::types::Snowflake;
 use super::user::User;
 use super::user_settings::MuteConfig;
 
