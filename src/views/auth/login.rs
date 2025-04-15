@@ -41,51 +41,51 @@ pub fn Login() -> Element {
 	rsx! {
 		form {
 			onsubmit: move |event: Event<FormData>| {
-			    spawn(async move {
-			        let identifier = event
-			            .values()
-			            .get("identifier")
-			            .and_then(|val| val.get(0).cloned())
-			            .unwrap_or_default();
-			        let password = event
-			            .values()
-			            .get("password")
-			            .and_then(|val| val.get(0).cloned())
-			            .unwrap_or_default();
-			        let request = LoginRequest {
-			            login: identifier,
-			            password,
-			            undelete: None,
-			            login_source: None,
-			        };
-			        match login(request).await {
-			            Ok(login_response) => {
-			                if login_response.mfa.unwrap_or(false) {
-			                    if let Some(ticket_value) = login_response.ticket {
-			                        let sms_request = SmsMfaRequest {
-			                            token: ticket_value.clone(),
-			                        };
-			                        match send_sms_mfa(sms_request).await {
-			                            Ok(_) => {
-			                                ticket.set(Some(ticket_value));
-			                                show_modal.set(true);
-			                            }
-			                            Err(e) => {
-			                                console::error_1(
-			                                    &format!("Error sending sms MFA code: {}", e).into(),
-			                                )
-			                            }
-			                        }
-			                    } else {
-			                        console::error_1(
-			                            &"MFA required, but no ticket received!".into(),
-			                        );
-			                    }
-			                }
-			            }
-			            Err(e) => console::error_1(&format!("Login failed: {}", e).into()),
-			        }
-			    });
+				spawn(async move {
+					let identifier = event
+						.values()
+						.get("identifier")
+						.and_then(|val| val.get(0).cloned())
+						.unwrap_or_default();
+					let password = event
+						.values()
+						.get("password")
+						.and_then(|val| val.get(0).cloned())
+						.unwrap_or_default();
+					let request = LoginRequest {
+						login: identifier,
+						password,
+						undelete: None,
+						login_source: None,
+					};
+					match login(request).await {
+						Ok(login_response) => {
+							if login_response.mfa.unwrap_or(false) {
+								if let Some(ticket_value) = login_response.ticket {
+									let sms_request = SmsMfaRequest {
+										token: ticket_value.clone(),
+									};
+									match send_sms_mfa(sms_request).await {
+										Ok(_) => {
+											ticket.set(Some(ticket_value));
+											show_modal.set(true);
+										}
+										Err(e) => {
+											console::error_1(
+												&format!("Error sending sms MFA code: {}", e).into(),
+											)
+										}
+									}
+								} else {
+									console::error_1(
+										&"MFA required, but no ticket received!".into(),
+									);
+								}
+							}
+						}
+						Err(e) => console::error_1(&format!("Login failed: {}", e).into()),
+					}
+				});
 			},
 			input { name: "identifier", placeholder: "Email or Phone number" }
 			input { name: "password", placeholder: "Password" }
@@ -95,27 +95,27 @@ pub fn Login() -> Element {
 		if show_modal() {
 			Modal {
 				on_submit: move |code: String| {
-				    show_modal.set(false);
-				    if let Some(ticket_value) = ticket() {
-				        let mfa_request = MfaRequest {
-				            ticket: ticket_value,
-				            code,
-				            login_source: None,
-				        };
-				        spawn(async move {
-				            match mfa_login(mfa_request).await {
-				                Ok(_login_response) => {
-				                    ticket.set(None);
-				                    show_modal.set(false);
-				                }
-				                Err(e) => {
-				                    console::error_1(&format!("MFA Login failed: {}", e).into());
-				                }
-				            }
-				        });
-				    } else {
-				        console::error_1(&"No ticket found for MFA submission!".into());
-				    }
+					show_modal.set(false);
+					if let Some(ticket_value) = ticket() {
+						let mfa_request = MfaRequest {
+							ticket: ticket_value,
+							code,
+							login_source: None,
+						};
+						spawn(async move {
+							match mfa_login(mfa_request).await {
+								Ok(_login_response) => {
+									ticket.set(None);
+									show_modal.set(false);
+								}
+								Err(e) => {
+									console::error_1(&format!("MFA Login failed: {}", e).into());
+								}
+							}
+						});
+					} else {
+						console::error_1(&"No ticket found for MFA submission!".into());
+					}
 				},
 			}
 		}

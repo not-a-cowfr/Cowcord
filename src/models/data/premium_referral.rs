@@ -1,5 +1,7 @@
 #![allow(non_camel_case_types)]
 
+use std::collections::HashMap;
+
 use serde::Deserialize;
 
 use super::user::User;
@@ -11,7 +13,7 @@ pub struct PremiumReferral {
 	pub id:                 Snowflake,
 	pub user_id:            Snowflake,
 	pub trial_id:           Snowflake,
-	pub subscription_trial: SubsciptionTrial, // todo
+	pub subscription_trial: SubsciptionTrial,
 	pub expires_at:         Timestamp,
 	pub referrer_id:        Snowflake,
 	pub referrer:           User,

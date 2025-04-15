@@ -418,7 +418,7 @@ pub enum ContentScanFlags {
 
 #[derive(Deserialize, Default)]
 #[serde(default)]
-pub struct Attachment {
+pub struct MessageAttachment {
 	pub id:                   Snowflake,
 	pub filename:             String,
 	pub title:                String,

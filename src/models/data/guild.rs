@@ -1,11 +1,8 @@
 #![allow(non_camel_case_types)]
 
-use std::collections::HashMap;
-
 use serde::Deserialize;
 
 use super::auto_moderation::AutomodIncedentsData;
-use super::channel::Channel;
 use super::clan::Clan;
 use super::emoji::Emoji;
 use super::integration::IntegrationApplication;

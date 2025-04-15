@@ -2,7 +2,7 @@
 
 use serde::Deserialize;
 
-use super::auto_moderation::AutomodRules;
+use super::auto_moderation::AutomodRule;
 use super::channel::Channel;
 use super::guild_scheduled_event::GuildScheduledEvent;
 use super::integration::{Integration, IntegrationAccount};
@@ -12,10 +12,10 @@ use crate::models::types::Snowflake;
 
 #[derive(Deserialize, Default)]
 #[serde(default)]
-pub struct Log {
+pub struct AuditLog {
 	pub audit_log_entries:      Vec<LogEntry>,
 	pub application_commands:   Vec<ApplicationCommand>,
-	pub auto_moderation_rules:  Vec<AutomodRules>,
+	pub auto_moderation_rules:  Vec<AutomodRule>,
 	pub guild_scheduled_events: Vec<GuildScheduledEvent>,
 	pub integrations:           Vec<Integration>,
 	pub threads:                Vec<Channel>,

@@ -1,12 +1,11 @@
 #![allow(non_camel_case_types)]
 
-use crate::models::types::Timestamp;
-use serde::Deserialize;
+use serde::{Deserialize, Serialize};
 
 use super::guild::GuildMember;
-use crate::models::types::Snowflake;
 use super::user::User;
 use super::user_settings::MuteConfig;
+use crate::models::types::{Snowflake, Timestamp};
 
 #[derive(Deserialize, Default)]
 #[serde(default)]
@@ -163,7 +162,7 @@ pub struct FollowedChannel {
 	pub webhook_id: Snowflake,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct PermissionOverwrite {
 	pub id:     Snowflake,
@@ -209,21 +208,21 @@ pub enum ThreadMemberFlags {
 	NO_MESSAGES = 1 << 3,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct DefaultReaction {
 	pub emoji_id:   Option<Snowflake>,
 	pub emoji_name: Option<String>,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct IconEmoji {
 	pub emoji_id:   Option<Snowflake>,
 	pub emoji_name: Option<String>,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct ForumTag {
 	pub id:         Snowflake,

@@ -2,12 +2,12 @@
 
 use std::collections::HashMap;
 
-use serde::Deserialize;
+use serde::{Deserialize, Serialize};
 
 use super::integration::Integration;
 use super::team::{Company, Team};
-use crate::models::types::{Snowflake, Timestamp};
 use super::user::User;
+use crate::models::types::{Snowflake, Timestamp};
 
 #[derive(Deserialize, Default)]
 #[serde(default)]
@@ -298,34 +298,35 @@ pub enum DistributorType {
 	google_play,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Deserialize, Default, Serialize)]
 #[serde(default)]
 pub struct ApplicationInstallParams {
 	/// https://docs.discord.sex/topics/oauth2#oauth2-scopes
 	pub scopes:       Vec<String>,
-	pub permissiongs: String,      // https://docs.discord.sex/topics/permissions
+	pub permissiongs: String, // https://docs.discord.sex/topics/permissions
 }
 
+#[derive(Deserialize)]
 pub enum ApplicationIntegrationType {
 	GUILD_INSTALL = 0,
 	USER_INSTALL = 1,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
-pub struct IntegrationTypeConfig {
-	pub oauth2_install_params: InstallParams,
+pub struct ApplicationIntegrationTypeConfig {
+	pub oauth2_install_params: ApplicationInstallParams,
 }
 
 #[derive(Deserialize, Default)]
 #[serde(default)]
-pub struct ProxyConfig {
-	pub url_map: ProxyMap,
+pub struct ApplicationProxyConfig {
+	pub url_map: ApplicationProxyMap,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
-pub struct ProxyMap {
+pub struct ApplicationProxyMap {
 	pub prefix: String,
 	pub target: String,
 }
@@ -368,7 +369,7 @@ pub enum EmbeddedActivityOrientationLockStateType {
 	LANDSCAPE = 3,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct EmbeddedActivityPlatformConfig {
 	/// https://docs.discord.sex/resources/application#embedded-activity-label-type
@@ -402,7 +403,14 @@ pub struct ApplicationAsset {
 
 #[derive(Deserialize, Default)]
 #[serde(default)]
-pub struct RoleConnection {
+pub struct ExternalAsset {
+	pub url:                 String,
+	pub external_asset_path: String,
+}
+
+#[derive(Deserialize, Default)]
+#[serde(default)]
+pub struct ApplicationRoleConnection {
 	pub platform_name:        Option<String>,
 	pub platform_username:    Option<String>,
 	pub metadata:             ApplicationRoleConnectionMetadata,
@@ -420,4 +428,44 @@ pub struct ApplicationRoleConnectionMetadata {
 	pub name_localizations:        HashMap<String, String>,
 	pub description:               String,
 	pub description_localizations: HashMap<String, String>,
+}
+
+#[derive(Deserialize, Default)]
+#[serde(default)]
+pub struct DetectableApplication {
+	pub id:                         Snowflake,
+	pub name:                       String,
+	pub aliases:                    Vec<String>,
+	pub executables:                Vec<ApplicationExecutable>,
+	pub themes:                     Vec<String>,
+	pub hook:                       bool,
+	pub overlay:                    bool,
+	/// https://docs.discord.sex/resources/application#overlay-method-flags
+	pub overlay_methods:            Option<u8>,
+	pub overlay_warn:               bool,
+	pub overlay_compatibility_hook: bool,
+}
+
+pub enum ApplicationDisclosureType {
+	UNSPECIFIED_DISCLOSURE = 0,
+	IP_LOCATION = 1,
+	DISPLAYS_ADVERTISEMENTS = 2,
+	PARTNER_SDK_DATA_SHARING_MESSAGE = 3,
+}
+
+#[derive(Serialize, Deserialize, Default)]
+#[serde(default)]
+pub struct ApplicationDistributor {
+	pub distributor: String,
+	pub sku:         String,
+}
+
+pub enum OperatingSystem {
+	win32,
+	darwin,
+	linux,
+}
+
+pub enum ApplicationReportMissingDataType {
+	icon,
 }

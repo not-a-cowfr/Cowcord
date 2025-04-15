@@ -301,7 +301,6 @@ pub struct ConnectionIntegration {
 }
 
 pub enum ConnectionType {
-	#[serde(rename = "amazon-music")]
 	amazon_music,
 	battlenet,
 	bluesky,
@@ -318,7 +317,6 @@ pub enum ConnectionType {
 	mastodon,
 	paypal,
 	playstation,
-	#[serde(rename = "playstation-stg")]
 	playstation_stg,
 	reddit,
 	roblox,
@@ -333,6 +331,5 @@ pub enum ConnectionType {
 	twitter,
 	xbox,
 	youtube,
-	#[serde(other)]
 	unknown,
 }

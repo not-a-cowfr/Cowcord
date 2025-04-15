@@ -4,7 +4,6 @@ use std::collections::HashMap;
 
 use serde::Deserialize;
 
-use super::user::Collectibles;
 use crate::models::types::{Snowflake, Timestamp};
 
 #[derive(Deserialize, Default)]
@@ -17,7 +16,6 @@ pub struct Quest {
 	pub preview:          bool,
 }
 
-#[derive(Deserialize, Deserialize)]
 pub enum ContentType {
 	GIFT_INVENTORY_SETTINGS_BADGE = 0,
 	QUEST_BAR = 1,
@@ -302,7 +300,8 @@ pub struct ClaimedQuestReward {
 	pub asset:               String,
 	pub asset_video:         Option<String>,
 	pub orb_quantity:        Option<u8>,
-	pub collectible_product: Collectibles,
+	/// "collectible object" but not the user collectibles object, idk man just fix it when it gets used
+	pub collectible_product: String,
 }
 
 #[derive(Deserialize, Default)]

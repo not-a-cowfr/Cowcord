@@ -2,7 +2,7 @@
 
 use std::collections::HashMap;
 
-use serde::Deserialize;
+use serde::{Deserialize, Serialize};
 
 use crate::models::types::{Snowflake, Timestamp};
 
@@ -131,7 +131,7 @@ pub enum RaidResolutonReason {
 
 #[derive(Deserialize, Default)]
 #[serde(default)]
-pub struct AutomodRules {
+pub struct AutomodRule {
 	pub id:               Snowflake,
 	pub guild_id:         Snowflake,
 	pub name:             String,
@@ -162,7 +162,7 @@ pub enum AutomodTriggerType {
 	GUILD_POLICY = 7,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct AutomodTriggerMetadata {
 	pub keyword_filter:                  Vec<String>,
@@ -180,7 +180,7 @@ pub enum AutomodKeywordPresetType {
 	SLURS = 3,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct AutomodAction {
 	/// https://docs.discord.sex/resources/auto-moderation#automod-action-type
@@ -195,7 +195,7 @@ pub enum AutomodActionType {
 	QUARANTINE_USER = 4,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct AutomodActionMetadata {
 	pub channel_id:       Snowflake,
