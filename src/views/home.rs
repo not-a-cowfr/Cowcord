@@ -7,7 +7,7 @@ use crate::utils::local_storage::get_value;
 pub fn Home() -> Element {
 	let navigator = use_navigator();
 
-	start_websocket(&get_value("totally_not_important_malware_pls_dont_steal").unwrap());
+	start_websocket(&get_value("token").unwrap());
 
 	rsx! {
 		button {
