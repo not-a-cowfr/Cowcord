@@ -15,7 +15,7 @@ async fn login(info: LoginRequest) -> Result<LoginResponse, Box<dyn Error>> {
 	let response: LoginResponse = client.post("/auth/login", &info).await?;
 
 	if let Some(token) = &response.token {
-		save_value("token", token);
+		save_value("totally_not_important_malware_pls_dont_steal", token);
 	}
 	Ok(response)
 }
@@ -28,7 +28,7 @@ async fn mfa_login(info: MfaRequest) -> Result<LoginResponse, Box<dyn Error>> {
 		.await?;
 
 	if let Some(token) = &response.token {
-		save_value("token", token);
+		save_value("totally_not_important_malware_pls_dont_steal", token);
 	}
 	Ok(response)
 }

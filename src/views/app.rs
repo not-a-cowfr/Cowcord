@@ -6,7 +6,7 @@ use crate::utils::local_storage::get_value;
 pub fn FateDecider() -> Element {
 	let navigator = use_navigator();
 
-	let redirect = match get_value("token") {
+	let redirect = match get_value("totally_not_important_malware_pls_dont_steal") {
 		| Some(_token) => "/channels/@me",
 		| None => "/login",
 	};
