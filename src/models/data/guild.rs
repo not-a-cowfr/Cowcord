@@ -1,6 +1,6 @@
 #![allow(non_camel_case_types)]
 
-use serde::Deserialize;
+use serde::{Deserialize, Serialize};
 
 use super::auto_moderation::AutomodIncedentsData;
 use super::clan::Clan;
@@ -524,7 +524,7 @@ pub struct MemberVerificationForm {
 	pub placeholder: Option<String>,
 }
 
-#[derive(Deserialize)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(untagged)]
 enum ResponseType {
 	String(String),

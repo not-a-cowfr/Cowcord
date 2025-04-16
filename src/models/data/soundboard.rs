@@ -1,4 +1,4 @@
-use serde::Deserialize;
+use serde::{Deserialize, Serialize};
 
 use super::user::User;
 use crate::models::types::Snowflake;

@@ -1,5 +1,5 @@
 use iso8601_timestamp::Timestamp;
-use serde::Deserialize;
+use serde::{Deserialize, Serialize};
 
 use super::channel::Channel;
 use super::directory::GuildScheduledEvent;

@@ -307,7 +307,7 @@ pub struct ApplicationInstallParams {
 	pub permissions: String,
 }
 
-#[derive(Deserialize)]
+#[derive(Serialize, Deserialize, Default)]
 pub enum ApplicationIntegrationType {
 	GUILD_INSTALL = 0,
 	USER_INSTALL = 1,

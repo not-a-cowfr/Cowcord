@@ -33,7 +33,7 @@ pub struct AutomodAlert {
 	/// https://docs.discord.sex/resources/auto-moderation#automod-interaction-callback-type
 	pub interaction_callback_type:    String,
 	pub timeout_duration:             u32,
-	pub alert_actions_execution:      AlertActionsExecution,
+	pub alert_actions_execution:      AutomodAlertActionsExecution,
 }
 
 pub enum DecisionOutcome {

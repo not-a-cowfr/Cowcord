@@ -275,3 +275,10 @@ pub struct ThreadOnlyChannelMessageParams {
 	payload_json:     String,
 	attachments:      Vec<MessageAttachment>,
 }
+
+#[derive(Serialize, Deserialize, Default)]
+#[serde(default)]
+pub struct ThreadPostData {
+	pub owner:         Option<GuildMember>,
+	pub first_message: Option<Message>,
+}

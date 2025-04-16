@@ -59,7 +59,7 @@ pub struct Message {
 	pub potions:                Vec<Potion>,
 }
 
-#[derive(Deserialize)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(untagged)]
 enum NonceResponseType {
 	String(String),

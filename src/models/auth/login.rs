@@ -56,7 +56,7 @@ pub struct LoginSettings {
 	pub theme:  String, // "dark" or "light"
 }
 
-#[derive(Deserialize)]
+#[derive(Serialize, Deserialize, Default)]
 #[allow(non_camel_case_types)]
 pub enum RequiredActions {
 	update_password,

@@ -1,6 +1,6 @@
 #![allow(non_camel_case_types)]
 
-use serde::Deserialize;
+use serde::{Deserialize, Serialize};
 
 use super::auto_moderation::AutomodRule;
 use super::channel::Channel;
