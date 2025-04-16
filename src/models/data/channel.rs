@@ -3,11 +3,12 @@
 use serde::{Deserialize, Serialize};
 
 use super::guild::GuildMember;
+use super::message::{AllowedMentions, Message, MessageActivity, MessageAttachment, MessageEmbed};
 use super::user::User;
 use super::user_settings::MuteConfig;
 use crate::models::types::{Snowflake, Timestamp};
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct Channel {
 	pub id:                                 Snowflake,
@@ -131,14 +132,14 @@ pub enum SortOrderType {
 	CREATION_TIME,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct ChannelNick {
 	pub id:   Snowflake,
 	pub nick: String,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct SafetyWarning {
 	pub id:                String,
@@ -155,7 +156,7 @@ pub enum SafetWarningType {
 	LIKELY_ATO,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct FollowedChannel {
 	pub channel_id: Snowflake,
@@ -177,7 +178,7 @@ pub enum PermissionOverwriteType {
 	member = 1,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct ThreadMetaData {
 	pub archived:              bool,
@@ -188,7 +189,7 @@ pub struct ThreadMetaData {
 	pub create_timestamp:      Option<Timestamp>,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct ThreadMember {
 	pub id:             Snowflake,
@@ -230,4 +231,47 @@ pub struct ForumTag {
 	pub moderated:  bool,
 	pub emoji_id:   Option<Snowflake>,
 	pub emoji_name: Option<String>,
+}
+
+pub enum ConsentStatus {
+	UNSPECIFIED = 0,
+	PENDING = 1,
+	ACCEPTED = 2,
+	REJECTED = 3,
+}
+
+#[derive(Serialize, Deserialize, Default)]
+#[serde(default)]
+pub struct SupplementalMessageRequest {
+	pub channel_id:      Snowflake,
+	pub message_preview: Message,
+}
+
+pub enum ThreadSortType {
+	last_message_time,
+	archive_time,
+	relevance,
+	creation_time,
+}
+
+#[derive(Serialize, Deserialize, Default)]
+#[serde(default)]
+/// you must provide a value for at least one of content, embeds, components, sticker_ids, activity, or files[n].
+pub struct ThreadOnlyChannelMessageParams {
+	content:          String,
+	embeds:           Vec<MessageEmbed>,
+	/// cannot be used by user accounts
+	#[deprecated]
+	embed:            MessageEmbed,
+	allowed_mentions: AllowedMentions,
+	/// cannot be used by user accounts
+	components:       Vec<MessageComponent>,
+	sticker_ids:      Vec<Snowflake>,
+	activity:         MessageActivity,
+	application_id:   Snowflake,
+	/// https://docs.discord.sex/resources/message#message-flags
+	flags:            u16,
+	// files[n]: file contents
+	payload_json:     String,
+	attachments:      Vec<MessageAttachment>,
 }

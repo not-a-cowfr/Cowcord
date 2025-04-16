@@ -6,7 +6,7 @@ use serde::{Deserialize, Serialize};
 
 use crate::models::types::{Snowflake, Timestamp};
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct AutomodAlert {
 	pub rule_name:                    String,
@@ -71,14 +71,14 @@ pub enum InteractionCallbackType {
 	modal,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct AutomodAlertActionsExecution {
 	pub v:       u8,
 	pub actions: HashMap<String, AutomodAlertAction>,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct AutomodAlertAction {
 	pub actor: Snowflake,
@@ -92,7 +92,7 @@ pub enum AutomodAlertActionType {
 	SUBMIT_FEEDBACK,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct AutomodIncidentNotificationEmbed {
 	/// https://docs.discord.sex/resources/auto-moderation#automod-incident-notification-type
@@ -129,7 +129,7 @@ pub enum RaidResolutonReason {
 	OTHER,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct AutomodRule {
 	pub id:               Snowflake,
@@ -203,7 +203,7 @@ pub struct AutomodActionMetadata {
 	pub custom_message:   String,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct AutomodIncedentsData {
 	pub raid_detected_at:       Option<Timestamp>,

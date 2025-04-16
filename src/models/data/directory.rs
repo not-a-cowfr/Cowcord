@@ -4,7 +4,7 @@ use serde::Deserialize;
 
 use crate::models::types::Snowflake;
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 pub struct Entry {
 	/// https://docs.discord.sex/resources/directory#directory-entry-type
 	pub r#type:                u8,
@@ -33,12 +33,12 @@ pub enum Category {
 	MISC = 5,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 pub struct Guild {
 	pub featurable_in_directory: bool,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 pub struct GuildScheduledEvent {
 	pub guild:     Guild,
 	pub user_rsvp: bool,

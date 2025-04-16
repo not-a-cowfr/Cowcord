@@ -6,7 +6,7 @@ use super::guild::Guild;
 use crate::models::types::{Snowflake, Timestamp};
 use super::user::User;
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct GuildTemplate {
 	pub code:                    String,

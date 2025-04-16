@@ -3,7 +3,7 @@ use serde::Deserialize;
 use crate::models::types::Snowflake;
 use super::user::User;
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct Emoji {
 	pub id:             Option<Snowflake>,

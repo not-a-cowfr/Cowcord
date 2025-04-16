@@ -6,7 +6,7 @@ use serde::Deserialize;
 
 use crate::models::types::{Snowflake, Timestamp};
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct Quest {
 	pub id:               Snowflake,
@@ -47,7 +47,7 @@ pub enum ContentType {
 	VIDEO_MODAL_MOBILE = 27,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct Config {
 	/// https://docs.discord.sex/resources/quests#quest-config-version
@@ -93,7 +93,7 @@ pub enum Feature {
 	VIDEO_QUEST_FORCE_HLS_VIDEO = 18,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct Rollout {
 	pub rollout:   Option<String>,
@@ -101,7 +101,7 @@ pub struct Rollout {
 	pub preview:   Option<String>,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct Application {
 	pub id:   Snowflake,
@@ -109,7 +109,7 @@ pub struct Application {
 	pub link: String,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct Assets {
 	pub hero:                 String,
@@ -120,7 +120,7 @@ pub struct Assets {
 	pub logotype:             String,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct Gradient {
 	// both are in hex format
@@ -128,7 +128,7 @@ pub struct Gradient {
 	pub secondary: String,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct Messages {
 	pub quest_name:     String,
@@ -136,7 +136,7 @@ pub struct Messages {
 	pub game_publisher: String,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct TaskConfig {
 	/// https://docs.discord.sex/resources/quests#quest-task-config-type
@@ -152,7 +152,7 @@ pub enum TaskConfigType {
 	THIRD_PARTY = 2,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct Task {
 	/// https://docs.discord.sex/resources/quests#quest-task-event-name
@@ -172,7 +172,7 @@ pub enum TaskEventName {
 	PLAY_ACTIVITY,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct RewardsConfig {
 	/// https://docs.discord.sex/resources/quests#quest-reward-assignment-method
@@ -196,7 +196,7 @@ pub enum PlatformType {
 	PC = 4,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct Reward {
 	/// https://docs.discord.sex/resources/quests#quest-reward-type
@@ -229,7 +229,7 @@ pub enum ExpirationMode {
 	PREMIUM_PERMANENT = 3,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct RewardMessages {
 	pub name:                                       String,
@@ -237,14 +237,14 @@ pub struct RewardMessages {
 	pub reward_redemption_instructions_by_platform: HashMap<u8, String>,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct VideoMetadata {
 	pub messages: VideoMessages,
 	pub assets:   VideoAssets,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct VideoMessages {
 	pub video_title:                String,
@@ -253,7 +253,7 @@ pub struct VideoMessages {
 	pub video_end_cta_button_label: String,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct VideoAssets {
 	pub video_player_video_hls:      Option<String>,
@@ -267,7 +267,7 @@ pub struct VideoAssets {
 	pub quest_home_video:            Option<String>,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct ClaimedQuest {
 	pub id:          Snowflake,
@@ -275,7 +275,7 @@ pub struct ClaimedQuest {
 	pub user_status: UserStatus,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct ClaimedConfig {
 	pub id:         Snowflake,
@@ -289,7 +289,7 @@ pub struct ClaimedConfig {
 	pub rewards:    Vec<ClaimedQuestReward>,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct ClaimedQuestReward {
 	/// https://docs.discord.sex/resources/quests#quest-reward-type
@@ -304,7 +304,7 @@ pub struct ClaimedQuestReward {
 	pub collectible_product: String,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct UserStatus {
 	pub user_id:                  Snowflake,
@@ -327,7 +327,7 @@ pub enum DismissibleQuestContentFlags {
 	QUEST_LIVE_STREAM = 1 << 3,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct TaskProgress {
 	pub event_name:   String,
@@ -337,14 +337,14 @@ pub struct TaskProgress {
 	pub heartbeat:    Option<TaskHeartbeat>,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct TaskHeartbeat {
 	pub last_beat_at: Timestamp,
 	pub expires_at:   Option<Timestamp>,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct RewardCode {
 	pub quest_id:   Snowflake,

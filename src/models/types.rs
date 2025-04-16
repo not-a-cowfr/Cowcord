@@ -94,35 +94,33 @@ impl Default for Timestamp {
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 pub struct CdnUri(Url);
 
-impl DiscordCdnUri {
-	pub fn new(uri: impl AsRef<str>) -> Result<Self, DiscordCdnUriError> {
+impl CdnUri {
+	pub fn new(uri: impl AsRef<str>) -> Result<Self, CdnUriError> {
 		let url = Url::parse(uri.as_ref())?;
 
 		if !url
 			.host_str()
 			.map_or(false, |host| host == "cdn.discordapp.com")
 		{
-			return Err(DiscordCdnUriError::InvalidUri(
+			return Err(CdnUriError::InvalidUri(
 				"URI must be from discord".to_string(),
 			));
 		}
 
 		if url.scheme() != "https" {
-			return Err(DiscordCdnUriError::InvalidUri(
-				"URI must use https".to_string(),
-			));
+			return Err(CdnUriError::InvalidUri("URI must use https".to_string()));
 		}
 
-		Ok(DiscordCdnUri(url))
+		Ok(CdnUri(url))
 	}
 
 	pub fn as_str(&self) -> &str { self.0.as_str() }
 }
 
-impl FromStr for DiscordCdnUri {
-	type Err = DiscordCdnUriError;
+impl FromStr for CdnUri {
+	type Err = CdnUriError;
 
-	fn from_str(s: &str) -> Result<Self, Self::Err> { DiscordCdnUri::new(s) }
+	fn from_str(s: &str) -> Result<Self, Self::Err> { CdnUri::new(s) }
 }
 
 impl AsRef<str> for CdnUri {

@@ -5,12 +5,12 @@ use serde::Deserialize;
 use super::auto_moderation::AutomodRule;
 use super::channel::Channel;
 use super::guild_scheduled_event::GuildScheduledEvent;
-use super::integration::{Integration, IntegrationAccount};
+use super::integration::Integration;
 use super::user::User;
 use super::webhook::Webhook;
 use crate::models::types::Snowflake;
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct AuditLog {
 	pub audit_log_entries:      Vec<LogEntry>,
@@ -23,7 +23,7 @@ pub struct AuditLog {
 	pub webhooks:               Vec<Webhook>,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct LogEntry {
 	pub target_id:   Option<String>,
@@ -113,7 +113,7 @@ pub enum LogEvents {
 	GUILD_MEMBER_VERIFICATION_UPDATE = 210,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct OptionalLogInfo {
 	pub application_id:                    Snowflake,
@@ -135,7 +135,7 @@ pub struct OptionalLogInfo {
 }
 
 // theres a lot of changing to these types https://docs.discord.sex/resources/audit-log#audit-log-change-exceptions
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct LogChange {
 	pub new_value: String,

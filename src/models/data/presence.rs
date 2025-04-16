@@ -3,7 +3,7 @@ use serde::Deserialize;
 use super::user::User;
 use crate::models::types::Snowflake;
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct Presence {
 	pub user:          User,
@@ -13,7 +13,7 @@ pub struct Presence {
 	pub client_status: ClientStatus,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct Activity {
 	pub id:                  String,
@@ -40,14 +40,14 @@ pub struct Activity {
 	pub metadata:            ActivityMetadata,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct ActivityTimestamps {
 	pub start: String,
 	pub end:   String,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct ActivityEmoji {
 	pub name:     String,
@@ -55,14 +55,14 @@ pub struct ActivityEmoji {
 	pub animated: bool,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct ActivityParty {
 	pub id:   String,
 	pub size: Vec<(u32, u32)>,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct ActivityAssets {
 	/// https://docs.discord.sex/resources/presence#activity-asset-image
@@ -72,7 +72,7 @@ pub struct ActivityAssets {
 	pub small_text:  String,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct ActivitySecrets {
 	pub join: String,
@@ -83,7 +83,7 @@ Activity metadata can consist of arbitrary data, and is not sanitized by the API
 
 The below structure is only a convention that is used by official clients. It is not enforced by the API.
 */
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct ActivityMetadata {
 	pub button_urls: Vec<String>,
@@ -93,7 +93,7 @@ pub struct ActivityMetadata {
 	pub r#type:      String,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct ClientStatus {
 	pub desktop:  String,

@@ -3,7 +3,7 @@ use serde::Deserialize;
 use super::user::User;
 use crate::models::types::Snowflake;
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct StickerPack {
 	pub id:               Snowflake,
@@ -15,7 +15,7 @@ pub struct StickerPack {
 	pub banner_asset_id:  Snowflake,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct Sticker {
 	pub id:          Snowflake,
@@ -43,7 +43,7 @@ pub enum StickerFormatTypes {
 	GIF = 4, // GIF stickers are not available through the CDN, and must be accessed at https://media.discordapp.net/stickers/{sticker_id}.gif
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct StickerItem {
 	id:          Snowflake,

@@ -10,7 +10,7 @@ use super::sticker::Sticker;
 use super::user::{AvatarDecorationData, User};
 use crate::models::types::{Snowflake, Timestamp};
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct Guild {
 	pub id:                            Snowflake,
@@ -296,7 +296,7 @@ pub enum ModifiableGuildFeatures {
 	SUMMARIES_ENABLED_BY_USER,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct UserGuild {
 	pub id:                         Snowflake,
@@ -310,7 +310,7 @@ pub struct UserGuild {
 	pub approximate_presence_count: u32,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct GuildWidget {
 	pub id:             Snowflake,
@@ -321,7 +321,7 @@ pub struct GuildWidget {
 	pub members:        Vec<WidgetMember>,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct WidgetChannel {
 	pub id:       Snowflake,
@@ -330,7 +330,7 @@ pub struct WidgetChannel {
 }
 
 // Due to privacy concerns, id, discriminator, and avatar are anonymized. id is replaced with an incrementing integer, discriminator is always 0000, and avatar is always null (replaced with an encrypted avatar_url field).
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct WidgetMember {
 	pub id:         Snowflake,
@@ -346,20 +346,20 @@ pub struct WidgetMember {
 	pub suppress:   bool,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct WidgetMemberActivity {
 	pub name: String,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct GuildWidgetSettings {
 	pub enabled:    bool,
 	pub channel_id: Option<Snowflake>,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct Role {
 	pub id:            Snowflake,
@@ -383,7 +383,7 @@ pub enum RoleFlags {
 }
 
 // all Option<String> in this object will be null if true and empty if false for whatever reason
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct RoleTags {
 	pub bot_id:                  Snowflake,
@@ -394,7 +394,7 @@ pub struct RoleTags {
 	pub guild_connections:       Option<String>,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct RoleConnectionConfig {
 	pub connection_type:           String,
@@ -420,7 +420,7 @@ pub enum RoleConnectionOperatorType {
 	BOOLEAN_NOT_EQUAL,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct GuildMember {
 	pub user:                         User,
@@ -455,7 +455,7 @@ pub enum GuildMemberFlags {
 	AUTOMOD_QUARANTINED_CLAN_TAG,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct SupplementalGuildMember {
 	pub user_id:            Snowflake,
@@ -477,21 +477,21 @@ pub enum JoinSource {
 	MANUAL_MEMBER_VERIFICATION,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct Ban {
 	pub user:   User,
 	pub reason: Option<String>,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct WelcomeScreen {
 	pub description:      Option<String>,
 	pub welcome_channels: Vec<WelcomeChannel>,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct WelcomeChannel {
 	pub channel_id:  Snowflake,
@@ -500,7 +500,7 @@ pub struct WelcomeChannel {
 	pub emoji_name:  Option<String>,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct MemberVerification {
 	pub version:     Option<Timestamp>,
@@ -509,7 +509,7 @@ pub struct MemberVerification {
 	pub guild:       Option<MemberVerificationGuild>,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct MemberVerificationForm {
 	/// https://docs.discord.sex/resources/guild#member-verification-form-field-type
@@ -540,7 +540,7 @@ pub enum MemberVerificationFormFieldType {
 	// VERIFICATION,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct MemberVerificationGuild {
 	pub id:                         Snowflake,
@@ -557,7 +557,7 @@ pub struct MemberVerificationGuild {
 	pub approximate_presence_count: u32,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct GuildJoinRequest {
 	pub id:                   Snowflake,
@@ -582,7 +582,7 @@ pub enum GuildJoinRequestStatus {
 	APPROVED,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct Onboarding {
 	pub guild_id:            Snowflake,
@@ -598,7 +598,7 @@ pub enum OnboardingMode {
 	ONBOARDING_ADVANCED,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct OnboardingPrompt {
 	pub id:            Snowflake,
@@ -610,7 +610,7 @@ pub struct OnboardingPrompt {
 	pub in_onboarding: bool,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct OnboardingPromptOption {
 	pub id:          Snowflake,
@@ -626,7 +626,7 @@ pub enum OnboardingPromptType {
 	DROPDOWN,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct PremiumGuildSubscription {
 	pub id:            Snowflake,

@@ -6,7 +6,7 @@ use super::application::{ApplicationRoleConnectionMetadata, ApplicationSKU};
 use super::user::User;
 use crate::models::types::{Snowflake, Timestamp};
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct Integration {
 	pub id:                        Snowflake,
@@ -43,14 +43,14 @@ pub enum IntegrationExpireBehavior {
 	KICK,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct IntegrationAccount {
 	pub id:   String,
 	pub name: String,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct IntegrationApplication {
 	pub id:                                Snowflake,
@@ -71,7 +71,7 @@ pub struct IntegrationApplication {
 	pub is_monetized:                      bool,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct IntegrationGuild {
 	pub id:   Snowflake,
@@ -79,7 +79,7 @@ pub struct IntegrationGuild {
 	pub icon: Option<String>,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct Gif {
 	pub id:      String,

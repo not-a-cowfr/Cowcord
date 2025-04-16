@@ -12,7 +12,7 @@ pub fn Home() -> Element {
 	rsx! {
 		button {
 			onclick: move |_| {
-				navigator.replace("/app");
+			    navigator.replace("/app");
 			},
 			id: "redirect",
 			"Open in browser"

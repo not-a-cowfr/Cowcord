@@ -2,7 +2,7 @@
 
 use std::collections::HashMap;
 
-use serde::Deserialize;
+use serde::{Deserialize, Serialize};
 
 use super::application::Application;
 use super::channel::Channel;
@@ -13,7 +13,7 @@ use super::sticker::{Sticker, StickerItem};
 use super::user::User;
 use crate::models::types::{Snowflake, Timestamp};
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct Message {
 	pub id:                     Snowflake,
@@ -40,7 +40,7 @@ pub struct Message {
 	/// https://docs.discord.sex/resources/message#message-flags
 	pub flags:                  u32,
 	pub message_reference:      MessageReference,
-	pub referenced_message:     Option<Message>,
+	pub referenced_message:     Option<Box<Message>>,
 	pub message_snapshots:      Vec<MessageSnapshot>,
 	pub call:                   MessageCall,
 	#[deprecated]
@@ -144,7 +144,7 @@ pub enum MessageFlags {
 	SENT_BY_SOCIAL_LAYER_INTEGRATION = 1 << 16,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct MessageActivity {
 	/// https://docs.discord.sex/resources/presence#activity-action-type
@@ -153,14 +153,14 @@ pub struct MessageActivity {
 	pub party_id:   String,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct MessageCall {
 	pub participants:    Vec<Snowflake>,
 	pub ended_timestamp: Option<Timestamp>,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct MessageInteractionMetadata {
 	pub id:                              Snowflake,
@@ -175,7 +175,7 @@ pub struct MessageInteractionMetadata {
 	pub authorizing_integration_owners:  HashMap<u32, Snowflake>,
 	pub original_response_message_id:    Snowflake,
 	pub interacted_message_id:           Snowflake,
-	pub triggering_interaction_metadata: MessageInteractionMetadata,
+	pub triggering_interaction_metadata: Box<MessageInteractionMetadata>,
 	pub target_user:                     User,
 	pub target_message_id:               Snowflake,
 }
@@ -202,7 +202,7 @@ pub enum MessageEphemeralityReason {
 	CANNOT_USE_EXTERNAL_APPS = 18,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct MessageRoleSubscription {
 	pub role_subscription_listing_id: Snowflake,
@@ -211,7 +211,7 @@ pub struct MessageRoleSubscription {
 	pub is_renewal:                   bool,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct MessagePurchaseNotification {
 	/// https://docs.discord.sex/resources/message#message-purchase-notification-type
@@ -223,27 +223,27 @@ pub enum MessagePurchaseNotificationType {
 	GUILD_PRODUCT = 0,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct MessageGuildProductPurchase {
 	pub listing_id:   Snowflake,
 	pub product_name: String,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct MessageGiftInfo {
 	pub emoji: Emoji,
 	pub sound: SoundboardSound,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct MessageSoundboardSound {
 	pub id: String,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct MessageReference {
 	/// https://docs.discord.sex/resources/message#message-reference-type
@@ -260,20 +260,20 @@ pub enum MessageReferenceType {
 	FORWARD = 1,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct MessageForwardOnly {
 	pub embed_indices:  Vec<u8>,
 	pub attachment_ids: Vec<Snowflake>,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct MessageSnapshot {
 	pub message: SnapshotMessage, // what the fuck is the point of this wrapper struct discord
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct SnapshotMessage {
 	pub content:           String,
@@ -292,7 +292,7 @@ pub struct SnapshotMessage {
 	pub soundboard_sounds: Vec<SoundboardSound>,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct MessageReaction {
 	pub count:         u16,
@@ -303,7 +303,7 @@ pub struct MessageReaction {
 	pub burst_colors:  Vec<String>,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct MessageReactionCountDetails {
 	pub normal: u16,
@@ -315,7 +315,7 @@ pub enum MessageReactionType {
 	BURST = 1,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct MessageEmbed {
 	pub title:                String,
@@ -358,7 +358,7 @@ pub enum EmbedFlags {
 	CONTENT_INVENTORY_ENTRY = 1 << 5,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct EmbedMedia {
 	pub url:                   String,
@@ -372,14 +372,14 @@ pub struct EmbedMedia {
 	pub placeholder:           String,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct EmbedProvider {
 	pub name: String,
 	pub url:  String,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct EmbedAuthor {
 	pub name:           String,
@@ -388,7 +388,7 @@ pub struct EmbedAuthor {
 	pub proxy_icon_url: String,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct EmbedFooter {
 	pub text:           String,
@@ -396,7 +396,7 @@ pub struct EmbedFooter {
 	pub proxy_icon_url: String,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct EmbedField {
 	pub name:   String,
@@ -404,7 +404,7 @@ pub struct EmbedField {
 	pub inline: bool,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct ContentScanMetadata {
 	/// https://docs.discord.sex/resources/message#content-scan-flags
@@ -416,7 +416,7 @@ pub enum ContentScanFlags {
 	EXPLICIT = 1 << 0,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct MessageAttachment {
 	pub id:                   Snowflake,
@@ -457,7 +457,7 @@ pub enum AttachmentFlags {
 	IS_ANIMATED = 1 << 5,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct AllowedMentions {
 	pub parse:        Vec<String>,
@@ -472,7 +472,7 @@ pub enum AllowedMentionTypes {
 	everyone,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct Poll {
 	pub question:          PollMedia,
@@ -484,7 +484,7 @@ pub struct Poll {
 	pub results:           PollResults,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct PollCreate {
 	pub question:          PollMedia,
@@ -500,28 +500,28 @@ pub enum PollLayoutType {
 	// IMAGE_ONLY_ANSWERS = 2,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct PollMedia {
 	pub text:  String,
 	pub emoji: Emoji,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct PollAnswer {
 	pub answer_id:  u8,
 	pub poll_media: PollMedia,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct PollResults {
 	pub is_finalized:  bool,
 	pub answer_counts: Vec<PollAnswerCount>,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct PollAnswerCount {
 	pub id:       u8,
@@ -530,7 +530,7 @@ pub struct PollAnswerCount {
 }
 
 // another one of those bs things that look like a pain to deserialize https://docs.discord.sex/resources/message#example-poll-result-embed
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct PollResultNotifications {
 	pub poll_question_text:           String,
@@ -543,7 +543,7 @@ pub struct PollResultNotifications {
 	pub victor_answer_votes:          u32,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct Potion {
 	pub used_by:    Snowflake,
@@ -556,13 +556,13 @@ pub enum PotionType {
 	CONFETTI = 0,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct ConfettiPotion {
 	pub message_emoji: Emoji,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct ConversationSummary {
 	pub id:          Snowflake,

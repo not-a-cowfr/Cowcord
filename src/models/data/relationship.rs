@@ -5,7 +5,7 @@ use serde::Deserialize;
 use super::user::User;
 use crate::models::types::{Snowflake, Timestamp};
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct Relationship {
 	pub id:                    String,
@@ -30,7 +30,7 @@ pub enum RelationshipType {
 	// SUGGESTION = 6,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct GameRelationship {
 	id:             String,
@@ -50,7 +50,7 @@ pub enum DmAccessType {
 	// unknown
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct FriendSuggestion {
 	suggested_user:               User,
@@ -58,7 +58,7 @@ pub struct FriendSuggestion {
 	from_suggested_user_contacts: bool,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct FriendSuggestionReason {
 	r#type:   u8, // https://docs.discord.sex/resources/relationships#friend-suggestion-reason-type

@@ -8,7 +8,7 @@ use super::emoji::Emoji;
 use super::sticker::Sticker;
 use crate::models::types::{Snowflake, Timestamp};
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct DiscoverableGuild {
 	pub id:                         Snowflake,
@@ -42,7 +42,7 @@ pub struct DiscoverableGuild {
 	pub created_at:                 Timestamp,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct Requirements {
 	pub guild_id:                        Snowflake,
@@ -64,7 +64,7 @@ pub struct Requirements {
 	pub grace_period_end_date:           Timestamp,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct NsfwProperties {
 	pub channels:                    Vec<Snowflake>,
@@ -76,7 +76,7 @@ pub struct NsfwProperties {
 }
 
 // Activity metrics are recalculated weekly, as an 8-week rolling average. If they are not yet eligible to be calculated, all fields will be null.
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct HealthScore {
 	pub avg_nonnew_communicators: Option<String>,
@@ -85,7 +85,7 @@ pub struct HealthScore {
 	pub perc_ret_w1_intentful:    Option<f64>,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct Metadata {
 	pub guild_id:                      Snowflake,
@@ -101,7 +101,7 @@ pub struct Metadata {
 	pub category_ids:                  Vec<Snowflake>,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct Reason {
 	pub reason:     String,
@@ -109,7 +109,7 @@ pub struct Reason {
 	pub emoji_name: Option<String>,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct Category {
 	pub id:         u16,

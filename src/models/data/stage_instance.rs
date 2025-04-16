@@ -2,7 +2,7 @@ use serde::Deserialize;
 
 use crate::models::types::Snowflake;
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct StageInstance {
 	pub id:                       Snowflake,

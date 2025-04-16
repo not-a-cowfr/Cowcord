@@ -3,7 +3,7 @@ use serde::Deserialize;
 use super::guild::GuildMember;
 use crate::models::types::{Snowflake, Timestamp};
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct VoiceState {
 	pub guild_id:                   Option<Snowflake>,
@@ -21,7 +21,7 @@ pub struct VoiceState {
 	pub request_to_speak_timestamp: Option<Timestamp>,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct VoiceRegion {
 	pub id:         String,

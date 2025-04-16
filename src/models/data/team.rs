@@ -5,7 +5,7 @@ use serde::Deserialize;
 use super::user::User;
 use crate::models::types::{Snowflake, Timestamp};
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct Team {
 	pub id:                        Snowflake,
@@ -27,7 +27,7 @@ pub enum PayoutAccountStatus {
 	SUSPENDED = 6,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct Member {
 	pub user:             User,
@@ -49,7 +49,7 @@ pub enum MemberRoleType {
 	read_only,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct Payout {
 	pub id:                                 Snowflake,
@@ -79,7 +79,7 @@ pub enum PayoutStatus {
 	PENDING_FUNDS = 13,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct Company {
 	pub id:   Snowflake,

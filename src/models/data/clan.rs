@@ -6,7 +6,7 @@ use serde::Deserialize;
 
 use crate::models::types::Snowflake;
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct Clan {
 	pub id:                         Snowflake,
@@ -79,7 +79,7 @@ pub enum BannerStyle {
 	SPATTER = 8,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct GameActivity {
 	pub activity_level: u16,

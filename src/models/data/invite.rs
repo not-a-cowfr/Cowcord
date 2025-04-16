@@ -9,7 +9,7 @@ use super::guild::GuildMember;
 use super::user::User;
 use crate::models::types::{Snowflake, Timestamp};
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct Invite {
 	pub code:                       String,
@@ -55,7 +55,7 @@ pub enum InviteTargetType {
 	CREATOR_PAGE = 4,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct InviteMetadata {
 	pub uses:       u32,
@@ -65,7 +65,7 @@ pub struct InviteMetadata {
 	pub created_at: Timestamp,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct InviteGuild {
 	pub id:                         Snowflake,
@@ -86,7 +86,7 @@ pub struct InviteGuild {
 	pub nsfw_level:                 u8,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct InviteStageInstance {
 	pub members:           Vec<GuildMember>,

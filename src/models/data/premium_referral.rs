@@ -7,7 +7,7 @@ use serde::Deserialize;
 use super::user::User;
 use crate::models::types::{Snowflake, Timestamp};
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct PremiumReferral {
 	pub id:                 Snowflake,
@@ -20,7 +20,7 @@ pub struct PremiumReferral {
 	pub redeemed_at:        Timestamp,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct PremiumReferralEligibility {
 	pub referrals_remaining:        u8,

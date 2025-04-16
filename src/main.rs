@@ -12,8 +12,8 @@ use web_sys::{BinaryType, MessageEvent, WebSocket, console};
 mod views;
 use views::*;
 
-pub mod components;
-use components::*;
+// pub mod components;
+// use components::*;
 
 pub mod models;
 pub mod utils;

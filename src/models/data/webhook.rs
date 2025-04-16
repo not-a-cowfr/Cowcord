@@ -6,7 +6,7 @@ use super::integration::IntegrationGuild;
 use crate::models::types::Snowflake;
 use super::user::User;
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct Webhook {
 	pub id:             Snowflake,
@@ -30,7 +30,7 @@ pub enum WebcookType {
 	APPLICATION = 3,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct WebhookChannel {
 	pub id:   Snowflake,

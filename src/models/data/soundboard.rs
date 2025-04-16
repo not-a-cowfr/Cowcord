@@ -3,7 +3,7 @@ use serde::Deserialize;
 use super::user::User;
 use crate::models::types::Snowflake;
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct SoundboardSound {
 	pub sound_id:   Snowflake,

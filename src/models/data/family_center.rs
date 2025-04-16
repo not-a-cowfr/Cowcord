@@ -6,7 +6,7 @@ use super::guild::Guild;
 use super::user::User;
 use crate::models::types::{Snowflake, Timestamp};
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct FamilyCenter {
 	pub linked_users:   Vec<LinkedUser>,
@@ -26,7 +26,7 @@ pub enum LinkType {
 	SENDER = 2,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct LinkedUser {
 	pub created_at:   Timestamp,
@@ -39,14 +39,14 @@ pub struct LinkedUser {
 	pub user_id:      String,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct LinkedUsers {
 	pub linked_users: Vec<LinkedUser>,
 	pub users:        Vec<User>,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct TeenAuditLog {
 	pub teen_user_id:   Option<Snowflake>,
@@ -57,7 +57,7 @@ pub struct TeenAuditLog {
 	pub totals:         HashMap<u8, u16>, // the type (first one) _might_ be returned as a string not an int but maybe serde will dela with that for me
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct Action {
 	pub event_id:     Snowflake,

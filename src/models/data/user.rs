@@ -9,7 +9,7 @@ use super::family_center::LinkedUser;
 use super::integration::{IntegrationAccount, IntegrationGuild};
 use crate::models::types::{Snowflake, Timestamp};
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct User {
 	pub id:                      Snowflake,
@@ -95,7 +95,7 @@ pub enum RequiredActionType {
 	REVERIFY_EMAIL_OR_REVERIFY_PHONE,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct AvatarDecorationData {
 	pub asset:      String,
@@ -103,13 +103,13 @@ pub struct AvatarDecorationData {
 	pub expires_at: Option<usize>,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct Collectibles {
 	pub nameplate: NameplateData,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct NameplateData {
 	pub asset:      String,
@@ -132,7 +132,7 @@ pub enum NameplateColorPalette {
 	clover,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct ProfileMetadata {
 	pub guild_id:                       Snowflake,
@@ -146,14 +146,14 @@ pub struct ProfileMetadata {
 	pub profile_effect:                 Option<ProfileEffect>,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct ProfileEffect {
 	pub id:         Snowflake,
 	pub expires_at: Option<u32>,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct PrimaryGuild {
 	pub identity_enabled:  Option<bool>,
@@ -162,7 +162,7 @@ pub struct PrimaryGuild {
 	pub badge:             Option<String>,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct Authenticator {
 	pub id:     String,
@@ -176,7 +176,7 @@ pub enum AuthenticatorType {
 	SMS,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct BackupCode {
 	pub user_id:  Snowflake,
@@ -184,7 +184,7 @@ pub struct BackupCode {
 	pub consumed: bool,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct DataHarvest {
 	pub harvest_id:       Snowflake,
@@ -234,7 +234,7 @@ pub enum HarvestBackendState {
 	EXTRACTED,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct HarvestMetadata {
 	pub user_is_staff:   bool,
@@ -242,7 +242,7 @@ pub struct HarvestMetadata {
 	pub bypass_cooldown: bool,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct UserSurvey {
 	pub id:                 Snowflake,
@@ -267,7 +267,7 @@ pub enum SurveryRequirementType {
 	GUILD_PERMISSIONS, // requires guild_permissions
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct Connection {
 	pub id:                  String,
@@ -291,7 +291,7 @@ pub enum VisibilityType {
 	EVERYONE,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct ConnectionIntegration {
 	pub id:      Snowflake,

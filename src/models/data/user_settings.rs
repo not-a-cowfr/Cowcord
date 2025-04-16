@@ -2,7 +2,7 @@ use serde::Deserialize;
 
 use crate::models::types::{Snowflake, Timestamp};
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct UserGuildSettingsArr {
 	pub entries: Vec<UserGuildSettings>,
@@ -10,14 +10,14 @@ pub struct UserGuildSettingsArr {
 	pub version: u32,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct NotificationSettings {
 	/// https://docs.discord.sex/resources/user-settings#notification-settings-flags
 	pub flags: u8,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct UserGuildSettings {
 	pub channel_overrides:     ChannelOverrides,
@@ -38,7 +38,7 @@ pub struct UserGuildSettings {
 	pub version:               u16,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct ChannelOverrides {
 	pub channel_id:            Snowflake,
@@ -51,14 +51,14 @@ pub struct ChannelOverrides {
 	pub mute_config:           Option<MuteConfig>,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct MuteConfig {
 	pub end_time:             Option<Timestamp>,
 	pub selected_time_window: isize,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct UserSettings {
 	pub activity_restricted_guild_ids:              Vec<Snowflake>,
@@ -102,7 +102,7 @@ pub struct UserSettings {
 	pub view_nsfw_guilds:                           bool,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct GuildFolder {
 	pub color:     Option<u32>,
@@ -111,7 +111,7 @@ pub struct GuildFolder {
 	pub name:      Option<String>,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct FriendSourceFlags {
 	pub all:            bool,
@@ -119,7 +119,7 @@ pub struct FriendSourceFlags {
 	pub mutual_guilds:  bool,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct CustomStatus {
 	pub text:       Option<String>,

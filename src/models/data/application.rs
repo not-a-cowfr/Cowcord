@@ -9,7 +9,7 @@ use super::team::{Company, Team};
 use super::user::User;
 use crate::models::types::{Snowflake, Timestamp};
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct Application {
 	pub id:                                Snowflake,
@@ -269,7 +269,7 @@ pub enum ApplicationMonetizationFlags {
 	VALID_PAYOUT_STATUS = 1 << 18,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct ApplicationExecutable {
 	pub os:          String,
@@ -277,7 +277,7 @@ pub struct ApplicationExecutable {
 	pub is_launcher: bool,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct ApplicationSKU {
 	pub id:          Option<String>,
@@ -302,8 +302,9 @@ pub enum DistributorType {
 #[serde(default)]
 pub struct ApplicationInstallParams {
 	/// https://docs.discord.sex/topics/oauth2#oauth2-scopes
-	pub scopes:       Vec<String>,
-	pub permissiongs: String, // https://docs.discord.sex/topics/permissions
+	pub scopes:      Vec<String>,
+	/// https://docs.discord.sex/topics/permissions
+	pub permissions: String,
 }
 
 #[derive(Deserialize)]
@@ -318,7 +319,7 @@ pub struct ApplicationIntegrationTypeConfig {
 	pub oauth2_install_params: ApplicationInstallParams,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct ApplicationProxyConfig {
 	pub url_map: ApplicationProxyMap,
@@ -331,7 +332,7 @@ pub struct ApplicationProxyMap {
 	pub target: String,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct EmbeddedActivityConfig {
 	pub application_id:                        Snowflake,
@@ -393,7 +394,7 @@ pub enum EmbeddedActivityReleasePhase {
 	global_launch,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct ApplicationAsset {
 	pub id:     String,
@@ -401,14 +402,14 @@ pub struct ApplicationAsset {
 	pub name:   String,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct ExternalAsset {
 	pub url:                 String,
 	pub external_asset_path: String,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct ApplicationRoleConnection {
 	pub platform_name:        Option<String>,
@@ -418,7 +419,7 @@ pub struct ApplicationRoleConnection {
 	pub application_metadata: Vec<ApplicationRoleConnectionMetadata>,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct ApplicationRoleConnectionMetadata {
 	/// https://docs.discord.sex/resources/guild#role-connection-operator-type
@@ -430,7 +431,7 @@ pub struct ApplicationRoleConnectionMetadata {
 	pub description_localizations: HashMap<String, String>,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct DetectableApplication {
 	pub id:                         Snowflake,

@@ -6,7 +6,7 @@ use super::guild::GuildMember;
 use super::user::User;
 use crate::models::types::{Snowflake, Timestamp};
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct GuildScheduledEvent {
 	pub id:                               Snowflake,
@@ -47,13 +47,13 @@ pub enum GuildScheduledEventEntityType {
 	PRIME_TIME = 4,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct EntityMetadata {
 	pub location: String,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct GuildScheduledEventRecurrenceRule {
 	pub start:        Timestamp,
@@ -86,7 +86,7 @@ pub enum GuildScheduledEventRecurrenceRuleWeekday {
 	SUNDAY = 6,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct NWeekday {
 	pub n:   u8,
@@ -108,7 +108,7 @@ pub enum GuildScheduledEventRecurrenceRuleMonth {
 	DECEMBER = 12,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct GuildScheduledEventException {
 	pub event_id:             Snowflake,
@@ -118,7 +118,7 @@ pub struct GuildScheduledEventException {
 	pub scheduled_end_time:   Option<Timestamp>,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct GuildScheduledEventUser {
 	pub guild_scheduled_event_id:           Snowflake,

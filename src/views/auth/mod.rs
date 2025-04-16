@@ -13,7 +13,7 @@ pub struct SmsMfaRequest {
 	pub token: String,
 }
 
-#[derive(Deserialize, Default)]
+#[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 struct SmsMfaResponse {
 	phone: String, // phone number in response is redacted, eg. "+*******6080"
