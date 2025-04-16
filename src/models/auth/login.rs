@@ -33,8 +33,8 @@ pub struct MfaRequest {
 	pub login_source: Option<String>,
 }
 
-#[derive(Deserialize)]
-#[allow(dead_code)]
+#[derive(Serialize, Deserialize, Default)]
+#[serde(default)]
 pub struct LoginResponse {
 	pub user_id:          Snowflake,
 	pub token:            Option<String>,
@@ -48,13 +48,15 @@ pub struct LoginResponse {
 	pub webauthn:         Option<String>,
 }
 
-#[derive(Deserialize)]
+#[derive(Serialize, Deserialize, Default)]
+#[serde(default)]
 pub struct LoginSettings {
-	pub locale: String, // https://docs.discord.sex/reference#locales
+	/// https://docs.discord.sex/reference#locales
+	pub locale: String,
 	pub theme:  String, // "dark" or "light"
 }
 
-#[derive(Deserialize)]
+#[derive(Serialize, Deserialize, Default)]
 #[allow(non_camel_case_types)]
 pub enum RequiredActions {
 	update_password,

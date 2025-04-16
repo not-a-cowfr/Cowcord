@@ -1,6 +1,6 @@
 use std::error::Error;
 
-use reqwest::{Client, Response, StatusCode};
+use reqwest::{Client, Response};
 use serde::Serialize;
 use serde::de::DeserializeOwned;
 
