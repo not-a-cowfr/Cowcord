@@ -5,6 +5,7 @@ use std::time::{SystemTime, UNIX_EPOCH};
 
 use iso8601_timestamp::Timestamp as isoTimestamp;
 use serde::{Deserialize, Deserializer, Serialize};
+use url::Url;
 
 const DISCORD_EPOCH: u64 = 1420070400000;
 

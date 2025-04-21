@@ -45,7 +45,7 @@ impl RequestClient {
 	pub async fn post<T, R>(
 		&self,
 		endpoint: &str,
-		body: &Option<T>,
+		body: Option<&T>,
 	) -> Result<R, Box<dyn Error>>
 	where
 		T: Serialize,
@@ -66,7 +66,7 @@ impl RequestClient {
 	pub async fn get<T, R>(
 		&self,
 		endpoint: &str,
-		body: &Option<T>,
+		body: Option<&T>,
 	) -> Result<R, Box<dyn Error>>
 	where
 		T: Serialize,
@@ -87,7 +87,7 @@ impl RequestClient {
 	pub async fn delete<T, R>(
 		&self,
 		endpoint: &str,
-		body: &Option<T>,
+		body: Option<&T>,
 	) -> Result<R, Box<dyn Error>>
 	where
 		T: Serialize,
@@ -108,7 +108,7 @@ impl RequestClient {
 	pub async fn put<T, R>(
 		&self,
 		endpoint: &str,
-		body: &Option<T>,
+		body: Option<&T>,
 	) -> Result<R, Box<dyn Error>>
 	where
 		T: Serialize,
@@ -129,7 +129,7 @@ impl RequestClient {
 	pub async fn patch<T, R>(
 		&self,
 		endpoint: &str,
-		body: &Option<T>,
+		body: Option<&T>,
 	) -> Result<R, Box<dyn Error>>
 	where
 		T: Serialize,
@@ -156,9 +156,8 @@ impl RequestBuilderExt for RequestBuilder {
 	fn add_headers(self) -> Result<RequestBuilder, Box<dyn Error>> {
 		if let Some(token) = get_value("token") {
 			Ok(self
-                .header("Authorization", token)
-                .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) discord/1.0.0 Chrome/90.0.4430.212 Electron/13.1.4 Safari/537.36")
-                .header("Origin", DISCORD))
+				.header("Authorization", token)
+				.header("Origin", DISCORD))
 		} else {
 			use_navigator().replace("/login");
 			Err("Authorization token is missing".into())
