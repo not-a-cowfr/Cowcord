@@ -84,4 +84,37 @@ This is because if in the future if one changes its very easy to edit them and i
 
 </details>
 
+<details><summary><h2>Structs</h2></summary>
+
+Discord loves using integers to represent certain types or flags for things, and it can get pretty confusing without looking at the docs, so just make sure to include what the int type is referencing
+```rust
+pub struct MyCoolStruct {
+    /// link to documentation for whatever this is, if no link is there, its assumed that this is just a regular number
+    field_one: u8,
+}
+```
+
+And make sure to include an enum that repesents it
+```rust
+pub enum FieldOneType {
+    THIS_COOL_TYPE = 1,
+    THIS_OTHER_COOL_TYPE = 2,
+}
+```
+```rust
+pub enum FieldOneType {
+    THIS_COOL_FLAG = 1 << 0,
+    THIS_OTHER_COOL_FLAG = 1 << 1,
+}
+```
+soon these will be used rather than just defining it as an int, and then the docs comment can be removed
+
+</details>
+
+<details><summary><h2>Components</h2></summary>
+
+This ones pretty easy, all it is is that if theres some ui element thats used more than once, in more than one place, make it into a seperate component instead of something built into the page
+
+</details>
+
 # Troubleshooting
