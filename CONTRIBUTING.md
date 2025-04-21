@@ -5,6 +5,26 @@
 - [ ] [git](https://git-scm.com/downloads)
 - [ ] Some non ancient rustc version
 
+## Flags info
+
+### `--profile`
+options:
+1. dev - fastest build times, little optimization, used solely for development
+2. release - smallest binary, made for full releases
+3. beta - best performance, a bit more likely to crash
+
+default: dev
+
+### `--platform`
+options:
+1. web
+2. desktop
+
+default: web
+
+### `--release`
+mainly just removes the built in dioxus debug stuff
+
 ## Testing
 
 1. Clone the repo
@@ -22,8 +42,6 @@ dx serve --platform <web|desktop>
 ```
 
 ## Building
-
-cowcord currently has 3 main cargo profiles, dev, release and beta, release is optimized for binary size and beta is optimized for speed, at the expensive of a larger binary and more of a possibility to crash, and then of course dev is just for the fastest build times with performance out the window
 
 ### Web
 
