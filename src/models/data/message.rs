@@ -64,6 +64,8 @@ pub struct Message {
 enum NonceResponseType {
 	String(String),
 	Integer(u32),
+	#[default]
+	None,
 }
 
 pub enum MessageType {

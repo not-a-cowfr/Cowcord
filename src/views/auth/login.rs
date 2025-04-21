@@ -20,7 +20,7 @@ async fn login(info: LoginRequest) -> Result<LoginResponse, Box<dyn Error>> {
 
 #[component]
 pub fn Login() -> Element {
-	let mut show_modal = use_signal(|| false);
+	// let mut show_modal = use_signal(|| false);
 	// let mut ticket = use_signal(|| None);
 
 	rsx! {
@@ -44,7 +44,7 @@ pub fn Login() -> Element {
 						login_source: None,
 					};
 					match login(request).await {
-						Ok(login_response) => {
+						Ok(_login_response) => {
 							// if login_response.mfa.unwrap_or(false) {
 							// 	if let Some(ticket_value) = login_response.ticket {
 							// 		let sms_request = SmsMfaRequest {

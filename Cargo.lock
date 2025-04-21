@@ -16,6 +16,8 @@ dependencies = [
  "reqwest",
  "serde",
  "serde_json",
+ "serde_urlencoded",
+ "url",
  "wasm-bindgen",
  "wasm-bindgen-futures",
  "web-sys",

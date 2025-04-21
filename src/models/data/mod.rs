@@ -12,6 +12,7 @@ pub mod family_center;
 pub mod gateway_events;
 pub mod guild;
 pub mod guild_scheduled_event;
+pub mod guild_template;
 pub mod guild_templates;
 pub mod integration;
 pub mod invite;

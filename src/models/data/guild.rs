@@ -530,6 +530,8 @@ enum ResponseType {
 	String(String),
 	Bool(bool),
 	Integer(u32),
+	#[default]
+	None,
 }
 
 pub enum MemberVerificationFormFieldType {
@@ -636,4 +638,71 @@ pub struct PremiumGuildSubscription {
 	pub ends_at:       Timestamp,
 	pub pause_ends_at: Option<Timestamp>,
 	pub user:          User,
+}
+
+pub enum MmemberSortType {
+	JOINED_AT_DESC = 1,
+	JOINED_AT_ASC = 2,
+	USER_ID_DESC = 3,
+	USER_ID_ASC = 4,
+}
+
+#[derive(Serialize, Deserialize, Default)]
+#[serde(default)]
+pub struct MemberFilter {
+	pub user_id:            Query<Snowflake>,
+	pub usernames:          Query<String>,
+	pub role_ids:           Query<Snowflake>,
+	pub guild_joined_at:    Query<u64>,
+	pub safety_signals:     SafetySignals,
+	pub is_pending:         bool,
+	pub did_rejoin:         bool,
+	pub join_source_type:   Query<u8>,
+	pub source_invite_code: Query<String>,
+}
+
+#[derive(Serialize, Deserialize, Default)]
+#[serde(default)]
+pub struct SafetySignals {
+	pub unusual_dm_activity_until:    Query<u64>,
+	pub communication_disabled_until: Query<u64>,
+	pub unusual_account_activity:     bool,
+	pub automod_quarantined_username: bool,
+}
+
+#[derive(Serialize, Deserialize, Default)]
+#[serde(default)]
+struct Query<T> {
+	pub or_query:  Vec<T>,
+	pub and_query: Vec<T>,
+	pub range:     RangeQuery,
+}
+
+#[derive(Serialize, Deserialize, Default)]
+#[serde(default)]
+pub struct RangeQuery {
+	pub gte: SnowflakeOrInt,
+	pub lte: SnowflakeOrInt,
+}
+
+#[derive(Serialize, Deserialize, Default)]
+#[serde(untagged)]
+enum SnowflakeOrInt {
+	Snowflake(Snowflake),
+	Integer(u32),
+	#[default]
+	None,
+}
+
+#[derive(Serialize, Deserialize, Default)]
+pub struct MemberPagination {
+	pub user_id:         Snowflake,
+	pub guild_joined_at: u64,
+}
+
+#[derive(Serialize, Deserialize, Default)]
+pub struct GuildMemberUnusualDmActivity {
+	pub user_id:                   Snowflake,
+	pub guild_id:                  Snowflake,
+	pub unusual_dm_activity_until: Timestamp,
 }

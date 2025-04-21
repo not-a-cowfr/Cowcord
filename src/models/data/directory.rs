@@ -5,7 +5,7 @@ use serde::{Deserialize, Serialize};
 use crate::models::types::Snowflake;
 
 #[derive(Serialize, Deserialize, Default)]
-pub struct Entry {
+pub struct DirectoryEntry {
 	/// https://docs.discord.sex/resources/directory#directory-entry-type
 	pub r#type:                u8,
 	pub directory_channel_id:  Snowflake,
