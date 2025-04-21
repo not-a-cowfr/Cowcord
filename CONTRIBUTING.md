@@ -8,7 +8,7 @@
 ## Testing
 
 1. Clone the repo `git clone https://github.com/not-a-cowfr/cowcord.git && cd cowcord`
-2. intsall Dioxus cli `cargo install dioxus-cli`
+2. Install Dioxus cli `cargo install dioxus-cli`
 3. Run `dx serve --platform <web|desktop>`
 
 ## Building
@@ -18,7 +18,7 @@ cowcord currently has 3 main cargo profiles, dev, release and beta, release is o
 ### Web
 
 1. Run thiss
-```sh
+```bash
 dx build --release --profile <beta|release|dev> # no needs to specify platform, web is the default
 cp -r ./target/dx/Cowcord/release/web/public ./dist
 cp ./dist/index.html ./dist/404.html
@@ -26,7 +26,7 @@ cp ./dist/index.html ./dist/404.html
 (yes --release is necessary even when using beta profile)
 <!--
 2. Optimize wasm, run this
-```sh
+```bash
 sudo apt-get update
 sudo apt-get install -y binaryen
 wasm-opt dist/assets/dioxus/Cowcord_bg.wasm -o dist/assets/dioxus/Cowcord_bg.wasm -O4 # O4 for speed OZ for binary size
@@ -37,9 +37,10 @@ wasm-opt dist/assets/dioxus/Cowcord_bg.wasm -o dist/assets/dioxus/Cowcord_bg.was
 ### Desktop
 
 1. Run this
-```sh
+```bash
 dx build --release --profile <beta|release|dev> --platform desktop
 ```
+idk what else to do, ill fix this part later
 
 # Consistency
 
@@ -52,7 +53,7 @@ If the endpoint has no changing string query fields or a part of the url is not 
 pub const SUPER_COOL_ENDPOINT: &str = "/super/cool";
 ```
 
-However, with a lot of endpoints they have something that changes, like maybe a part of the url is a guild id, or it needs some strign qiery parameters, in this case you would define it as a function, keeping the upper snake case, example:
+However, with a lot of endpoints they have something that changes, like maybe a part of the url is a guild id, or it needs some string query parameters, in this case you would define it as a function, keeping the upper snake case, example:
 ```rust
 pub fn SUPER_COOL_ENDPOINT_ENDPOINT(some_id: Snowflake, query: QueryStringParamsStruct) -> String {
 	format!("/super/{}/cool{}", some_id, to_string_query(query))
@@ -69,7 +70,7 @@ pub struct SuperCoolRequest {}
 pub type SuperCoolResponse = SomeOtherThing;
 ```
 
-And finally, make sure to include importnat info witht he endpoint, for example:
+And finally, make sure to include important info with the endpoint, for example:
 ```rust
 /// Type: post
 ///
@@ -102,7 +103,7 @@ pub enum FieldOneType {
 }
 ```
 ```rust
-pub enum FieldOneType {
+pub enum FieldOneFlags {
     THIS_COOL_FLAG = 1 << 0,
     THIS_OTHER_COOL_FLAG = 1 << 1,
 }
