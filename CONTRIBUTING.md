@@ -7,9 +7,19 @@
 
 ## Testing
 
-1. Clone the repo `git clone https://github.com/not-a-cowfr/cowcord.git && cd cowcord`
-2. Install Dioxus cli `cargo install dioxus-cli`
-3. Run `dx serve --platform <web|desktop>`
+1. Clone the repo
+```bash
+clone https://github.com/not-a-cowfr/cowcord.git
+cd cowcord
+```
+2. Install Dioxus cli
+```bash
+cargo install dioxus-cli
+```
+3. Run
+```bash
+dx serve --platform <web|desktop>
+```
 
 ## Building
 
@@ -17,7 +27,7 @@ cowcord currently has 3 main cargo profiles, dev, release and beta, release is o
 
 ### Web
 
-1. Run thiss
+1. Run this
 ```bash
 dx build --release --profile <beta|release|dev> # no needs to specify platform, web is the default
 cp -r ./target/dx/Cowcord/release/web/public ./dist
@@ -32,7 +42,7 @@ sudo apt-get install -y binaryen
 wasm-opt dist/assets/dioxus/Cowcord_bg.wasm -o dist/assets/dioxus/Cowcord_bg.wasm -O4 # O4 for speed OZ for binary size
 ```
 -->
-2. Done! everything should now be in the `/Dist` directory
+2. Done! everything should now be in the `./dist/` directory
 
 ### Desktop
 
