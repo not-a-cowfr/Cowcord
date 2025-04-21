@@ -2,14 +2,14 @@
 
 ## Requirements
 
-- [ ] git
+- [ ] [git](https://git-scm.com/downloads)
 - [ ] Some non ancient rustc version
 
 ## Testing
 
 1. Clone the repo
 ```bash
-clone https://github.com/not-a-cowfr/cowcord.git
+git clone https://github.com/not-a-cowfr/cowcord.git
 cd cowcord
 ```
 2. Install Dioxus cli
@@ -33,7 +33,7 @@ dx build --release --profile <beta|release|dev> # no needs to specify platform, 
 cp -r ./target/dx/Cowcord/release/web/public ./dist
 cp ./dist/index.html ./dist/404.html
 ```
-(yes --release is necessary even when using beta profile)
+(yes `--release` is necessary even when using beta profile)
 <!--
 2. Optimize wasm, run this
 ```bash
