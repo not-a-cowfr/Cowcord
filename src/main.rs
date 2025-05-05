@@ -29,9 +29,6 @@ pub enum Route {
     #[end_layout]
 
     #[route("/")]
-    Home {},
-
-    #[route("/app")]
     FateDecider {},
 
     #[route("/login")]

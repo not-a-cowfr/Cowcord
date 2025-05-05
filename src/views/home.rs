@@ -1,21 +1,17 @@
 use dioxus::prelude::*;
 
-use crate::start_websocket;
 use crate::utils::local_storage::get_value;
 
 #[component]
-pub fn Home() -> Element {
+pub fn FateDecider() -> Element {
 	let navigator = use_navigator();
 
-	start_websocket(&get_value("token").unwrap());
+	let redirect = match get_value("token") {
+		| Some(_token) => "/channels/@me",
+		| None => "/login",
+	};
 
-	rsx! {
-		button {
-			onclick: move |_| {
-			    navigator.replace("/app");
-			},
-			id: "redirect",
-			"Open in browser"
-		}
-	}
+	navigator.replace(redirect);
+
+	rsx! {}
 }
