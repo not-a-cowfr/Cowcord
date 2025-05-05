@@ -1,6 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use serde::{Deserialize, Serialize};
+use serde_json::Value;
 
 use super::user::User;
 use crate::models::types::{Snowflake, Timestamp};
@@ -60,7 +61,7 @@ pub struct Payout {
 	pub period_start:                       Timestamp,
 	pub period_end:                         Option<Timestamp>,
 	pub payout_date:                        Option<Timestamp>,
-	pub latest_tipalti_submission_response: String, // no clue about the type for this
+	pub latest_tipalti_submission_response: Value,
 }
 
 pub enum PayoutStatus {

@@ -3,6 +3,7 @@
 use std::collections::HashMap;
 
 use serde::{Deserialize, Serialize};
+use serde_json::Value;
 
 use super::user::User;
 use crate::models::types::{Snowflake, Timestamp};
@@ -13,7 +14,8 @@ pub struct PremiumReferral {
 	pub id:                 Snowflake,
 	pub user_id:            Snowflake,
 	pub trial_id:           Snowflake,
-	pub subscription_trial: SubsciptionTrial,
+	// pub subscription_trial: SubsciptionTrial,
+	pub subscription_trial: Value,
 	pub expires_at:         Timestamp,
 	pub referrer_id:        Snowflake,
 	pub referrer:           User,
