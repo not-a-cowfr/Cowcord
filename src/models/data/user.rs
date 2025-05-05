@@ -7,6 +7,7 @@ use serde::{Deserialize, Serialize};
 use super::emoji::Emoji;
 use super::family_center::LinkedUser;
 use super::integration::{IntegrationAccount, IntegrationGuild};
+use crate::bitflags;
 use crate::models::types::{Snowflake, Timestamp};
 
 #[derive(Serialize, Deserialize, Default)]
@@ -43,9 +44,9 @@ pub struct User {
 	pub flags:                   u64,
 	pub public_flags:            u64,
 	/// https://docs.discord.sex/resources/user#purchased-flags
-	pub purchased_flags:         u8,
+	pub purchased_flags:         u64,
 	/// https://docs.discord.sex/resources/user#premium-usage-flags
-	pub premium_flags:           u8,
+	pub premium_flags:           u64,
 	pub desktop:                 bool,
 	pub mobile:                  bool,
 	pub has_bounced_email:       bool,
@@ -55,17 +56,21 @@ pub struct User {
 
 // not doing all this bro https://docs.discord.sex/resources/user#user-flags
 
-pub enum PurchasedFlags {
-	NITRO_CLASSIC = 1 << 0,
-	NITRO = 1 << 1,
-	GUILD_BOOST = 1 << 2,
-	NITRO_BASIC = 1 << 3,
+bitflags! {
+  pub struct PurchasedFlags: u64 {
+	const NITRO_CLASSIC = 1 << 0;
+	const NITRO = 1 << 1;
+	const GUILD_BOOST = 1 << 2;
+		const NITRO_BASIC = 1 << 3;
+  }
 }
 
-pub enum PremiumFlags {
-	PREMIUM_DISCRIMINATOR = 1 << 0,
-	ANIMATED_AVATAR = 1 << 1,
-	PROFILE_BANNER = 1 << 2,
+bitflags! {
+  pub struct PremiumFlags: u64 {
+	const PREMIUM_DISCRIMINATOR = 1 << 0;
+	const ANIMATED_AVATAR = 1 << 1;
+		const PROFILE_BANNER = 1 << 2;
+  }
 }
 
 pub enum PremuimType {

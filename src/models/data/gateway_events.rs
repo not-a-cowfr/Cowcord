@@ -1,4 +1,3 @@
-use iso8601_timestamp::Timestamp;
 use serde::{Deserialize, Serialize};
 
 use super::channel::Channel;
@@ -9,6 +8,7 @@ use super::presence::Presence;
 use super::stage_instance::StageInstance;
 use super::sticker::Sticker;
 use super::voice::VoiceState;
+use crate::models::types::Timestamp;
 
 #[derive(Deserialize)]
 #[serde(default)]

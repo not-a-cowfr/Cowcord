@@ -7,6 +7,7 @@ use serde::{Deserialize, Serialize};
 use super::integration::Integration;
 use super::team::{Company, Team};
 use super::user::User;
+use crate::bitflags;
 use crate::models::types::{Snowflake, Timestamp};
 
 #[derive(Serialize, Deserialize, Default)]
@@ -21,7 +22,7 @@ pub struct Application {
 	/// https://docs.discord.sex/resources/application#application-type
 	pub r#type:                            Option<u8>,
 	/// https://docs.discord.sex/resources/application#application-flags
-	pub flags:                             u32,
+	pub flags:                             u64,
 	pub primary_sku_id:                    Snowflake,
 	pub verify_key:                        String,
 	pub guild_id:                          Snowflake,
@@ -87,12 +88,12 @@ pub struct Application {
 	/// https://docs.discord.sex/resources/application#application-discoverability-state
 	pub discoverability_state:             u8,
 	/// https://docs.discord.sex/resources/application#application-discovery-eligibility-flags
-	pub discovery_eligibility_flags:       u16,
+	pub discovery_eligibility_flags:       u64,
 	pub is_monetized:                      bool,
 	pub storefront_available:              bool,
 	/// https://docs.discord.sex/resources/application#application-monetization-state
 	pub monetization_state:                u8,
-	pub monetization_eligibility_flags:    u32,
+	pub monetization_eligibility_flags:    u64,
 	pub max_participants:                  i32,
 	pub embedded_activity_config:          EmbeddedActivityConfig,
 }
@@ -104,42 +105,46 @@ pub enum ApplicationType {
 	CREATOR_MONETIZATION = 4,
 }
 
-pub enum ApplicationFlags {
-	EMBEDDED_RELEASED = 1 << 1,
-	MANAGED_EMOJI = 1 << 2,
-	EMBEDDED_IAP = 1 << 3,
-	GROUP_DM_CREATE = 1 << 4,
-	// RPC_PRIVATE_BETA = 1 << 5,
-	AUTO_MODERATION_RULE_CREATE_BADGE = 1 << 6,
-	GAME_PROFILE_DISABLED = 1 << 7,
-	PUBLIC_OAUTH2_CLIENT = 1 << 8,
-	CONTEXTLESS_ACTIVITY = 1 << 9,
-	SOCIAL_LAYER_INTEGRATION_LIMITED = 1 << 10,
-	// ALLOW_ASSETS = 1 << 8,
-	// ALLOW_ACTIVITY_ACTION_SPECTATE = 1 << 9,
-	// ALLOW_ACTIVITY_ACTION_JOIN_REQUEST = 1 << 10,
-	// RPC_HAS_CONNECTED = 1 << 11,
-	GATEWAY_PRESENCE = 1 << 12,
-	GATEWAY_PRESENCE_LIMITED = 1 << 13,
-	GATEWAY_GUILD_MEMBERS = 1 << 14,
-	GATEWAY_GUILD_MEMBERS_LIMITED = 1 << 15,
-	VERIFICATION_PENDING_GUILD_LIMIT = 1 << 16,
-	EMBEDDED = 1 << 17,
-	GATEWAY_MESSAGE_CONTENT = 1 << 18,
-	GATEWAY_MESSAGE_CONTENT_LIMITED = 1 << 19,
-	EMBEDDED_FIRST_PARTY = 1 << 20,
-	APPLICATION_COMMAND_MIGRATED = 1 << 21,
-	APPLICATION_COMMAND_BADGE = 1 << 23,
-	ACTIVE = 1 << 24,
-	ACTIVE_GRACE_PERIOD = 1 << 25,
-	IFRAME_MODAL = 1 << 26,
-	SOCIAL_LAYER_INTEGRATION = 1 << 27,
-	PROMOTED = 1 << 29,
-	PARTNER = 1 << 30,
+bitflags! {
+  pub struct ApplicationFlags: u64 {
+	const EMBEDDED_RELEASED = 1 << 1;
+	const MANAGED_EMOJI = 1 << 2;
+	const EMBEDDED_IAP = 1 << 3;
+	const GROUP_DM_CREATE = 1 << 4;
+	// const RPC_PRIVATE_BETA = 1 << 5;
+	const AUTO_MODERATION_RULE_CREATE_BADGE = 1 << 6;
+	const GAME_PROFILE_DISABLED = 1 << 7;
+	const PUBLIC_OAUTH2_CLIENT = 1 << 8;
+	const CONTEXTLESS_ACTIVITY = 1 << 9;
+	const SOCIAL_LAYER_INTEGRATION_LIMITED = 1 << 10;
+	// const ALLOW_ASSETS = 1 << 8;
+	// const ALLOW_ACTIVITY_ACTION_SPECTATE = 1 << 9;
+	// const ALLOW_ACTIVITY_ACTION_JOIN_REQUEST = 1 << 10;
+	// const RPC_HAS_CONNECTED = 1 << 11;
+	const GATEWAY_PRESENCE = 1 << 12;
+	const GATEWAY_PRESENCE_LIMITED = 1 << 13;
+	const GATEWAY_GUILD_MEMBERS = 1 << 14;
+	const GATEWAY_GUILD_MEMBERS_LIMITED = 1 << 15;
+	const VERIFICATION_PENDING_GUILD_LIMIT = 1 << 16;
+	const EMBEDDED = 1 << 17;
+	const GATEWAY_MESSAGE_CONTENT = 1 << 18;
+	const GATEWAY_MESSAGE_CONTENT_LIMITED = 1 << 19;
+	const EMBEDDED_FIRST_PARTY = 1 << 20;
+	const APPLICATION_COMMAND_MIGRATED = 1 << 21;
+	const APPLICATION_COMMAND_BADGE = 1 << 23;
+	const ACTIVE = 1 << 24;
+	const ACTIVE_GRACE_PERIOD = 1 << 25;
+	const IFRAME_MODAL = 1 << 26;
+	const SOCIAL_LAYER_INTEGRATION = 1 << 27;
+	const PROMOTED = 1 << 29;
+	const PARTNER = 1 << 30;
+  }
 }
 
-pub enum ApplicationOverlayMethods {
-	OUT_OF_PROCESS = 1 << 0,
+bitflags! {
+  pub struct ApplicationOverlayMethods: u64 {
+	const OUT_OF_PROCESS = 1 << 0;
+  }
 }
 
 pub enum ApplicationInternalGuildRestriction {
@@ -192,26 +197,28 @@ pub enum ApplicationRpcState {
 	REJECTED = 4,
 }
 
-pub enum ApplicationCreatorMonetizationState {
-	VERIFIED = 1 << 0,
-	HAS_TEAM = 1 << 1,
-	APPROVED_COMMANDS = 1 << 2,
-	TERMS_OF_SERVICE = 1 << 3,
-	PRIVACY_POLICY = 1 << 4,
-	SAFE_NAME = 1 << 5,
-	SAFE_DESCRIPTION = 1 << 6,
-	SAFE_ROLE_CONNECTIONS = 1 << 7,
-	USER_IS_TEAM_OWNER = 1 << 8,
-	NOT_QUARANTINED = 1 << 9,
-	USER_LOCALE_SUPPORTED = 1 << 10,
-	USER_AGE_SUPPORTED = 1 << 11,
-	USER_DATE_OF_BIRTH_DEFINED = 1 << 12,
-	USER_MFA_ENABLED = 1 << 13,
-	USER_EMAIL_VERIFIED = 1 << 14,
-	TEAM_MEMBERS_EMAIL_VERIFIED = 1 << 15,
-	TEAM_MEMBERS_MFA_ENABLED = 1 << 16,
-	NO_BLOCKING_ISSUES = 1 << 17,
-	VALID_PAYOUT_STATUS = 1 << 18,
+bitflags! {
+  pub struct ApplicationCreatorMonetizationState: u64 {
+	const VERIFIED = 1 << 0;
+	const HAS_TEAM = 1 << 1;
+	const APPROVED_COMMANDS = 1 << 2;
+	const TERMS_OF_SERVICE = 1 << 3;
+	const PRIVACY_POLICY = 1 << 4;
+	const SAFE_NAME = 1 << 5;
+	const SAFE_DESCRIPTION = 1 << 6;
+	const SAFE_ROLE_CONNECTIONS = 1 << 7;
+	const USER_IS_TEAM_OWNER = 1 << 8;
+	const NOT_QUARANTINED = 1 << 9;
+	const USER_LOCALE_SUPPORTED = 1 << 10;
+	const USER_AGE_SUPPORTED = 1 << 11;
+	const USER_DATE_OF_BIRTH_DEFINED = 1 << 12;
+	const USER_MFA_ENABLED = 1 << 13;
+	const USER_EMAIL_VERIFIED = 1 << 14;
+	const TEAM_MEMBERS_EMAIL_VERIFIED = 1 << 15;
+	const TEAM_MEMBERS_MFA_ENABLED = 1 << 16;
+	const NO_BLOCKING_ISSUES = 1 << 17;
+		const VALID_PAYOUT_STATUS = 1 << 18;
+  }
 }
 
 pub enum ApplicationDiscoverabilityState {
@@ -222,23 +229,25 @@ pub enum ApplicationDiscoverabilityState {
 	BLOCKED = 5,
 }
 
-pub enum ApplicationDiscoverabilityFlags {
-	VERIFIED = 1 << 0,
-	TAG = 1 << 1,
-	DESCRIPTION = 1 << 2,
-	TERMS_OF_SERVICE = 1 << 3,
-	PRIVACY_POLICY = 1 << 4,
-	INSTALL_PARAMS = 1 << 5,
-	SAFE_NAME = 1 << 6,
-	SAFE_DESCRIPTION = 1 << 7,
-	APPROVED_COMMANDS = 1 << 8,
-	SUPPORT_GUILD = 1 << 9,
-	SAFE_COMMANDS = 1 << 10,
-	MFA = 1 << 11,
-	SAFE_DIRECTORY_OVERVIEW = 1 << 12,
-	SUPPORTED_LOCALES = 1 << 13,
-	SAFE_SHORT_DESCRIPTION = 1 << 14,
-	SAFE_ROLE_CONNECTIONS = 1 << 15,
+bitflags! {
+  pub struct ApplicationDiscoverabilityFlags: u64 {
+	const VERIFIED = 1 << 0;
+	const TAG = 1 << 1;
+	const DESCRIPTION = 1 << 2;
+	const TERMS_OF_SERVICE = 1 << 3;
+	const PRIVACY_POLICY = 1 << 4;
+	const INSTALL_PARAMS = 1 << 5;
+	const SAFE_NAME = 1 << 6;
+	const SAFE_DESCRIPTION = 1 << 7;
+	const APPROVED_COMMANDS = 1 << 8;
+	const SUPPORT_GUILD = 1 << 9;
+	const SAFE_COMMANDS = 1 << 10;
+	const MFA = 1 << 11;
+	const SAFE_DIRECTORY_OVERVIEW = 1 << 12;
+	const SUPPORTED_LOCALES = 1 << 13;
+	const SAFE_SHORT_DESCRIPTION = 1 << 14;
+		const SAFE_ROLE_CONNECTIONS = 1 << 15;
+  }
 }
 
 pub enum ApplicationMonetizationState {
@@ -247,26 +256,28 @@ pub enum ApplicationMonetizationState {
 	BLOCKED = 3,
 }
 
-pub enum ApplicationMonetizationFlags {
-	VERIFIED = 1 << 0,
-	HAS_TEAM = 1 << 1,
-	APPROVED_COMMANDS = 1 << 2,
-	TERMS_OF_SERVICE = 1 << 3,
-	PRIVACY_POLICY = 1 << 4,
-	SAFE_NAME = 1 << 5,
-	SAFE_DESCRIPTION = 1 << 6,
-	SAFE_ROLE_CONNECTIONS = 1 << 7,
-	USER_IS_TEAM_OWNER = 1 << 8,
-	NOT_QUARANTINED = 1 << 9,
-	USER_LOCALE_SUPPORTED = 1 << 10,
-	USER_AGE_SUPPORTED = 1 << 11,
-	USER_DATE_OF_BIRTH_DEFINED = 1 << 12,
-	USER_MFA_ENABLED = 1 << 13,
-	USER_EMAIL_VERIFIED = 1 << 14,
-	TEAM_MEMBERS_EMAIL_VERIFIED = 1 << 15,
-	TEAM_MEMBERS_MFA_ENABLED = 1 << 16,
-	NO_BLOCKING_ISSUES = 1 << 17,
-	VALID_PAYOUT_STATUS = 1 << 18,
+bitflags! {
+  pub struct ApplicationMonetizationFlags: u64 {
+	const VERIFIED = 1 << 0;
+	const HAS_TEAM = 1 << 1;
+	const APPROVED_COMMANDS = 1 << 2;
+	const TERMS_OF_SERVICE = 1 << 3;
+	const PRIVACY_POLICY = 1 << 4;
+	const SAFE_NAME = 1 << 5;
+	const SAFE_DESCRIPTION = 1 << 6;
+	const SAFE_ROLE_CONNECTIONS = 1 << 7;
+	const USER_IS_TEAM_OWNER = 1 << 8;
+	const NOT_QUARANTINED = 1 << 9;
+	const USER_LOCALE_SUPPORTED = 1 << 10;
+	const USER_AGE_SUPPORTED = 1 << 11;
+	const USER_DATE_OF_BIRTH_DEFINED = 1 << 12;
+	const USER_MFA_ENABLED = 1 << 13;
+	const USER_EMAIL_VERIFIED = 1 << 14;
+	const TEAM_MEMBERS_EMAIL_VERIFIED = 1 << 15;
+	const TEAM_MEMBERS_MFA_ENABLED = 1 << 16;
+	const NO_BLOCKING_ISSUES = 1 << 17;
+		const VALID_PAYOUT_STATUS = 1 << 18;
+  }
 }
 
 #[derive(Serialize, Deserialize, Default)]

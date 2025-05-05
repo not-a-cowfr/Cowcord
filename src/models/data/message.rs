@@ -11,6 +11,7 @@ use super::integration::IntegrationApplication;
 use super::soundboard::SoundboardSound;
 use super::sticker::{Sticker, StickerItem};
 use super::user::User;
+use crate::bitflags;
 use crate::models::types::{Snowflake, Timestamp};
 
 #[derive(Serialize, Deserialize, Default)]
@@ -38,7 +39,7 @@ pub struct Message {
 	pub application:            IntegrationApplication,
 	pub application_id:         Snowflake,
 	/// https://docs.discord.sex/resources/message#message-flags
-	pub flags:                  u32,
+	pub flags:                  u64,
 	pub message_reference:      MessageReference,
 	pub referenced_message:     Option<Box<Message>>,
 	pub message_snapshots:      Vec<MessageSnapshot>,
@@ -127,23 +128,25 @@ pub enum MessageType {
 	HD_STREAMING_UPGRADED = 55,
 }
 
-pub enum MessageFlags {
-	CROSSPOSTED = 1 << 0,
-	IS_CROSSPOST = 1 << 1,
-	SUPPRESS_EMBEDS = 1 << 2,
-	SOURCE_MESSAGE_DELETED = 1 << 3,
-	URGENT = 1 << 4,
-	HAS_THREAD = 1 << 5,
-	EPHEMERAL = 1 << 6,
-	LOADING = 1 << 7,
-	FAILED_TO_MENTION_SOME_ROLES_IN_THREAD = 1 << 8,
-	GUILD_FEED_HIDDEN = 1 << 9,
-	SHOULD_SHOW_LINK_NOT_DISCORD_WARNING = 1 << 10,
-	SUPPRESS_NOTIFICATIONS = 1 << 12,
-	IS_VOICE_MESSAGE = 1 << 13,
-	HAS_SNAPSHOT = 1 << 14,
-	IS_COMPONENTS_V2 = 1 << 15,
-	SENT_BY_SOCIAL_LAYER_INTEGRATION = 1 << 16,
+bitflags! {
+  pub struct MessageFlags: u64 {
+	const CROSSPOSTED = 1 << 0;
+	const IS_CROSSPOST = 1 << 1;
+	const SUPPRESS_EMBEDS = 1 << 2;
+	const SOURCE_MESSAGE_DELETED = 1 << 3;
+	const URGENT = 1 << 4;
+	const HAS_THREAD = 1 << 5;
+	const EPHEMERAL = 1 << 6;
+	const LOADING = 1 << 7;
+	const FAILED_TO_MENTION_SOME_ROLES_IN_THREAD = 1 << 8;
+	const GUILD_FEED_HIDDEN = 1 << 9;
+	const SHOULD_SHOW_LINK_NOT_DISCORD_WARNING = 1 << 10;
+	const SUPPRESS_NOTIFICATIONS = 1 << 12;
+	const IS_VOICE_MESSAGE = 1 << 13;
+	const HAS_SNAPSHOT = 1 << 14;
+	const IS_COMPONENTS_V2 = 1 << 15;
+		const SENT_BY_SOCIAL_LAYER_INTEGRATION = 1 << 16;
+  }
 }
 
 #[derive(Serialize, Deserialize, Default)]
@@ -288,7 +291,7 @@ pub struct SnapshotMessage {
 	/// https://docs.discord.sex/resources/message#message-type
 	pub r#type:            u8,
 	/// https://docs.discord.sex/resources/message#message-flags
-	pub flags:             u32,
+	pub flags:             u64,
 	pub components:        Vec<MessageComponent>,
 	pub sticker_items:     Vec<StickerItem>,
 	pub soundboard_sounds: Vec<SoundboardSound>,
@@ -337,7 +340,7 @@ pub struct MessageEmbed {
 	pub reference_id:         Snowflake,
 	pub content_scan_version: u8,
 	/// https://docs.discord.sex/resources/message#embed-flags
-	pub flags:                u8,
+	pub flags:                u64,
 }
 
 pub enum EmbedType {
@@ -355,9 +358,11 @@ pub enum EmbedType {
 	video,
 }
 
-pub enum EmbedFlags {
-	CONTAINS_EXPLICIT_MEDIA = 1 << 4,
-	CONTENT_INVENTORY_ENTRY = 1 << 5,
+bitflags! {
+  pub struct EmbedFlags: u64 {
+	const CONTAINS_EXPLICIT_MEDIA = 1 << 4;
+		const CONTENT_INVENTORY_ENTRY = 1 << 5;
+  }
 }
 
 #[derive(Serialize, Deserialize, Default)]
@@ -368,7 +373,7 @@ pub struct EmbedMedia {
 	pub height:                u16,
 	pub width:                 u16,
 	/// https://docs.discord.sex/resources/message#attachment-flags
-	pub flags:                 u8,
+	pub flags:                 u64,
 	pub content_scan_metadata: String,
 	pub placeholder_version:   u8,
 	pub placeholder:           String,
@@ -410,12 +415,14 @@ pub struct EmbedField {
 #[serde(default)]
 pub struct ContentScanMetadata {
 	/// https://docs.discord.sex/resources/message#content-scan-flags
-	pub flags:   u8,
+	pub flags:   u64,
 	pub version: u8,
 }
 
-pub enum ContentScanFlags {
-	EXPLICIT = 1 << 0,
+bitflags! {
+  pub struct ContentScanFlags: u64 {
+	const EXPLICIT = 1 << 0;
+  }
 }
 
 #[derive(Serialize, Deserialize, Default)]
@@ -438,7 +445,7 @@ pub struct MessageAttachment {
 	pub ephemeral:            bool,
 	pub duration_secs:        f64,
 	pub waveform:             String, // Base64 encoded bytearray representing a sampled waveform (if voice message)
-	pub flags:                u8,     // https://docs.discord.sex/resources/message#attachment-flags
+	pub flags:                u64,    // https://docs.discord.sex/resources/message#attachment-flags
 	pub is_clip:              bool,
 	pub is_thumbnail:         bool,
 	pub is_remix:             bool,
@@ -450,13 +457,15 @@ pub struct MessageAttachment {
 	pub application:          Application,
 }
 
-pub enum AttachmentFlags {
-	IS_CLIP = 1 << 0,
-	IS_THUMBNAIL = 1 << 1,
-	IS_REMIX = 1 << 2,
-	IS_SPOILER = 1 << 3,
-	CONTAINS_EXPLICIT_MEDIA = 1 << 4,
-	IS_ANIMATED = 1 << 5,
+bitflags! {
+  pub struct AttachmentFlags: u64 {
+	const IS_CLIP = 1 << 0;
+	const IS_THUMBNAIL = 1 << 1;
+	const IS_REMIX = 1 << 2;
+	const IS_SPOILER = 1 << 3;
+	const CONTAINS_EXPLICIT_MEDIA = 1 << 4;
+		const IS_ANIMATED = 1 << 5;
+  }
 }
 
 #[derive(Serialize, Deserialize, Default)]

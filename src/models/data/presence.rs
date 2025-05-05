@@ -31,7 +31,7 @@ pub struct Activity {
 	pub state:               Option<String>,
 	pub sync_id:             String,
 	/// https://docs.discord.sex/resources/presence#activity-flags
-	pub flags:               u8,
+	pub flags:               u64,
 	pub buttons:             Vec<String>,
 	pub emoji:               Option<ActivityEmoji>,
 	pub party:               ActivityParty,

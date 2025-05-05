@@ -3,7 +3,6 @@
 use std::collections::HashMap;
 
 use serde::{Deserialize, Serialize};
-use serde_json::to_string;
 
 use crate::models::data::application::{
 	Application,
@@ -58,7 +57,7 @@ pub struct CreateApplicationRequest {
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub cover_image:   Option<CdnUri>,
 	/// https://docs.discord.sex/resources/application#application-flags
-	pub flags:         u32,
+	pub flags:         u64,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub guild_id:      Option<Snowflake>,
 	#[serde(skip_serializing_if = "Option::is_none")]
@@ -97,7 +96,7 @@ pub struct ModifyApplicationRequest {
 	pub icon:                              Option<CdnUri>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub cover_image:                       Option<CdnUri>,
-	pub flags:                             u32,
+	pub flags:                             u64,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub guild_id:                          Option<Snowflake>,
 	#[serde(skip_serializing_if = "Option::is_none")]
@@ -159,7 +158,7 @@ pub struct ModifyCurrentApplicationRequest {
 	pub icon:                              Option<CdnUri>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub cover_image:                       Option<CdnUri>,
-	pub flags:                             u32,
+	pub flags:                             u64,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub rpc_origins:                       Option<Vec<String>>,
 	#[serde(skip_serializing_if = "Option::is_none")]
@@ -272,7 +271,7 @@ pub fn REQUEST_APPLICATION_GATEWAY_INTENTS_ENDPOINT(application_id: Snowflake) -
 pub struct RequestApplicationGatewayIntentsRequest {
 	pub application_description:                                                    String,
 	/// https://docs.discord.sex/resources/application#application-flags
-	pub intents_flags_requested:                                                    u8,
+	pub intents_flags_requested:                                                    u64,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub intents_gateway_presence_use_case_description:                              Option<String>,
 	#[serde(skip_serializing_if = "Option::is_none")]
@@ -333,7 +332,7 @@ pub struct GetApplicationDiscoverabilityStateResponse {
 	/// https://docs.discord.sex/resources/application#application-discoverability-state
 	pub discoverability_state:       u8,
 	/// https://docs.discord.sex/resources/application#application-discovery-eligibility-flags
-	pub discovery_eligibility_flags: u16,
+	pub discovery_eligibility_flags: u64,
 	pub bad_commands:                Vec<ApplicationCommand>,
 }
 
@@ -552,7 +551,11 @@ pub fn GET_GUILD_APPLICATIONS_ENDPOINT(
 	guild_id: Snowflake,
 	query: GetGuildApplicationsRequest,
 ) -> String {
-	format!("/guilds/{}/applications{}", guild_id, to_string_query(&query))
+	format!(
+		"/guilds/{}/applications{}",
+		guild_id,
+		to_string_query(&query)
+	)
 }
 
 #[derive(Serialize)]

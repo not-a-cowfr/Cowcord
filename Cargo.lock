@@ -7,6 +7,7 @@ name = "Cowcord"
 version = "0.0.1"
 dependencies = [
  "base64",
+ "bitflags 2.9.0",
  "console_error_panic_hook",
  "dioxus",
  "gloo-timers",

@@ -271,7 +271,7 @@ pub struct ModifyChannelRequest {
 	/// https://docs.discord.sex/resources/channel#channel-flags
 	///
 	/// only GUILD_FEED_REMOVED, PINNED, ACTIVE_CHANNELS_REMOVED, and REQUIRE_TAG can be set
-	pub flags:                              u32,
+	pub flags:                              u64,
 	/// Only for: Forum, Media
 	pub available_tags:                     Vec<ForumTag>,
 	/// Only for: Thread
@@ -859,7 +859,7 @@ pub struct ModifyThreadSettingsRequest {
 	/// https://docs.discord.sex/resources/channel#thread-member-flags
 	///
 	/// all but the first flag can be set
-	pub flags:       u8,
+	pub flags:       u64,
 	pub muted:       bool,
 	pub mute_config: Option<MuteConfig>,
 }

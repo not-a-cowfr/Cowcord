@@ -7,6 +7,7 @@ use super::channel::Channel;
 use super::directory::GuildScheduledEvent;
 use super::guild::GuildMember;
 use super::user::User;
+use crate::bitflags;
 use crate::models::types::{Snowflake, Timestamp};
 
 #[derive(Serialize, Deserialize, Default)]
@@ -20,7 +21,7 @@ pub struct Invite {
 	pub guild:                      InviteGuild,
 	pub inviter:                    User,
 	/// https://docs.discord.sex/resources/invite#invite-flags
-	pub flags:                      u8,
+	pub flags:                      u64,
 	/// https://docs.discord.sex/resources/invite#invite-target-type
 	pub target_type:                u8,
 	pub target_user:                User,
@@ -41,11 +42,13 @@ pub enum InviteType {
 	FRIEND = 2,
 }
 
-pub enum InviteFlags {
-	IS_GUEST_INVITE = 1 << 0,
-	IS_VIEWED = 1 << 1,
-	IS_ENHANCED = 1 << 2,
-	IS_APPLICATION_BYPASS = 1 << 3,
+bitflags! {
+  pub struct InviteFlags: u64 {
+	const IS_GUEST_INVITE = 1 << 0;
+	const IS_VIEWED = 1 << 1;
+	const IS_ENHANCED = 1 << 2;
+		const IS_APPLICATION_BYPASS = 1 << 3;
+  }
 }
 
 pub enum InviteTargetType {

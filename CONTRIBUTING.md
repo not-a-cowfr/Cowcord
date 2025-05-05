@@ -115,7 +115,7 @@ This is because if in the future if one changes its very easy to edit them and i
 
 <details><summary><h2>Structs</h2></summary>
 
-Discord loves using integers to represent certain types or flags for things, and it can get pretty confusing without looking at the docs, so just make sure to include what the int type is referencing
+For things like flags or anything that uses an integer to represent something else, it can get pretty confusing without looking at the docs, so just make sure to include what the int type is referencing
 ```rust
 pub struct MyCoolStruct {
     /// link to documentation for whatever this is, if no link is there, its assumed that this is just a regular number
@@ -131,9 +131,12 @@ pub enum FieldOneType {
 }
 ```
 ```rust
-pub enum FieldOneFlags {
-    THIS_COOL_FLAG = 1 << 0,
-    THIS_OTHER_COOL_FLAG = 1 << 1,
+use crate::bitflags;
+bitflags! {
+    pub struct FieldOneFlags: u64 {
+        const THIS_COOL_FLAG = 1 << 0;
+        const THIS_OTHER_COOL_FLAG = 1 << 1;
+    }
 }
 ```
 soon these will be used rather than just defining it as an int, and then the docs comment can be removed

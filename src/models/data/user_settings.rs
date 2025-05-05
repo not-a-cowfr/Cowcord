@@ -14,7 +14,7 @@ pub struct UserGuildSettingsArr {
 #[serde(default)]
 pub struct NotificationSettings {
 	/// https://docs.discord.sex/resources/user-settings#notification-settings-flags
-	pub flags: u8,
+	pub flags: u64,
 }
 
 #[derive(Serialize, Deserialize, Default)]
@@ -22,7 +22,7 @@ pub struct NotificationSettings {
 pub struct UserGuildSettings {
 	pub channel_overrides:     ChannelOverrides,
 	/// https://docs.discord.sex/resources/user-settings#user-guild-settings-flags
-	pub flags:                 u16,
+	pub flags:                 u64,
 	pub guild_id:              Option<Snowflake>,
 	pub hide_muted_channels:   bool,
 	/// https://docs.discord.sex/resources/guild#message-notification-level
@@ -44,7 +44,7 @@ pub struct ChannelOverrides {
 	pub channel_id:            Snowflake,
 	pub collapsed:             bool,
 	/// https://docs.discord.sex/resources/user-settings#channel-override-flags
-	pub flags:                 u16,
+	pub flags:                 u64,
 	/// https://docs.discord.sex/resources/guild#message-notification-level
 	pub message_notifications: u16,
 	pub muted:                 bool,
@@ -79,7 +79,7 @@ pub struct UserSettings {
 	pub disable_games_tab:                          bool,
 	pub enable_tts_command:                         bool,
 	pub explicit_content_filter:                    u8,
-	pub friend_discovery_flags:                     u8,
+	pub friend_discovery_flags:                     u64,
 	pub friend_source_flags:                        Option<FriendSourceFlags>,
 	pub gif_auto_play:                              bool,
 	pub guild_folders:                              Vec<GuildFolder>,

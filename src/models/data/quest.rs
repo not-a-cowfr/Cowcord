@@ -4,6 +4,7 @@ use std::collections::HashMap;
 
 use serde::{Deserialize, Serialize};
 
+use crate::bitflags;
 use crate::models::types::{Snowflake, Timestamp};
 
 #[derive(Serialize, Deserialize, Default)]
@@ -320,11 +321,13 @@ pub struct UserStatus {
 	pub progress:                 HashMap<String, TaskProgress>,
 }
 
-pub enum DismissibleQuestContentFlags {
-	GIFT_INVENTORY_SETTINGS_BADGE = 1 << 0,
-	QUEST_BAR = 1 << 1,
-	ACTIVITY_PANEL = 1 << 2,
-	QUEST_LIVE_STREAM = 1 << 3,
+bitflags! {
+  pub struct DismissibleQuestContentFlags: u64 {
+	const GIFT_INVENTORY_SETTINGS_BADGE = 1 << 0;
+	const QUEST_BAR = 1 << 1;
+	const ACTIVITY_PANEL = 1 << 2;
+		const QUEST_LIVE_STREAM = 1 << 3;
+  }
 }
 
 #[derive(Serialize, Deserialize, Default)]

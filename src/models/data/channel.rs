@@ -6,6 +6,7 @@ use super::guild::GuildMember;
 use super::message::{AllowedMentions, Message, MessageActivity, MessageAttachment, MessageEmbed};
 use super::user::User;
 use super::user_settings::MuteConfig;
+use crate::bitflags;
 use crate::models::types::{Snowflake, Timestamp};
 
 #[derive(Serialize, Deserialize, Default)]
@@ -51,7 +52,7 @@ pub struct Channel {
 	pub default_thread_rate_limit_per_user: isize,
 	pub permissions:                        String,
 	/// https://docs.discord.sex/resources/channel#channel-flags
-	pub flags:                              u8,
+	pub flags:                              u64,
 	pub available_tags:                     Vec<ForumTag>, // max 5
 	pub applied_tags:                       Vec<Snowflake>,
 	pub default_reaction_emoji:             Option<DefaultReaction>,
@@ -93,8 +94,10 @@ pub enum ChannelType {
 	EPHEMERAL_DM,
 }
 
-pub enum RecipientFlags {
-	DISMISSED_IN_GAME_MESSAGE_NUX = 1 << 0,
+bitflags! {
+  pub struct RecipientFlags: u64 {
+	const DISMISSED_IN_GAME_MESSAGE_NUX = 1 << 0;
+  }
 }
 
 pub enum VideoQualityMode {
@@ -102,23 +105,25 @@ pub enum VideoQualityMode {
 	FULL,
 }
 
-pub enum ChannelFlag {
-	GUILD_FEED_REMOVED = 1 << 0,
-	PINNED = 1 << 1,
-	ACTIVE_CHANNELS_REMOVED = 1 << 2,
-	REQUIRE_TAG = 1 << 4,
-	IS_SPAM = 1 << 5,
-	IS_GUILD_RESOURCE_CHANNEL = 1 << 7,
-	CLYDE_AI = 1 << 8,
-	IS_SCHEDULED_FOR_DELETION = 1 << 9,
-	// IS_MEDIA_CHANNEL = 1 << 10,
-	SUMMARIES_DISABLED = 1 << 11,
-	// APPLICATION_SHELF_CONSENT = 1 << 12,
-	IS_ROLE_SUBSCRIPTION_TEMPLATE_PREVIEW_CHANNEL = 1 << 13,
-	IS_BROADCASTING = 1 << 14,
-	HIDE_MEDIA_DOWNLOAD_OPTIONS = 1 << 15,
-	IS_JOIN_REQUEST_INTERVIEW_CHANNEL = 1 << 16,
-	OBFUSCATED = 1 << 17,
+bitflags! {
+  pub struct ChannelFlags: u64 {
+	const GUILD_FEED_REMOVED = 1 << 0;
+	const PINNED = 1 << 1;
+	const ACTIVE_CHANNELS_REMOVED = 1 << 2;
+	const REQUIRE_TAG = 1 << 4;
+	const IS_SPAM = 1 << 5;
+	const IS_GUILD_RESOURCE_CHANNEL = 1 << 7;
+	const CLYDE_AI = 1 << 8;
+	const IS_SCHEDULED_FOR_DELETION = 1 << 9;
+	// const IS_MEDIA_CHANNEL = 1 << 10;
+	const SUMMARIES_DISABLED = 1 << 11;
+	// const APPLICATION_SHELF_CONSENT = 1 << 12;
+	const IS_ROLE_SUBSCRIPTION_TEMPLATE_PREVIEW_CHANNEL = 1 << 13;
+	const IS_BROADCASTING = 1 << 14;
+	const HIDE_MEDIA_DOWNLOAD_OPTIONS = 1 << 15;
+	const IS_JOIN_REQUEST_INTERVIEW_CHANNEL = 1 << 16;
+		const OBFUSCATED = 1 << 17;
+  }
 }
 
 pub enum FormLayoutType {
@@ -196,17 +201,19 @@ pub struct ThreadMember {
 	pub user_id:        Snowflake,
 	pub join_timestamp: Timestamp,
 	/// https://docs.discord.sex/resources/channel#thread-member-flags
-	pub flags:          u8,
+	pub flags:          u64,
 	pub muted:          bool,
 	pub mute_config:    MuteConfig,
 	pub member:         GuildMember,
 }
 
-pub enum ThreadMemberFlags {
-	HAS_INTERACTED = 1 << 0,
-	ALL_MESSAGES = 1 << 1,
-	ONLY_MENTIONS = 1 << 2,
-	NO_MESSAGES = 1 << 3,
+bitflags! {
+  pub struct ThreadMemberFlags: u64 {
+	const HAS_INTERACTED = 1 << 0;
+	const ALL_MESSAGES = 1 << 1;
+	const ONLY_MENTIONS = 1 << 2;
+		const NO_MESSAGES = 1 << 3;
+  }
 }
 
 #[derive(Serialize, Deserialize, Default)]
@@ -270,7 +277,7 @@ pub struct ThreadOnlyChannelMessageParams {
 	activity:         MessageActivity,
 	application_id:   Snowflake,
 	/// https://docs.discord.sex/resources/message#message-flags
-	flags:            u16,
+	flags:            u64,
 	// files[n]: file contents
 	payload_json:     String,
 	attachments:      Vec<MessageAttachment>,

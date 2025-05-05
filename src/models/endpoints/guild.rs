@@ -14,7 +14,7 @@ use crate::models::data::guild::{
 	UserGuild,
 	WelcomeScreen,
 };
-use crate::models::types::{CdnUri, Snowflake};
+use crate::models::types::{CdnUri, Snowflake, Timestamp};
 use crate::utils::request::to_string_query;
 
 /// Type: get
@@ -150,7 +150,7 @@ pub struct ModifyGuildRequest {
 	pub features:                      Vec<String>,
 	pub system_channel_id:             Option<Snowflake>,
 	/// https://docs.discord.sex/resources/guild#system-channel-flags
-	pub system_channel_flags:          u8,
+	pub system_channel_flags:          u64,
 	pub rules_channel_id:              Option<Snowflake>,
 	pub public_updates_channel_id:     Option<Snowflake>,
 	pub safety_alerts_channel_id:      Option<Snowflake>,
@@ -313,7 +313,11 @@ pub fn JOIN_GUILD_ENDPOINT(
 	guild_id: Snowflake,
 	query: JoinGuildRequest,
 ) -> String {
-	format!("/guilds/{}/members/@me{}", guild_id, to_string_query(&query))
+	format!(
+		"/guilds/{}/members/@me{}",
+		guild_id,
+		to_string_query(&query)
+	)
 }
 
 #[derive(Serialize)]

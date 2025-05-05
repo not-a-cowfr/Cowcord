@@ -8,6 +8,7 @@ use super::emoji::Emoji;
 use super::integration::IntegrationApplication;
 use super::sticker::Sticker;
 use super::user::{AvatarDecorationData, User};
+use crate::bitflags;
 use crate::models::types::{Snowflake, Timestamp};
 
 #[derive(Serialize, Deserialize, Default)]
@@ -106,14 +107,16 @@ pub enum PremiumTier {
 	TIER_3 = 3,
 }
 
-pub enum SystemChannelFlags {
-	SUPPRESS_JOIN_NOTIFICATIONS = 1 << 0,
-	SUPPRESS_PREMIUM_SUBSCRIPTIONS = 1 << 1,
-	SUPPRESS_GUILD_REMINDER_NOTIFICATIONS = 1 << 2,
-	SUPPRESS_JOIN_NOTIFICATION_REPLIES = 1 << 3,
-	SUPPRESS_ROLE_SUBSCRIPTION_PURCHASE_NOTIFICATIONS = 1 << 4,
-	SUPPRESS_ROLE_SUBSCRIPTION_PURCHASE_NOTIFICATION_REPLIES = 1 << 5,
-	SUPPRESS_CHANNEL_PROMPT_DEADCHAT = 1 << 7,
+bitflags! {
+  pub struct SystemChannelFlags: u64 {
+	const SUPPRESS_JOIN_NOTIFICATIONS = 1 << 0;
+	const SUPPRESS_PREMIUM_SUBSCRIPTIONS = 1 << 1;
+	const SUPPRESS_GUILD_REMINDER_NOTIFICATIONS = 1 << 2;
+	const SUPPRESS_JOIN_NOTIFICATION_REPLIES = 1 << 3;
+	const SUPPRESS_ROLE_SUBSCRIPTION_PURCHASE_NOTIFICATIONS = 1 << 4;
+	const SUPPRESS_ROLE_SUBSCRIPTION_PURCHASE_NOTIFICATION_REPLIES = 1 << 5;
+		const SUPPRESS_CHANNEL_PROMPT_DEADCHAT = 1 << 7;
+  }
 }
 
 pub enum PrivacyLevel {
@@ -374,7 +377,7 @@ pub struct Role {
 	pub managed:       bool,
 	pub mentionable:   bool,
 	/// https://docs.discord.sex/resources/guild#role-flags
-	pub flags:         u8,
+	pub flags:         u64,
 	pub tags:          RoleTags,
 }
 
@@ -437,7 +440,7 @@ pub struct GuildMember {
 	pub communication_disabled_until: Option<Timestamp>,
 	pub unusual_dm_activity_until:    Option<Timestamp>,
 	/// https://docs.discord.sex/resources/guild#guild-member-flags
-	pub flags:                        u16,
+	pub flags:                        u64,
 	pub permissions:                  String,
 }
 
