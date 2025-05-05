@@ -21,7 +21,7 @@ use crate::utils::request::to_string_query;
 ///
 /// support OAuth2 for auth
 pub fn GET_USER_GUILDS_ENDPOINT(query: GetUserGuildsRequest) -> String {
-	format!("/users/@me/guilds{}", to_string_query(query))
+	format!("/users/@me/guilds{}", to_string_query(&query))
 }
 
 #[derive(Serialize)]
@@ -89,7 +89,7 @@ pub fn GET_GUILD_ENDPOINT(
 	guild_id: Snowflake,
 	query: GetGuildRequest,
 ) -> String {
-	format!("/guilds/{}{}", guild_id, to_string_query(query))
+	format!("/guilds/{}{}", guild_id, to_string_query(&query))
 }
 
 #[derive(Serialize)]
@@ -200,7 +200,7 @@ pub fn GET_GUILD_MEMBERS_ENDPOINT(
 	guild_id: Snowflake,
 	query: GetGuildMembersRequest,
 ) -> String {
-	format!("/guilds/{}/members{}", guild_id, to_string_query(query))
+	format!("/guilds/{}/members{}", guild_id, to_string_query(&query))
 }
 
 #[derive(Serialize)]
@@ -224,7 +224,7 @@ pub fn QUERY_GUILD_MEMBERS_ENDPOINT(
 	format!(
 		"/guilds/{}/members/search{}",
 		guild_id,
-		to_string_query(query)
+		to_string_query(&query)
 	)
 }
 
@@ -285,7 +285,7 @@ pub fn GET_GUILD_MEMBERS_WITH_UNUSUAL_DM_ACTIVITY_ENDPOINT(
 	format!(
 		"/guilds/{}/members/unusual-dm-activity{}",
 		guild_id,
-		to_string_query(query)
+		to_string_query(&query)
 	)
 }
 
@@ -313,7 +313,7 @@ pub fn JOIN_GUILD_ENDPOINT(
 	guild_id: Snowflake,
 	query: JoinGuildRequest,
 ) -> String {
-	format!("/guilds/{}/members/@me{}", guild_id, to_string_query(query))
+	format!("/guilds/{}/members/@me{}", guild_id, to_string_query(&query))
 }
 
 #[derive(Serialize)]

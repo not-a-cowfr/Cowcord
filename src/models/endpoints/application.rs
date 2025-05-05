@@ -3,6 +3,7 @@
 use std::collections::HashMap;
 
 use serde::{Deserialize, Serialize};
+use serde_json::to_string;
 
 use crate::models::data::application::{
 	Application,
@@ -21,6 +22,7 @@ use crate::models::data::application::{
 use crate::models::data::message::MessageAttachment;
 use crate::models::data::user::User;
 use crate::models::types::{CdnUri, Snowflake, Timestamp};
+use crate::utils::request::to_string_query;
 
 /// Type: get
 pub fn GET_APPLICATIONS_ENDPOINT(with_team_applications: bool) -> String {
@@ -550,10 +552,7 @@ pub fn GET_GUILD_APPLICATIONS_ENDPOINT(
 	guild_id: Snowflake,
 	query: GetGuildApplicationsRequest,
 ) -> String {
-	let string_query = serde_urlencoded::to_string(&query)
-		.map(|q| format!("?{}", q))
-		.unwrap_or_default();
-	format!("/guilds/{}/applications{}", guild_id, string_query)
+	format!("/guilds/{}/applications{}", guild_id, to_string_query(&query))
 }
 
 #[derive(Serialize)]

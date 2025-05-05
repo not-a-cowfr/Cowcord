@@ -84,7 +84,7 @@ pub const SUPER_COOL_ENDPOINT: &str = "/super/cool";
 However, with a lot of endpoints they have something that changes, like maybe a part of the url is a guild id, or it needs some string query parameters, in this case you would define it as a function, keeping the upper snake case, example:
 ```rust
 pub fn SUPER_COOL_ENDPOINT_ENDPOINT(some_id: Snowflake, query: QueryStringParamsStruct) -> String {
-	format!("/super/{}/cool{}", some_id, to_string_query(query))
+	format!("/super/{}/cool{}", some_id, to_string_query(&query))
 }
 ```
 

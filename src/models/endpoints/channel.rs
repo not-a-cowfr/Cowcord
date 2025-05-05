@@ -624,7 +624,7 @@ pub fn GET_PUBLIC_ARCHIVED_THREADS_ENDPOINT(
 	format!(
 		"/channels/{}/threads/archived/public{}",
 		channel_id,
-		to_string_query(query)
+		to_string_query(&query)
 	)
 }
 
@@ -653,7 +653,7 @@ pub fn GET_JOINED_PRIVATE_ARCHIVED_THREADS_ENDPOINT(
 	format!(
 		"/channels/{}/users/@me/threads/archived/private{}",
 		channel_id,
-		to_string_query(query)
+		to_string_query(&query)
 	)
 }
 
@@ -682,7 +682,7 @@ pub fn SEARCH_THREADS_ENDPOINT(
 	format!(
 		"/channels/{}/threads/search{}",
 		channel_id,
-		to_string_query(query)
+		to_string_query(&query)
 	)
 }
 
@@ -793,7 +793,7 @@ pub fn GET_THREAD_MEMBERS_ENDPOINT(
 	format!(
 		"/channels/{}/post-data{}",
 		channel_id,
-		to_string_query(query)
+		to_string_query(&query)
 	)
 }
 
@@ -821,7 +821,7 @@ pub fn GET_THREAD_MEMBER_ENDPOINT(
 		"/channels/{}/thread-members/{}{}",
 		channel_id,
 		user_id,
-		to_string_query(query)
+		to_string_query(&query)
 	)
 }
 

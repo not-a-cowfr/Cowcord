@@ -14,7 +14,7 @@ use crate::utils::request::to_string_query;
 
 /// Type: get
 pub fn GET_DISCOVERABLE_GUILDS_ENDPOINT(query: GetDiscoverableGuildsRequest) -> String {
-	format!("/discoverable-guilds{}", to_string_query(query))
+	format!("/discoverable-guilds{}", to_string_query(&query))
 }
 
 #[derive(Serialize)]
@@ -37,7 +37,7 @@ pub struct GetDisoverableGuildsResponse {
 
 /// Type: get
 pub fn SEARCH_DISCOVERABLE_GUILDS_ENDPOINT(query: SearchDiscoverableGuildsRequest) -> String {
-	format!("/discoverable-guilds/search{}", to_string_query(query))
+	format!("/discoverable-guilds/search{}", to_string_query(&query))
 }
 
 #[derive(Serialize)]
@@ -53,7 +53,7 @@ pub struct SearchDiscoverableGuildsRequest {
 ///
 /// doesnt require Authentication header
 pub fn SEARCH_PUBLISHED_GUILDS_ENDPOINT(query: SearchPublishedGuildsRequest) -> String {
-	format!("/discovery/search{}", to_string_query(query))
+	format!("/discovery/search{}", to_string_query(&query))
 }
 
 #[derive(Serialize)]
@@ -81,7 +81,7 @@ pub struct GetDiscoverySlugResponse {
 
 /// Type: get
 pub fn GET_DISCOVERY_CATEGORIES_ENDPOINT(query: GetDiscoveryCategoriesRequest) -> String {
-	format!("/discovery/categories{}", to_string_query(query))
+	format!("/discovery/categories{}", to_string_query(&query))
 }
 
 #[derive(Serialize)]
@@ -95,7 +95,7 @@ pub struct GetDiscoveryCategoriesRequest {
 pub fn VALIDATE_DISCOVERY_SEARCH_TERM_ENDPOINT(
 	query: ValidateDiscoverySearchTermRequest
 ) -> String {
-	format!("/discovery/valid-term{}", to_string_query(query))
+	format!("/discovery/valid-term{}", to_string_query(&query))
 }
 
 #[derive(Serialize)]

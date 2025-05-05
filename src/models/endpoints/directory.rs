@@ -25,7 +25,7 @@ pub fn GET_DIRECTORY_ENTRIES_ENDPOINT(
 	format!(
 		"/channels/{}/directory-entries{}",
 		channel_id,
-		to_string_query(query)
+		to_string_query(&query)
 	)
 }
 
@@ -50,7 +50,7 @@ pub fn GET_PARTIAL_DIRECTORY_ENTRIES_ENDPOINT(
 	format!(
 		"/channels/{}/directory-entries/list{}",
 		channel_id,
-		to_string_query(query)
+		to_string_query(&query)
 	)
 }
 
@@ -72,7 +72,7 @@ pub fn SEARCH_DIRECTORY_ENTRIES_ENDPOINT(
 	format!(
 		"/channels/{}/directory-entries/search{}",
 		channel_id,
-		to_string_query(query)
+		to_string_query(&query)
 	)
 }
 
@@ -160,7 +160,7 @@ pub fn GET_DIRECTORY_BROADCAST_INFO_ENDPOINT(
 	format!(
 		"/channels/{}/directory-entry/broadcast{}",
 		channel_id,
-		to_string_query(query)
+		to_string_query(&query)
 	)
 }
 
