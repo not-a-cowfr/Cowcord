@@ -1,11 +1,6 @@
-use std::num::ParseIntError;
-use std::str::FromStr;
-use std::sync::atomic::{AtomicU16, Ordering};
-use std::time::{SystemTime, UNIX_EPOCH};
+use std::{num::ParseIntError, str::FromStr, sync::atomic::{AtomicU16, Ordering}, time::{SystemTime, UNIX_EPOCH}};
 
-use iso8601_timestamp::Timestamp as isoTimestamp;
 use serde::{Deserialize, Deserializer, Serialize};
-use url::Url;
 
 const DISCORD_EPOCH: u64 = 1420070400000;
 
@@ -82,48 +77,4 @@ where
 {
 	let s = String::deserialize(deserializer)?;
 	s.parse::<u64>().map_err(serde::de::Error::custom)
-}
-
-#[derive(Debug, Clone, Serialize, Deserialize)]
-#[serde(transparent)]
-pub struct Timestamp(pub Option<isoTimestamp>);
-
-impl Default for Timestamp {
-	fn default() -> Self { Timestamp(None) }
-}
-
-#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
-pub struct CdnUri(Url);
-
-impl CdnUri {
-	pub fn new(uri: impl AsRef<str>) -> Result<Self, CdnUriError> {
-		let url = Url::parse(uri.as_ref())?;
-
-		if !url
-			.host_str()
-			.map_or(false, |host| host == "cdn.discordapp.com")
-		{
-			return Err(CdnUriError::InvalidUri(
-				"URI must be from discord".to_string(),
-			));
-		}
-
-		if url.scheme() != "https" {
-			return Err(CdnUriError::InvalidUri("URI must use https".to_string()));
-		}
-
-		Ok(CdnUri(url))
-	}
-
-	pub fn as_str(&self) -> &str { self.0.as_str() }
-}
-
-impl FromStr for CdnUri {
-	type Err = CdnUriError;
-
-	fn from_str(s: &str) -> Result<Self, Self::Err> { CdnUri::new(s) }
-}
-
-impl AsRef<str> for CdnUri {
-	fn as_ref(&self) -> &str { self.as_str() }
 }
