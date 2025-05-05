@@ -185,7 +185,7 @@ impl RequestBuilderExt for RequestBuilder {
 ///
 /// assert_eq!(to_string_query(query), "");
 /// ```
-pub fn to_string_query<T: serde::ser::Serialize>(query: T) -> String {
+pub fn to_string_query<T: serde::ser::Serialize>(query: &T) -> String {
 	serde_urlencoded::to_string(&query)
 		.map(|q| format!("?{}", q))
 		.unwrap_or_default()
