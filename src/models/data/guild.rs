@@ -67,44 +67,68 @@ pub struct Guild {
 	pub clan:                          Clan,
 }
 
-pub enum MessageNotificationLevel {
-	ALL_MESSAGES = 0,
-	ONLY_MENTIONS = 1,
-	NO_MESSAGES = 2,
-	INHERIT = 3,
+enum_number! {
+    #[derive(Deserialize, Serialize)]
+    #[serde(from = "u8", into = "u8")]
+    pub enum MessageNotificationLevel {
+    	ALL_MESSAGES = 0,
+    	ONLY_MENTIONS = 1,
+    	NO_MESSAGES = 2,
+    	INHERIT = 3,
+    }
 }
 
-pub enum ExplicitContentFilter {
-	DISABLED = 0,
-	MEMBERS_WITHOUT_ROLES = 1,
-	ALL_MEMBERS = 2,
+enum_number! {
+    #[derive(Deserialize, Serialize)]
+    #[serde(from = "u8", into = "u8")]
+    pub enum ExplicitContentFilter {
+    	DISABLED = 0,
+    	MEMBERS_WITHOUT_ROLES = 1,
+    	ALL_MEMBERS = 2,
+    }
 }
 
-pub enum MFALevel {
-	NONE = 0,
-	ELEVATED = 1,
+enum_number! {
+    #[derive(Deserialize, Serialize)]
+    #[serde(from = "u8", into = "u8")]
+    pub enum MFALevel {
+    	NONE = 0,
+    	ELEVATED = 1,
+    }
 }
 
-pub enum VerificationLevel {
-	NONE = 0,
-	LOW = 1,
-	MEDIUM = 2,
-	HIGH = 3,
-	VERY_HIGH = 4,
+enum_number! {
+    #[derive(Deserialize, Serialize)]
+    #[serde(from = "u8", into = "u8")]
+    pub enum VerificationLevel {
+    	NONE = 0,
+    	LOW = 1,
+    	MEDIUM = 2,
+    	HIGH = 3,
+    	VERY_HIGH = 4,
+    }
 }
 
-pub enum NsfwLevel {
-	DEFAULT = 0,
-	EXPLICIT = 1,
-	SAFE = 2,
-	AGE_RESTRICTED = 3,
+enum_number! {
+    #[derive(Deserialize, Serialize)]
+    #[serde(from = "u8", into = "u8")]
+    pub enum NsfwLevel {
+    	DEFAULT = 0,
+    	EXPLICIT = 1,
+    	SAFE = 2,
+    	AGE_RESTRICTED = 3,
+    }
 }
 
-pub enum PremiumTier {
-	NONE = 0,
-	TIER_1 = 1,
-	TIER_2 = 2,
-	TIER_3 = 3,
+enum_number! {
+    #[derive(Deserialize, Serialize)]
+    #[serde(from = "u8", into = "u8")]
+    pub enum PremiumTier {
+    	NONE = 0,
+    	TIER_1 = 1,
+    	TIER_2 = 2,
+    	TIER_3 = 3,
+    }
 }
 
 bitflags! {
@@ -119,15 +143,23 @@ bitflags! {
   }
 }
 
-pub enum PrivacyLevel {
-	PUBLIC = 1,
-	GUILD_ONLY = 2,
+enum_number! {
+    #[derive(Deserialize, Serialize)]
+    #[serde(from = "u8", into = "u8")]
+    pub enum PrivacyLevel {
+    	PUBLIC = 1,
+    	GUILD_ONLY = 2,
+    }
 }
 
-pub enum HubType {
-	DEFAULT = 0,
-	HIGH_SCHOOL = 1,
-	COLLEGE = 2,
+enum_number! {
+    #[derive(Deserialize, Serialize)]
+    #[serde(from = "u8", into = "u8")]
+    pub enum HubType {
+    	DEFAULT = 0,
+    	HIGH_SCHOOL = 1,
+    	COLLEGE = 2,
+    }
 }
 
 pub enum GuildFeatures {
@@ -643,11 +675,15 @@ pub struct PremiumGuildSubscription {
 	pub user:          User,
 }
 
-pub enum MmemberSortType {
-	JOINED_AT_DESC = 1,
-	JOINED_AT_ASC = 2,
-	USER_ID_DESC = 3,
-	USER_ID_ASC = 4,
+enum_number! {
+    #[derive(Deserialize, Serialize)]
+    #[serde(from = "u8", into = "u8")]
+    pub enum MmemberSortType {
+    	JOINED_AT_DESC = 1,
+    	JOINED_AT_ASC = 2,
+    	USER_ID_DESC = 3,
+    	USER_ID_ASC = 4,
+    }
 }
 
 #[derive(Serialize, Deserialize, Default)]

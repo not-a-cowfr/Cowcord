@@ -37,15 +37,23 @@ pub struct PremiumReferralEligibility {
 	pub referral_incentive_status:  u8,
 }
 
-pub enum PremiumReferralRecipientStatus {
-	REDEEMED = 1,
-	PENDING = 2,
+enum_number! {
+    #[derive(Deserialize, Serialize)]
+    #[serde(from = "u8", into = "u8")]
+    pub enum PremiumReferralRecipientStatus {
+    	REDEEMED = 1,
+    	PENDING = 2,
+    }
 }
 
-pub enum PremiumReferralIncentiveStatus {
-	NOT_ELIGIBLE = 0,
-	ELIGIBLE = 1,
-	QUALIFIED = 2,
-	COOLDOWN = 3,
-	UNAPPLIED = 4,
+enum_number! {
+    #[derive(Deserialize, Serialize)]
+    #[serde(from = "u8", into = "u8")]
+    pub enum PremiumReferralIncentiveStatus {
+    	NOT_ELIGIBLE = 0,
+    	ELIGIBLE = 1,
+    	QUALIFIED = 2,
+    	COOLDOWN = 3,
+    	UNAPPLIED = 4,
+    }
 }

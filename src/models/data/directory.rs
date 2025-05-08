@@ -19,18 +19,26 @@ pub struct DirectoryEntry {
 	pub guild_scheduled_event: GuildScheduledEvent,
 }
 
-pub enum EntryType {
-	GUILD = 0,
-	GUILD_SCHEDULED_EVENT = 1,
+enum_number! {
+    #[derive(Deserialize, Serialize)]
+    #[serde(from = "u8", into = "u8")]
+    pub enum EntryType {
+    	GUILD = 0,
+    	GUILD_SCHEDULED_EVENT = 1,
+    }
 }
 
-pub enum Category {
-	UNCATEGORIZED = 0,
-	SCHOOL_CLUB = 1,
-	CLASS = 2,
-	STUDY_SOCIAL = 3,
-	// SUBJECT_MAJOR = 4,
-	MISC = 5,
+enum_number! {
+    #[derive(Deserialize, Serialize)]
+    #[serde(from = "u8", into = "u8")]
+    pub enum Category {
+    	UNCATEGORIZED = 0,
+    	SCHOOL_CLUB = 1,
+    	CLASS = 2,
+    	STUDY_SOCIAL = 3,
+    	// SUBJECT_MAJOR = 4,
+    	MISC = 5,
+    }
 }
 
 #[derive(Serialize, Deserialize, Default)]

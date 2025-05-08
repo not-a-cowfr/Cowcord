@@ -20,14 +20,18 @@ pub struct Relationship {
 	pub since:                 Timestamp,
 }
 
-pub enum RelationshipType {
-	NONE = 0,
-	FRIEND = 1,
-	BLOCKED = 2,
-	INCOMING_REQUEST = 3,
-	OUTGOING_REQUEST = 4,
-	IMPLICIT = 5,
-	// SUGGESTION = 6,
+enum_number! {
+    #[derive(Deserialize, Serialize)]
+    #[serde(from = "u8", into = "u8")]
+    pub enum RelationshipType {
+    	NONE = 0,
+    	FRIEND = 1,
+    	BLOCKED = 2,
+    	INCOMING_REQUEST = 3,
+    	OUTGOING_REQUEST = 4,
+    	IMPLICIT = 5,
+    	// SUGGESTION = 6,
+    }
 }
 
 #[derive(Serialize, Deserialize, Default)]
@@ -42,12 +46,22 @@ pub struct GameRelationship {
 	user_id:        Snowflake,
 }
 
-pub enum GameRelationshipType {
-	// unknown
+enum_number! {
+    #[derive(Deserialize, Serialize)]
+    #[serde(from = "u8", into = "u8")]
+    pub enum GameRelationshipType {
+    	FRIEND = 1,
+        INCOMING_REQUEST = 3,
+        OUTGOING_REQUEST = 4,
+    }
 }
 
-pub enum DmAccessType {
-	// unknown
+enum_number! {
+    #[derive(Deserialize, Serialize)]
+    #[serde(from = "u8", into = "u8")]
+    pub enum DmAccessType {
+    	// unknown
+    }
 }
 
 #[derive(Serialize, Deserialize, Default)]
@@ -66,6 +80,10 @@ pub struct FriendSuggestionReason {
 	name:     String,
 }
 
-pub enum FriendSuggestionType {
-	EXTERNAL_FRIEND = 1,
+enum_number! {
+    #[derive(Deserialize, Serialize)]
+    #[serde(from = "u8", into = "u8")]
+    pub enum FriendSuggestionType {
+    	EXTERNAL_FRIEND = 1,
+    }
 }

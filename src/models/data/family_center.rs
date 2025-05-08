@@ -14,16 +14,24 @@ pub struct FamilyCenter {
 	pub users:          Vec<User>,
 }
 
-pub enum LinkStatus {
-	SENT = 1,
-	CONNECTED = 2,
-	DISCONNECTED = 3,
-	REJECTED = 4,
+enum_number! {
+    #[derive(Deserialize, Serialize)]
+    #[serde(from = "u8", into = "u8")]
+    pub enum LinkStatus {
+    	SENT = 1,
+    	CONNECTED = 2,
+    	DISCONNECTED = 3,
+    	REJECTED = 4,
+    }
 }
 
-pub enum LinkType {
-	RECIEVER = 1,
-	SENDER = 2,
+enum_number! {
+    #[derive(Deserialize, Serialize)]
+    #[serde(from = "u8", into = "u8")]
+    pub enum LinkType {
+    	RECIEVER = 1,
+    	SENDER = 2,
+    }
 }
 
 #[derive(Serialize, Deserialize, Default)]

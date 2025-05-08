@@ -59,3 +59,104 @@ macro_rules! bitflags {
         }
     };
 }
+
+/// The `enum_number!` macro generates `From` implementations to convert between values and the
+/// enum which can then be utilized by `serde` with `#[serde(from = "u8", into = "u8")]`.
+///
+/// When defining the enum like this:
+/// ```ignore
+/// enum_number! {
+///     /// The `Foo` enum
+///     #[derive(Clone, Copy, Deserialize, Serialize)]
+///     #[serde(from = "u8", into = "u8")]
+///     pub enum Foo {
+///         /// First
+///         Aah = 1,
+///         /// Second
+///         Bar = 2,
+///         _ => Unknown(u8),
+///     }
+/// }
+/// ```
+///
+/// Code like this will be generated:
+///
+/// ```
+/// # use serde::{Deserialize, Serialize};
+/// #
+/// /// The `Foo` enum
+/// #[derive(Clone, Copy, Deserialize, Serialize)]
+/// #[serde(from = "u8", into = "u8")]
+/// pub enum Foo {
+///     /// First
+///     Aah,
+///     /// Second,
+///     Bar,
+///     /// Variant value is unknown.
+///     Unknown(u8),
+/// }
+///
+/// impl From<u8> for Foo {
+///     fn from(value: u8) -> Self {
+///         match value {
+///             1 => Self::Aah,
+///             2 => Self::Bar,
+///             unknown => Self::Unknown(unknown),
+///         }
+///     }
+/// }
+///
+/// impl From<Foo> for u8 {
+///     fn from(value: Foo) -> Self {
+///         match value {
+///             Foo::Aah => 1,
+///             Foo::Bar => 2,
+///             Foo::Unknown(unknown) => unknown,
+///         }
+///     }
+/// }
+/// ```
+macro_rules! enum_number {
+    (
+        $(#[$outer:meta])*
+        $vis:vis enum $Enum:ident {
+            $(
+                $(#[doc = $doc:literal])*
+                $(#[cfg $($cfg:tt)*])?
+                $(#[default $($dummy:tt)?])?
+                $Variant:ident = $value:literal,
+            )*
+            _ => Unknown($T:ty),
+        }
+    ) => {
+        $(#[$outer])*
+        $vis enum $Enum {
+            $(
+                $(#[doc = $doc])*
+                $(#[cfg $($cfg)*])?
+                $(#[default $($dummy:tt)?])?
+                $Variant,
+            )*
+            /// Variant value is unknown.
+            Unknown($T),
+        }
+
+        impl From<$T> for $Enum {
+            fn from(value: $T) -> Self {
+                match value {
+                    $($(#[cfg $($cfg)*])? $value => Self::$Variant,)*
+                    unknown => Self::Unknown(unknown),
+                }
+            }
+        }
+
+        impl From<$Enum> for $T {
+            fn from(value: $Enum) -> Self {
+                match value {
+                    $($(#[cfg $($cfg)*])? $Enum::$Variant => $value,)*
+                    $Enum::Unknown(unknown) => unknown,
+                }
+            }
+        }
+    };
+}

@@ -24,10 +24,14 @@ pub struct Webhook {
 	pub url:            String,
 }
 
-pub enum WebcookType {
-	INCOMING = 1,
-	CHANNEL_FOLLOWER = 2,
-	APPLICATION = 3,
+enum_number! {
+    #[derive(Deserialize, Serialize)]
+    #[serde(from = "u8", into = "u8")]
+    pub enum WebcookType {
+    	INCOMING = 1,
+    	CHANNEL_FOLLOWER = 2,
+    	APPLICATION = 3,
+    }
 }
 
 #[derive(Serialize, Deserialize, Default)]

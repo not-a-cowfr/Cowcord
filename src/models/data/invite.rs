@@ -36,10 +36,14 @@ pub struct Invite {
 	pub is_nickname_changeable:     bool,
 }
 
-pub enum InviteType {
-	GUILD = 0,
-	GROUP_DM = 1,
-	FRIEND = 2,
+enum_number! {
+    #[derive(Deserialize, Serialize)]
+    #[serde(from = "u8", into = "u8")]
+    pub enum InviteType {
+    	GUILD = 0,
+    	GROUP_DM = 1,
+    	FRIEND = 2,
+    }
 }
 
 bitflags! {
@@ -51,11 +55,15 @@ bitflags! {
   }
 }
 
-pub enum InviteTargetType {
-	STREAM = 1,
-	EMBEDDED_APPLICATION = 2,
-	ROLE_SUBSCRIPTIONS = 3,
-	CREATOR_PAGE = 4,
+enum_number! {
+    #[derive(Deserialize, Serialize)]
+    #[serde(from = "u8", into = "u8")]
+    pub enum InviteTargetType {
+    	STREAM = 1,
+    	EMBEDDED_APPLICATION = 2,
+    	ROLE_SUBSCRIPTIONS = 3,
+    	CREATOR_PAGE = 4,
+    }
 }
 
 #[derive(Serialize, Deserialize, Default)]

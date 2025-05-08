@@ -31,16 +31,24 @@ pub struct Sticker {
 	pub sort_value:  u16,
 }
 
-pub enum StickerTypes {
-	STANDARD = 1,
-	GUILD = 2,
+enum_number! {
+    #[derive(Deserialize, Serialize)]
+    #[serde(from = "u8", into = "u8")]
+    pub enum StickerTypes {
+    	STANDARD = 1,
+    	GUILD = 2,
+    }
 }
 
-pub enum StickerFormatTypes {
-	PNG = 1,
-	APNG = 2, // not a typo
-	LOTTIE = 3,
-	GIF = 4, // GIF stickers are not available through the CDN, and must be accessed at https://media.discordapp.net/stickers/{sticker_id}.gif
+enum_number! {
+    #[derive(Deserialize, Serialize)]
+    #[serde(from = "u8", into = "u8")]
+    pub enum StickerFormatTypes {
+    	PNG = 1,
+    	APNG = 2, // not a typo
+    	LOTTIE = 3,
+    	GIF = 4, // GIF stickers are not available through the CDN, and must be accessed at https://media.discordapp.net/stickers/{sticker_id}.gif
+    }
 }
 
 #[derive(Serialize, Deserialize, Default)]

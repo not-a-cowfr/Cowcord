@@ -69,63 +69,67 @@ enum NonceResponseType {
 	None,
 }
 
-pub enum MessageType {
-	DEFAULT = 0,
-	RECIPIENT_ADD = 1,
-	RECIPIENT_REMOVE = 2,
-	CALL = 3,
-	CHANNEL_NAME_CHANGE = 4,
-	CHANNEL_ICON_CHANGE = 5,
-	CHANNEL_PINNED_MESSAGE = 6,
-	USER_JOIN = 7,
-	PREMIUM_GUILD_SUBSCRIPTION = 8,
-	PREMIUM_GUILD_SUBSCRIPTION_TIER_1 = 9,
-	PREMIUM_GUILD_SUBSCRIPTION_TIER_2 = 10,
-	PREMIUM_GUILD_SUBSCRIPTION_TIER_3 = 11,
-	CHANNEL_FOLLOW_ADD = 12,
-	// GUILD_STREAM = 13,
-	GUILD_DISCOVERY_DISQUALIFIED = 14,
-	GUILD_DISCOVERY_REQUALIFIED = 15,
-	GUILD_DISCOVERY_GRACE_PERIOD_INITIAL_WARNING = 16,
-	GUILD_DISCOVERY_GRACE_PERIOD_FINAL_WARNING = 171,
-	THREAD_CREATED = 18,
-	REPLY = 19,
-	CHAT_INPUT_COMMAND = 20,
-	THREAD_STARTER_MESSAGE = 21,
-	GUILD_INVITE_REMINDER = 22,
-	CONTEXT_MENU_COMMAND = 23,
-	AUTO_MODERATION_ACTION = 24,
-	ROLE_SUBSCRIPTION_PURCHASE = 25,
-	INTERACTION_PREMIUM_UPSELL = 26,
-	STAGE_START = 27,
-	STAGE_END = 28,
-	STAGE_SPEAKER = 29,
-	STAGE_RAISE_HAND = 30,
-	STAGE_TOPIC = 31,
-	GUILD_APPLICATION_PREMIUM_SUBSCRIPTION = 32,
-	// PRIVATE_CHANNEL_INTEGRATION_ADDED = 33,
-	// PRIVATE_CHANNEL_INTEGRATION_REMOVED = 34,
-	PREMIUM_REFERRAL = 35,
-	GUILD_INCIDENT_ALERT_MODE_ENABLED = 36,
-	GUILD_INCIDENT_ALERT_MODE_DISABLED = 37,
-	GUILD_INCIDENT_REPORT_RAID = 38,
-	GUILD_INCIDENT_REPORT_FALSE_ALARM = 39,
-	GUILD_DEADCHAT_REVIVE_PROMPT = 40,
-	CUSTOM_GIFT = 41,
-	GUILD_GAMING_STATS_PROMPT = 42,
-	// POLL = 43,
-	PURCHASE_NOTIFICATION = 44,
-	// VOICE_HANGOUT_INVITE = 45,
-	POLL_RESULT = 46,
-	CHANGELOG = 47,
-	NITRO_NOTIFICATION = 48,
-	CHANNEL_LINKED_TO_LOBBY = 49,
-	GIFTING_PROMPT = 50,
-	IN_GAME_MESSAGE_NUX = 51,
-	GUILD_JOIN_REQUEST_ACCEPT_NOTIFICATION = 52,
-	GUILD_JOIN_REQUEST_REJECT_NOTIFICATION = 53,
-	GUILD_JOIN_REQUEST_WITHDRAWN_NOTIFICATION = 54,
-	HD_STREAMING_UPGRADED = 55,
+enum_number! {
+    #[derive(Deserialize, Serialize)]
+    #[serde(from = "u8", into = "u8")]
+    pub enum MessageType {
+    	DEFAULT = 0,
+    	RECIPIENT_ADD = 1,
+    	RECIPIENT_REMOVE = 2,
+    	CALL = 3,
+    	CHANNEL_NAME_CHANGE = 4,
+    	CHANNEL_ICON_CHANGE = 5,
+    	CHANNEL_PINNED_MESSAGE = 6,
+    	USER_JOIN = 7,
+    	PREMIUM_GUILD_SUBSCRIPTION = 8,
+    	PREMIUM_GUILD_SUBSCRIPTION_TIER_1 = 9,
+    	PREMIUM_GUILD_SUBSCRIPTION_TIER_2 = 10,
+    	PREMIUM_GUILD_SUBSCRIPTION_TIER_3 = 11,
+    	CHANNEL_FOLLOW_ADD = 12,
+    	// GUILD_STREAM = 13,
+    	GUILD_DISCOVERY_DISQUALIFIED = 14,
+    	GUILD_DISCOVERY_REQUALIFIED = 15,
+    	GUILD_DISCOVERY_GRACE_PERIOD_INITIAL_WARNING = 16,
+    	GUILD_DISCOVERY_GRACE_PERIOD_FINAL_WARNING = 171,
+    	THREAD_CREATED = 18,
+    	REPLY = 19,
+    	CHAT_INPUT_COMMAND = 20,
+    	THREAD_STARTER_MESSAGE = 21,
+    	GUILD_INVITE_REMINDER = 22,
+    	CONTEXT_MENU_COMMAND = 23,
+    	AUTO_MODERATION_ACTION = 24,
+    	ROLE_SUBSCRIPTION_PURCHASE = 25,
+    	INTERACTION_PREMIUM_UPSELL = 26,
+    	STAGE_START = 27,
+    	STAGE_END = 28,
+    	STAGE_SPEAKER = 29,
+    	STAGE_RAISE_HAND = 30,
+    	STAGE_TOPIC = 31,
+    	GUILD_APPLICATION_PREMIUM_SUBSCRIPTION = 32,
+    	// PRIVATE_CHANNEL_INTEGRATION_ADDED = 33,
+    	// PRIVATE_CHANNEL_INTEGRATION_REMOVED = 34,
+    	PREMIUM_REFERRAL = 35,
+    	GUILD_INCIDENT_ALERT_MODE_ENABLED = 36,
+    	GUILD_INCIDENT_ALERT_MODE_DISABLED = 37,
+    	GUILD_INCIDENT_REPORT_RAID = 38,
+    	GUILD_INCIDENT_REPORT_FALSE_ALARM = 39,
+    	GUILD_DEADCHAT_REVIVE_PROMPT = 40,
+    	CUSTOM_GIFT = 41,
+    	GUILD_GAMING_STATS_PROMPT = 42,
+    	// POLL = 43,
+    	PURCHASE_NOTIFICATION = 44,
+    	// VOICE_HANGOUT_INVITE = 45,
+    	POLL_RESULT = 46,
+    	CHANGELOG = 47,
+    	NITRO_NOTIFICATION = 48,
+    	CHANNEL_LINKED_TO_LOBBY = 49,
+    	GIFTING_PROMPT = 50,
+    	IN_GAME_MESSAGE_NUX = 51,
+    	GUILD_JOIN_REQUEST_ACCEPT_NOTIFICATION = 52,
+    	GUILD_JOIN_REQUEST_REJECT_NOTIFICATION = 53,
+    	GUILD_JOIN_REQUEST_WITHDRAWN_NOTIFICATION = 54,
+    	HD_STREAMING_UPGRADED = 55,
+    }
 }
 
 bitflags! {
@@ -185,26 +189,30 @@ pub struct MessageInteractionMetadata {
 	pub target_message_id:               Snowflake,
 }
 
-pub enum MessageEphemeralityReason {
-	NONE = 0,
-	FEATURE_LIMITED = 1,
-	GUILD_FEATURE_LIMITED = 2,
-	USER_FEATURE_LIMITED = 3,
-	SLOWMODE = 4,
-	RATE_LIMIT = 5,
-	CANNOT_MESSAGE_USER = 6,
-	USER_VERIFICATION_LEVEL = 7,
-	CANNOT_UNARCHIVE_THREAD = 8,
-	CANNOT_JOIN_THREAD = 9,
-	MISSING_PERMISSIONS = 10,
-	CANNOT_SEND_ATTACHMENTS = 11,
-	CANNOT_SEND_EMBEDS = 12,
-	CANNOT_SEND_STICKERS = 13,
-	AUTOMOD_BLOCKED = 14,
-	HARMFUL_LINK = 15,
-	CANNOT_USE_COMMAND = 16,
-	BETA_GUILD_SIZE = 17,
-	CANNOT_USE_EXTERNAL_APPS = 18,
+enum_number! {
+    #[derive(Deserialize, Serialize)]
+    #[serde(from = "u8", into = "u8")]
+    pub enum MessageEphemeralityReason {
+    	NONE = 0,
+    	FEATURE_LIMITED = 1,
+    	GUILD_FEATURE_LIMITED = 2,
+    	USER_FEATURE_LIMITED = 3,
+    	SLOWMODE = 4,
+    	RATE_LIMIT = 5,
+    	CANNOT_MESSAGE_USER = 6,
+    	USER_VERIFICATION_LEVEL = 7,
+    	CANNOT_UNARCHIVE_THREAD = 8,
+    	CANNOT_JOIN_THREAD = 9,
+    	MISSING_PERMISSIONS = 10,
+    	CANNOT_SEND_ATTACHMENTS = 11,
+    	CANNOT_SEND_EMBEDS = 12,
+    	CANNOT_SEND_STICKERS = 13,
+    	AUTOMOD_BLOCKED = 14,
+    	HARMFUL_LINK = 15,
+    	CANNOT_USE_COMMAND = 16,
+    	BETA_GUILD_SIZE = 17,
+    	CANNOT_USE_EXTERNAL_APPS = 18,
+    }
 }
 
 #[derive(Serialize, Deserialize, Default)]
@@ -224,8 +232,12 @@ pub struct MessagePurchaseNotification {
 	pub guild_product_purchase: Option<GuildProductPurchase>,
 }
 
-pub enum MessagePurchaseNotificationType {
-	GUILD_PRODUCT = 0,
+enum_number! {
+    #[derive(Deserialize, Serialize)]
+    #[serde(from = "u8", into = "u8")]
+    pub enum MessagePurchaseNotificationType {
+    	GUILD_PRODUCT = 0,
+    }
 }
 
 #[derive(Serialize, Deserialize, Default)]
@@ -260,9 +272,13 @@ pub struct MessageReference {
 	pub forward_only:       ForwardOnly,
 }
 
-pub enum MessageReferenceType {
-	DEFAULT = 0,
-	FORWARD = 1,
+enum_number! {
+    #[derive(Deserialize, Serialize)]
+    #[serde(from = "u8", into = "u8")]
+    pub enum MessageReferenceType {
+    	DEFAULT = 0,
+    	FORWARD = 1,
+    }
 }
 
 #[derive(Serialize, Deserialize, Default)]
@@ -315,9 +331,13 @@ pub struct MessageReactionCountDetails {
 	pub burst:  u16,
 }
 
-pub enum MessageReactionType {
-	NORMAL = 0,
-	BURST = 1,
+enum_number! {
+    #[derive(Deserialize, Serialize)]
+    #[serde(from = "u8", into = "u8")]
+    pub enum MessageReactionType {
+    	NORMAL = 0,
+    	BURST = 1,
+    }
 }
 
 #[derive(Serialize, Deserialize, Default)]
@@ -506,9 +526,13 @@ pub struct PollCreate {
 	pub layout_type:       u8,
 }
 
-pub enum PollLayoutType {
-	DEFAULT = 1,
-	// IMAGE_ONLY_ANSWERS = 2,
+enum_number! {
+    #[derive(Deserialize, Serialize)]
+    #[serde(from = "u8", into = "u8")]
+    pub enum PollLayoutType {
+    	DEFAULT = 1,
+    	// IMAGE_ONLY_ANSWERS = 2,
+    }
 }
 
 #[derive(Serialize, Deserialize, Default)]
@@ -563,8 +587,12 @@ pub struct Potion {
 	pub created_at: Timestamp,
 }
 
-pub enum PotionType {
-	CONFETTI = 0,
+enum_number! {
+    #[derive(Deserialize, Serialize)]
+    #[serde(from = "u8", into = "u8")]
+    pub enum PotionType {
+    	CONFETTI = 0,
+    }
 }
 
 #[derive(Serialize, Deserialize, Default)]
@@ -591,15 +619,23 @@ pub struct ConversationSummary {
 	pub r#type:      u8,
 }
 
-pub enum SummarySource {
-	SOURCE_0 = 0,
-	SOURCE_1 = 1,
-	SOURCE_2 = 2,
+enum_number! {
+    #[derive(Deserialize, Serialize)]
+    #[serde(from = "u8", into = "u8")]
+    pub enum SummarySource {
+    	SOURCE_0 = 0,
+    	SOURCE_1 = 1,
+    	SOURCE_2 = 2,
+    }
 }
 
-pub enum SummaryType {
-	UNSET = 0,
-	SOURCE_1 = 1,
-	SOURCE_2 = 2,
-	UNKNOWN = 3,
+enum_number! {
+    #[derive(Deserialize, Serialize)]
+    #[serde(from = "u8", into = "u8")]
+    pub enum SummaryType {
+    	UNSET = 0,
+    	SOURCE_1 = 1,
+    	SOURCE_2 = 2,
+    	UNKNOWN = 3,
+    }
 }

@@ -125,9 +125,13 @@ pub struct MyCoolStruct {
 
 And make sure to include an enum that repesents it
 ```rust
-pub enum FieldOneType {
-    THIS_COOL_TYPE = 1,
-    THIS_OTHER_COOL_TYPE = 2,
+use crate::enum_number;
+enum_number! {
+    #[serde(from = "u8", into = "u8")]
+    pub enum FieldOneType {
+        THIS_COOL_TYPE = 1,
+        THIS_OTHER_COOL_TYPE = 2,
+    }
 }
 ```
 ```rust

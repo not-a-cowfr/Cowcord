@@ -33,18 +33,26 @@ pub struct GuildScheduledEvent {
 	pub guild_scheduled_event_exceptions: Vec<GuildScheduledEventException>,
 }
 
-pub enum GuildScheduledEventStatus {
-	SCHEDULED = 1,
-	ACTIVE = 2,
-	COMPLETED = 3,
-	CANCELED = 4,
+enum_number! {
+    #[derive(Deserialize, Serialize)]
+    #[serde(from = "u8", into = "u8")]
+    pub enum GuildScheduledEventStatus {
+    	SCHEDULED = 1,
+    	ACTIVE = 2,
+    	COMPLETED = 3,
+    	CANCELED = 4,
+    }
 }
 
-pub enum GuildScheduledEventEntityType {
-	STAGE_INSTANCE = 1,
-	VOICE = 2,
-	EXTERNAL = 3,
-	PRIME_TIME = 4,
+enum_number! {
+    #[derive(Deserialize, Serialize)]
+    #[serde(from = "u8", into = "u8")]
+    pub enum GuildScheduledEventEntityType {
+    	STAGE_INSTANCE = 1,
+    	VOICE = 2,
+    	EXTERNAL = 3,
+    	PRIME_TIME = 4,
+    }
 }
 
 #[derive(Serialize, Deserialize, Default)]
@@ -69,21 +77,29 @@ pub struct GuildScheduledEventRecurrenceRule {
 	pub count:        Option<u32>,
 }
 
-pub enum GuildScheduledEventRecurrenceRuleFrequency {
-	YEARLY = 0,
-	MONTHLY = 1,
-	WEEKLY = 2,
-	DAILY = 3,
+enum_number! {
+    #[derive(Deserialize, Serialize)]
+    #[serde(from = "u8", into = "u8")]
+    pub enum GuildScheduledEventRecurrenceRuleFrequency {
+    	YEARLY = 0,
+    	MONTHLY = 1,
+    	WEEKLY = 2,
+    	DAILY = 3,
+    }
 }
 
-pub enum GuildScheduledEventRecurrenceRuleWeekday {
-	MONDAY = 0,
-	TUESDAY = 1,
-	WEDNESDAY = 2,
-	THURSDAY = 3,
-	FRIDAY = 4,
-	SATURDAY = 5,
-	SUNDAY = 6,
+enum_number! {
+    #[derive(Deserialize, Serialize)]
+    #[serde(from = "u8", into = "u8")]
+    pub enum GuildScheduledEventRecurrenceRuleWeekday {
+    	MONDAY = 0,
+    	TUESDAY = 1,
+    	WEDNESDAY = 2,
+    	THURSDAY = 3,
+    	FRIDAY = 4,
+    	SATURDAY = 5,
+    	SUNDAY = 6,
+    }
 }
 
 #[derive(Serialize, Deserialize, Default)]
@@ -93,19 +109,23 @@ pub struct NWeekday {
 	pub day: u8,
 }
 
-pub enum GuildScheduledEventRecurrenceRuleMonth {
-	JANUARY = 1,
-	FEBRUARY = 2,
-	MARCH = 3,
-	APRIL = 4,
-	MAY = 5,
-	JUNE = 6,
-	JULY = 7,
-	AUGUST = 8,
-	SEPTEMBER = 9,
-	OCTOBER = 10,
-	NOVEMBER = 11,
-	DECEMBER = 12,
+enum_number! {
+    #[derive(Deserialize, Serialize)]
+    #[serde(from = "u8", into = "u8")]
+    pub enum GuildScheduledEventRecurrenceRuleMonth {
+    	JANUARY = 1,
+    	FEBRUARY = 2,
+    	MARCH = 3,
+    	APRIL = 4,
+    	MAY = 5,
+    	JUNE = 6,
+    	JULY = 7,
+    	AUGUST = 8,
+    	SEPTEMBER = 9,
+    	OCTOBER = 10,
+    	NOVEMBER = 11,
+    	DECEMBER = 12,
+    }
 }
 
 #[derive(Serialize, Deserialize, Default)]
@@ -130,7 +150,11 @@ pub struct GuildScheduledEventUser {
 	pub member:                             GuildMember,
 }
 
-pub enum GuildScheduledEventUserResponse {
-	UNINTERESTED = 0,
-	INTERESTED = 1,
+enum_number! {
+    #[derive(Deserialize, Serialize)]
+    #[serde(from = "u8", into = "u8")]
+    pub enum GuildScheduledEventUserResponse {
+    	UNINTERESTED = 0,
+    	INTERESTED = 1,
+    }
 }

@@ -98,11 +98,15 @@ pub struct Application {
 	pub embedded_activity_config:          EmbeddedActivityConfig,
 }
 
-pub enum ApplicationType {
-	GAME = 1,
-	// MUSIC = 2,
-	TICKETED_EVENTS = 3,
-	CREATOR_MONETIZATION = 4,
+enum_number! {
+    #[derive(Deserialize, Serialize)]
+    #[serde(from = "u8", into = "u8")]
+    pub enum ApplicationType {
+    	GAME = 1,
+    	// MUSIC = 2,
+    	TICKETED_EVENTS = 3,
+    	CREATOR_MONETIZATION = 4,
+    }
 }
 
 bitflags! {
@@ -147,20 +151,32 @@ bitflags! {
   }
 }
 
-pub enum ApplicationInternalGuildRestriction {
-	JOIN_ALL = 1,
-	JOIN_EXTERNAL_ONLY = 2,
-	JOIN_INTERNAL_ONLY = 3,
+enum_number! {
+    #[derive(Deserialize, Serialize)]
+    #[serde(from = "u8", into = "u8")]
+    pub enum ApplicationInternalGuildRestriction {
+    	JOIN_ALL = 1,
+    	JOIN_EXTERNAL_ONLY = 2,
+    	JOIN_INTERNAL_ONLY = 3,
+    }
 }
 
-pub enum ApplicationInteractionsVersion {
-	VERSION_1 = 1,
-	VERSION_2 = 2,
+enum_number! {
+    #[derive(Deserialize, Serialize)]
+    #[serde(from = "u8", into = "u8")]
+    pub enum ApplicationInteractionsVersion {
+    	VERSION_1 = 1,
+    	VERSION_2 = 2,
+    }
 }
 
-pub enum ApplicationEventWebhookStatus {
-	DISABLED = 1,
-	ENABLED = 2,
+enum_number! {
+    #[derive(Deserialize, Serialize)]
+    #[serde(from = "u8", into = "u8")]
+    pub enum ApplicationEventWebhookStatus {
+    	DISABLED = 1,
+    	ENABLED = 2,
+    }
 }
 
 pub enum ApplicationEventWebhook {
@@ -169,32 +185,48 @@ pub enum ApplicationEventWebhook {
 	QUEST_USER_ENROLLMENT,
 }
 
-pub enum ApplicationExplicitContentFilterLevel {
-	INHERIT = 0,
-	ALWAYS = 1,
+enum_number! {
+    #[derive(Deserialize, Serialize)]
+    #[serde(from = "u8", into = "u8")]
+    pub enum ApplicationExplicitContentFilterLevel {
+    	INHERIT = 0,
+    	ALWAYS = 1,
+    }
 }
 
-pub enum ApplicationVerificationState {
-	INELIGIBLE = 1,
-	UNSUBMITTED = 2,
-	SUBMITTED = 3,
-	SUCCEEDED = 4,
+enum_number! {
+    #[derive(Deserialize, Serialize)]
+    #[serde(from = "u8", into = "u8")]
+    pub enum ApplicationVerificationState {
+    	INELIGIBLE = 1,
+    	UNSUBMITTED = 2,
+    	SUBMITTED = 3,
+    	SUCCEEDED = 4,
+    }
 }
 
-pub enum ApplicationStoreState {
-	NONE = 1,
-	PAID = 2,
-	SUBMITTED = 3,
-	APPROVED = 4,
-	REJECTED = 5,
+enum_number! {
+    #[derive(Deserialize, Serialize)]
+    #[serde(from = "u8", into = "u8")]
+    pub enum ApplicationStoreState {
+    	NONE = 1,
+    	PAID = 2,
+    	SUBMITTED = 3,
+    	APPROVED = 4,
+    	REJECTED = 5,
+    }
 }
 
-pub enum ApplicationRpcState {
-	DISABLED = 0,
-	UNSUBMITTED = 1,
-	SUBMITTED = 2,
-	APPROVED = 3,
-	REJECTED = 4,
+enum_number! {
+    #[derive(Deserialize, Serialize)]
+    #[serde(from = "u8", into = "u8")]
+    pub enum ApplicationRpcState {
+    	DISABLED = 0,
+    	UNSUBMITTED = 1,
+    	SUBMITTED = 2,
+    	APPROVED = 3,
+    	REJECTED = 4,
+    }
 }
 
 bitflags! {
@@ -221,12 +253,16 @@ bitflags! {
   }
 }
 
-pub enum ApplicationDiscoverabilityState {
-	INELIGIBLE = 1,
-	NOT_DISCOVERABLE = 2,
-	DISCOVERABLE = 3,
-	FEATUREABLE = 4,
-	BLOCKED = 5,
+enum_number! {
+    #[derive(Deserialize, Serialize)]
+    #[serde(from = "u8", into = "u8")]
+    pub enum ApplicationDiscoverabilityState {
+    	INELIGIBLE = 1,
+    	NOT_DISCOVERABLE = 2,
+    	DISCOVERABLE = 3,
+    	FEATUREABLE = 4,
+    	BLOCKED = 5,
+    }
 }
 
 bitflags! {
@@ -250,10 +286,14 @@ bitflags! {
   }
 }
 
-pub enum ApplicationMonetizationState {
-	NONE = 1,
-	ENABLED = 2,
-	BLOCKED = 3,
+enum_number! {
+    #[derive(Deserialize, Serialize)]
+    #[serde(from = "u8", into = "u8")]
+    pub enum ApplicationMonetizationState {
+    	NONE = 1,
+    	ENABLED = 2,
+    	BLOCKED = 3,
+    }
 }
 
 bitflags! {
@@ -318,10 +358,13 @@ pub struct ApplicationInstallParams {
 	pub permissions: String,
 }
 
-#[derive(Serialize, Deserialize, Default)]
-pub enum ApplicationIntegrationType {
-	GUILD_INSTALL = 0,
-	USER_INSTALL = 1,
+enum_number! {
+    #[derive(Deserialize, Serialize)]
+    #[serde(from = "u8", into = "u8")]
+    pub enum ApplicationIntegrationType {
+    	GUILD_INSTALL = 0,
+    	USER_INSTALL = 1,
+    }
 }
 
 #[derive(Serialize, Deserialize, Default)]
@@ -375,10 +418,14 @@ pub enum EmbeddedActivitySupportedPlatformType {
 	ios,
 }
 
-pub enum EmbeddedActivityOrientationLockStateType {
-	UNLOCKED = 1,
-	PORTRAIT = 2,
-	LANDSCAPE = 3,
+enum_number! {
+    #[derive(Deserialize, Serialize)]
+    #[serde(from = "u8", into = "u8")]
+    pub enum EmbeddedActivityOrientationLockStateType {
+    	UNLOCKED = 1,
+    	PORTRAIT = 2,
+    	LANDSCAPE = 3,
+    }
 }
 
 #[derive(Serialize, Deserialize, Default)]
@@ -391,10 +438,14 @@ pub struct EmbeddedActivityPlatformConfig {
 	pub release_phase: String,
 }
 
-pub enum EmbeddedActivityLabelType {
-	NONE = 0,
-	NEW = 1,
-	UPDATED = 2,
+enum_number! {
+    #[derive(Deserialize, Serialize)]
+    #[serde(from = "u8", into = "u8")]
+    pub enum EmbeddedActivityLabelType {
+    	NONE = 0,
+    	NEW = 1,
+    	UPDATED = 2,
+    }
 }
 
 pub enum EmbeddedActivityReleasePhase {
@@ -458,11 +509,15 @@ pub struct DetectableApplication {
 	pub overlay_compatibility_hook: bool,
 }
 
-pub enum ApplicationDisclosureType {
-	UNSPECIFIED_DISCLOSURE = 0,
-	IP_LOCATION = 1,
-	DISPLAYS_ADVERTISEMENTS = 2,
-	PARTNER_SDK_DATA_SHARING_MESSAGE = 3,
+enum_number! {
+    #[derive(Deserialize, Serialize)]
+    #[serde(from = "u8", into = "u8")]
+    pub enum ApplicationDisclosureType {
+    	UNSPECIFIED_DISCLOSURE = 0,
+    	IP_LOCATION = 1,
+    	DISPLAYS_ADVERTISEMENTS = 2,
+    	PARTNER_SDK_DATA_SHARING_MESSAGE = 3,
+    }
 }
 
 #[derive(Serialize, Deserialize, Default)]

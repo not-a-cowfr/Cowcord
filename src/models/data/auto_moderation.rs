@@ -147,19 +147,27 @@ pub struct AutomodRule {
 	pub exempt_channels:  Vec<Snowflake>,
 }
 
-pub enum AutomodEventType {
-	MESSAGE_SEND = 1,
-	GUILD_MEMBER_EVENT = 2,
+enum_number! {
+    #[derive(Deserialize, Serialize)]
+    #[serde(from = "u8", into = "u8")]
+    pub enum AutomodEventType {
+    	MESSAGE_SEND = 1,
+    	GUILD_MEMBER_EVENT = 2,
+    }
 }
 
-pub enum AutomodTriggerType {
-	KEYWORD = 1,
-	HARMFUL_LINK = 2,
-	SPAM = 3,
-	KEYWORD_PRESET = 4,
-	MENTION_SPAM = 5,
-	USER_PROFILE = 6,
-	GUILD_POLICY = 7,
+enum_number! {
+    #[derive(Deserialize, Serialize)]
+    #[serde(from = "u8", into = "u8")]
+    pub enum AutomodTriggerType {
+    	KEYWORD = 1,
+    	HARMFUL_LINK = 2,
+    	SPAM = 3,
+    	KEYWORD_PRESET = 4,
+    	MENTION_SPAM = 5,
+    	USER_PROFILE = 6,
+    	GUILD_POLICY = 7,
+    }
 }
 
 #[derive(Serialize, Deserialize, Default)]
@@ -174,10 +182,14 @@ pub struct AutomodTriggerMetadata {
 	pub mention_raid_protection_enabled: bool,
 }
 
-pub enum AutomodKeywordPresetType {
-	PROFANITY = 1,
-	SEXUAL_CONTENT = 2,
-	SLURS = 3,
+enum_number! {
+    #[derive(Deserialize, Serialize)]
+    #[serde(from = "u8", into = "u8")]
+    pub enum AutomodKeywordPresetType {
+    	PROFANITY = 1,
+    	SEXUAL_CONTENT = 2,
+    	SLURS = 3,
+    }
 }
 
 #[derive(Serialize, Deserialize, Default)]
@@ -188,11 +200,15 @@ pub struct AutomodAction {
 	pub metadata: AutomodActionMetadata,
 }
 
-pub enum AutomodActionType {
-	BLOCK_MESSAGE = 1,
-	SEND_ALERT_MESSAGE = 2,
-	TIMEOUT_USER = 3,
-	QUARANTINE_USER = 4,
+enum_number! {
+    #[derive(Deserialize, Serialize)]
+    #[serde(from = "u8", into = "u8")]
+    pub enum AutomodActionType {
+    	BLOCK_MESSAGE = 1,
+    	SEND_ALERT_MESSAGE = 2,
+    	TIMEOUT_USER = 3,
+    	QUARANTINE_USER = 4,
+    }
 }
 
 #[derive(Serialize, Deserialize, Default)]

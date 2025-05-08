@@ -178,9 +178,13 @@ pub struct PermissionOverwrite {
 	pub deny:   String,
 }
 
-pub enum PermissionOverwriteType {
-	role = 0,
-	member = 1,
+enum_number! {
+    #[derive(Deserialize, Serialize)]
+    #[serde(from = "u8", into = "u8")]
+    pub enum PermissionOverwriteType {
+    	role = 0,
+    	member = 1,
+    }
 }
 
 #[derive(Serialize, Deserialize, Default)]
@@ -240,11 +244,15 @@ pub struct ForumTag {
 	pub emoji_name: Option<String>,
 }
 
-pub enum ConsentStatus {
-	UNSPECIFIED = 0,
-	PENDING = 1,
-	ACCEPTED = 2,
-	REJECTED = 3,
+enum_number! {
+    #[derive(Deserialize, Serialize)]
+    #[serde(from = "u8", into = "u8")]
+    pub enum ConsentStatus {
+    	UNSPECIFIED = 0,
+    	PENDING = 1,
+    	ACCEPTED = 2,
+    	REJECTED = 3,
+    }
 }
 
 #[derive(Serialize, Deserialize, Default)]

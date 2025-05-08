@@ -19,13 +19,17 @@ pub struct Team {
 	pub stripe_connect_account_id: String,
 }
 
-pub enum PayoutAccountStatus {
-	UNSUBMITTED = 1,
-	PENDING = 2,
-	ACTION_REQUIRED = 3,
-	ACTIVE = 4,
-	BLOCKED = 5,
-	SUSPENDED = 6,
+enum_number! {
+    #[derive(Deserialize, Serialize)]
+    #[serde(from = "u8", into = "u8")]
+    pub enum PayoutAccountStatus {
+    	UNSUBMITTED = 1,
+    	PENDING = 2,
+    	ACTION_REQUIRED = 3,
+    	ACTIVE = 4,
+    	BLOCKED = 5,
+    	SUSPENDED = 6,
+    }
 }
 
 #[derive(Serialize, Deserialize, Default)]
@@ -39,9 +43,13 @@ pub struct Member {
 	pub role:             String,
 }
 
-pub enum MembershipState {
-	INVITED = 1,
-	ACCEPTED = 2,
+enum_number! {
+    #[derive(Deserialize, Serialize)]
+    #[serde(from = "u8", into = "u8")]
+    pub enum MembershipState {
+    	INVITED = 1,
+    	ACCEPTED = 2,
+    }
 }
 
 pub enum MemberRoleType {
@@ -64,20 +72,24 @@ pub struct Payout {
 	pub latest_tipalti_submission_response: Value,
 }
 
-pub enum PayoutStatus {
-	OPEN = 1,
-	PAID = 2,
-	PENDING = 3,
-	MANUAL = 4,
-	CANCELLED = 5,
-	DEFERRED = 6,
-	DEFERRED_INTERNAL = 7,
-	PROCESSING = 8,
-	ERROR = 9,
-	REJECTED = 10,
-	RISK_REVIEW = 11,
-	SUBMITTED = 12,
-	PENDING_FUNDS = 13,
+enum_number! {
+    #[derive(Deserialize, Serialize)]
+    #[serde(from = "u8", into = "u8")]
+    pub enum PayoutStatus {
+    	OPEN = 1,
+    	PAID = 2,
+    	PENDING = 3,
+    	MANUAL = 4,
+    	CANCELLED = 5,
+    	DEFERRED = 6,
+    	DEFERRED_INTERNAL = 7,
+    	PROCESSING = 8,
+    	ERROR = 9,
+    	REJECTED = 10,
+    	RISK_REVIEW = 11,
+    	SUBMITTED = 12,
+    	PENDING_FUNDS = 13,
+    }
 }
 
 #[derive(Serialize, Deserialize, Default)]
