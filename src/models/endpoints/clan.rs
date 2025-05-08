@@ -19,12 +19,16 @@ pub struct SetClanIdentityRequest {
 pub type SetClanIdentityResponse = User;
 
 /// Type: get
-pub fn GET_CLAN_ENDPOINT(guild_id: Snowflake) -> String { format!("/discovery/{}/clan", guild_id) }
+pub fn GET_CLAN_ENDPOINT(guild_id: Snowflake) -> String {
+	format!("/discovery/{}/clan", guild_id)
+}
 
 pub type GetClainResponse = Clan;
 
 /// Type: post
-pub fn CREATE_CLAN_ENDPOINT(guild_id: Snowflake) -> String { format!("/clan/{}", guild_id) }
+pub fn CREATE_CLAN_ENDPOINT(guild_id: Snowflake) -> String {
+	format!("/clan/{}", guild_id)
+}
 
 #[derive(Serialize)]
 pub struct CreateClanRequest {

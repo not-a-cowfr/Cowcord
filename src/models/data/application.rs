@@ -473,7 +473,7 @@ pub enum EmbeddedActivityReleasePhase {
 #[serde(default)]
 pub struct ApplicationAsset {
 	pub id:     String,
-	pub r#type: u8, // kinda useless its either just 1 or 2 and no one knows what its for https://docs.discord.sex/resources/application#application-asset-type
+	pub r#type: u8, /* kinda useless its either just 1 or 2 and no one knows what its for https://docs.discord.sex/resources/application#application-asset-type */
 	pub name:   String,
 }
 

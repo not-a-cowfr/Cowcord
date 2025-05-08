@@ -88,32 +88,32 @@ macro_rules! bitflags {
 /// #[derive(Clone, Copy, Deserialize, Serialize)]
 /// #[serde(from = "u8", into = "u8")]
 /// pub enum Foo {
-///     /// First
-///     Aah,
-///     /// Second,
-///     Bar,
-///     /// Variant value is unknown.
-///     Unknown(u8),
+/// 	/// First
+/// 	Aah,
+/// 	/// Second,
+/// 	Bar,
+/// 	/// Variant value is unknown.
+/// 	Unknown(u8),
 /// }
 ///
 /// impl From<u8> for Foo {
-///     fn from(value: u8) -> Self {
-///         match value {
-///             1 => Self::Aah,
-///             2 => Self::Bar,
-///             unknown => Self::Unknown(unknown),
-///         }
-///     }
+/// 	fn from(value: u8) -> Self {
+/// 		match value {
+/// 			| 1 => Self::Aah,
+/// 			| 2 => Self::Bar,
+/// 			| unknown => Self::Unknown(unknown),
+/// 		}
+/// 	}
 /// }
 ///
 /// impl From<Foo> for u8 {
-///     fn from(value: Foo) -> Self {
-///         match value {
-///             Foo::Aah => 1,
-///             Foo::Bar => 2,
-///             Foo::Unknown(unknown) => unknown,
-///         }
-///     }
+/// 	fn from(value: Foo) -> Self {
+/// 		match value {
+/// 			| Foo::Aah => 1,
+/// 			| Foo::Bar => 2,
+/// 			| Foo::Unknown(unknown) => unknown,
+/// 		}
+/// 	}
 /// }
 /// ```
 #[macro_export]

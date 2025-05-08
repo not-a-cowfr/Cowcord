@@ -120,7 +120,7 @@ pub struct NameplateData {
 	pub asset:      String,
 	pub sku_id:     Snowflake,
 	pub label:      String,
-	pub palette:    String, // https://discord-userdoccers-1ifxqpgzv-discord-userdoccers.vercel.app/resources/user#nameplate-color-palette
+	pub palette:    String, /* https://discord-userdoccers-1ifxqpgzv-discord-userdoccers.vercel.app/resources/user#nameplate-color-palette */
 	pub expires_at: Option<u32>,
 }
 
@@ -279,7 +279,7 @@ pub struct Connection {
 	pub r#type:              String,
 	pub name:                String,
 	pub verified:            bool,
-	pub metadata:            String, // ???? type is "object" and description is "Service-specific metadata about the connection"
+	pub metadata:            String, /* ???? type is "object" and description is "Service-specific metadata about the connection" */
 	pub metadata_visibility: u8,     // https://docs.discord.sex/resources/user#visibility-type
 	pub revoked:             bool,
 	pub integrations:        Vec<ConnectionIntegration>,

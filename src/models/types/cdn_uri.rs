@@ -24,15 +24,21 @@ impl CdnUri {
 		Ok(CdnUri(url))
 	}
 
-	pub fn as_str(&self) -> &str { self.0.as_str() }
+	pub fn as_str(&self) -> &str {
+		self.0.as_str()
+	}
 }
 
 impl FromStr for CdnUri {
 	type Err = CdnUriError;
 
-	fn from_str(s: &str) -> Result<Self, Self::Err> { CdnUri::new(s) }
+	fn from_str(s: &str) -> Result<Self, Self::Err> {
+		CdnUri::new(s)
+	}
 }
 
 impl AsRef<str> for CdnUri {
-	fn as_ref(&self) -> &str { self.as_str() }
+	fn as_ref(&self) -> &str {
+		self.as_str()
+	}
 }

@@ -34,7 +34,7 @@ pub struct Guild {
 	pub verification_level:            u8,
 	/// https://docs.discord.sex/resources/guild#message-notification-level
 	pub default_message_notifications: u8,
-	pub explicit_content_filter:       u8, //https://docs.discord.sex/resources/guild#explicit-content-filter-level
+	pub explicit_content_filter:       u8, /* https://docs.discord.sex/resources/guild#explicit-content-filter-level */
 	/// https://docs.discord.sex/resources/guild#guild-features
 	pub features:                      Vec<String>,
 	pub roles:                         Vec<Role>,
@@ -48,7 +48,7 @@ pub struct Guild {
 	pub max_presences:                 Option<u32>,
 	pub max_members:                   u32,
 	pub vanity_url_code:               Option<String>,
-	pub premium_tier:                  u8, //https://docs.discord.sex/resources/guild#premium-tier
+	pub premium_tier:                  u8, // https://docs.discord.sex/resources/guild#premium-tier
 	pub premium_subscription_count:    u32,
 	pub preferred_locale:              String,
 	pub max_video_channel_users:       u16,
@@ -347,7 +347,7 @@ pub struct UserGuild {
 	pub icon:                       Option<String>,
 	pub banner:                     Option<String>,
 	pub owner:                      bool,
-	pub features:                   Vec<String>, // enabled guild features, should replace with enum
+	pub features:                   Vec<String>, /* enabled guild features, should replace with enum */
 	pub permissions:                String,
 	pub approximate_member_count:   u32,
 	pub approximate_presence_count: u32,

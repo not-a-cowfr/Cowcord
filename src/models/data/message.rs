@@ -469,8 +469,8 @@ pub struct MessageAttachment {
 	pub placeholder:          String,
 	pub ephemeral:            bool,
 	pub duration_secs:        f64,
-	pub waveform:             String, // Base64 encoded bytearray representing a sampled waveform (if voice message)
-	pub flags:                u64,    // https://docs.discord.sex/resources/message#attachment-flags
+	pub waveform:             String, /* Base64 encoded bytearray representing a sampled waveform (if voice message) */
+	pub flags:                u64,    /* https://docs.discord.sex/resources/message#attachment-flags */
 	pub is_clip:              bool,
 	pub is_thumbnail:         bool,
 	pub is_remix:             bool,

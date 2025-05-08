@@ -176,7 +176,9 @@ pub struct ModifyGuildChannelPositionsRequest {
 /// Type: get
 ///
 /// requires VIEW_CHANNEL permission
-pub fn GET_CHANNEL_ENDPOINT(channel_id: Snowflake) -> String { format!("/channels/{}", channel_id) }
+pub fn GET_CHANNEL_ENDPOINT(channel_id: Snowflake) -> String {
+	format!("/channels/{}", channel_id)
+}
 
 /// "If the channel is a thread, a thread member object is included in the returned result."
 ///

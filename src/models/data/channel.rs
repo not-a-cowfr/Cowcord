@@ -28,7 +28,7 @@ pub struct Channel {
 	pub recipients:                         Vec<User>,
 	/// https://docs.discord.sex/resources/channel#recipient-flags
 	pub recipient_falgs:                    u8,
-	pub icon:                               Option<String>, // TODO: specific types for cdn hashes https://docs.discord.sex/reference#cdn-formatting
+	pub icon:                               Option<String>, /* TODO: specific types for cdn hashes https://docs.discord.sex/reference#cdn-formatting */
 	pub nicks:                              Vec<ChannelNick>,
 	pub managed:                            bool,
 	pub blocked_user_warning_dismissed:     bool,
@@ -42,7 +42,7 @@ pub struct Channel {
 	pub rtc_region:                         Option<String>,
 	/// https://docs.discord.sex/resources/channel#video-quality-mode
 	pub video_quality_mode:                 u8,
-	pub total_message_sent:                 usize, // like message_count except it counts deleted messages and intial thread message
+	pub total_message_sent:                 usize, /* like message_count except it counts deleted messages and intial thread message */
 	pub message_count:                      usize,
 	pub member_count:                       u8, // stops counting at 50, nice one discord
 	pub member_ids_preview:                 Vec<Snowflake>,

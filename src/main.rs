@@ -40,7 +40,9 @@ pub enum Route {
 
 const TAILWIND_CSS: Asset = asset!("/assets/tailwind.css");
 
-fn main() { dioxus::launch(App); }
+fn main() {
+	dioxus::launch(App);
+}
 
 #[component]
 fn App() -> Element {

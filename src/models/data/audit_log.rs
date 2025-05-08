@@ -137,7 +137,7 @@ pub struct OptionalLogInfo {
 	pub message_id:                        Snowflake,
 	pub role_name:                         String,
 	pub status:                            String,
-	pub r#type:                            String, // serialized as string but is u8 https://docs.discord.sex/resources/channel#permission-overwrite-type
+	pub r#type:                            String, /* serialized as string but is u8 https://docs.discord.sex/resources/channel#permission-overwrite-type */
 }
 
 // theres a lot of changing to these types https://docs.discord.sex/resources/audit-log#audit-log-change-exceptions

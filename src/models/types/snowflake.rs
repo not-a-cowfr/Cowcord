@@ -12,7 +12,9 @@ const DISCORD_EPOCH: u64 = 1420070400000;
 pub struct Snowflake(#[serde(deserialize_with = "deserialize_snowflake_from_string")] u64);
 
 impl Snowflake {
-	pub fn new(id: u64) -> Self { Snowflake(id) }
+	pub fn new(id: u64) -> Self {
+		Snowflake(id)
+	}
 
 	pub fn generate(
 		worker_id: u8,
@@ -37,23 +39,37 @@ impl Snowflake {
 		Snowflake(id)
 	}
 
-	pub fn timestamp(&self) -> u64 { (self.0 >> 22) + DISCORD_EPOCH }
+	pub fn timestamp(&self) -> u64 {
+		(self.0 >> 22) + DISCORD_EPOCH
+	}
 
-	pub fn worker_id(&self) -> u8 { ((self.0 >> 17) & 0b11111) as u8 }
+	pub fn worker_id(&self) -> u8 {
+		((self.0 >> 17) & 0b11111) as u8
+	}
 
-	pub fn process_id(&self) -> u8 { ((self.0 >> 12) & 0b11111) as u8 }
+	pub fn process_id(&self) -> u8 {
+		((self.0 >> 12) & 0b11111) as u8
+	}
 
-	pub fn increment(&self) -> u16 { (self.0 & 0b111111111111) as u16 }
+	pub fn increment(&self) -> u16 {
+		(self.0 & 0b111111111111) as u16
+	}
 
-	pub fn raw(&self) -> u64 { self.0 }
+	pub fn raw(&self) -> u64 {
+		self.0
+	}
 }
 
 impl From<Snowflake> for u64 {
-	fn from(snowflake: Snowflake) -> Self { snowflake.0 }
+	fn from(snowflake: Snowflake) -> Self {
+		snowflake.0
+	}
 }
 
 impl From<u64> for Snowflake {
-	fn from(value: u64) -> Self { Snowflake(value) }
+	fn from(value: u64) -> Self {
+		Snowflake(value)
+	}
 }
 
 impl FromStr for Snowflake {

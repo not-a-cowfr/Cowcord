@@ -71,7 +71,7 @@ pub struct GuildScheduledEventRecurrenceRule {
 	pub end:          Option<Timestamp>,
 	/// https://docs.discord.sex/resources/guild-scheduled-event#guild-scheduled-event-recurrence-rule---frequency
 	pub frequency:    u8,
-	pub interval:     u16, // The spacing between the events, defined by frequency; for example, frequency of WEEKLY and an interval of 2 would be every other week
+	pub interval:     u16, /* The spacing between the events, defined by frequency; for example, frequency of WEEKLY and an interval of 2 would be every other week */
 	pub by_weekday:   Option<Vec<u8>>,
 	pub by_n_weekday: Option<Vec<NWeekday>>,
 	pub by_month:     Option<Vec<u8>>,

@@ -127,6 +127,7 @@ And make sure to include an enum that repesents it
 ```rust
 use crate::enum_number;
 enum_number! {
+    #[derive(Deserialize, Serialize)]
     #[serde(from = "u8", into = "u8")]
     pub enum FieldOneType {
         THIS_COOL_TYPE = 1,

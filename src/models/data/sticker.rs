@@ -23,7 +23,7 @@ pub struct Sticker {
 	pub pack_id:     Snowflake,
 	pub name:        String,
 	pub description: Option<String>,
-	pub tags:        String, // comma separated list of keywords, official clients literally jsut use the name for this though
+	pub tags:        String, /* comma separated list of keywords, official clients literally jsut use the name for this though */
 	pub r#type:      u8,     // https://docs.discord.sex/resources/sticker#sticker-types
 	pub format_type: u8,     // https://docs.discord.sex/resources/sticker#sticker-format-types
 	pub available:   bool,

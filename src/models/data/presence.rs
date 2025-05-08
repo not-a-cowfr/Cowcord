@@ -78,11 +78,9 @@ pub struct ActivitySecrets {
 	pub join: String,
 }
 
-/*
-Activity metadata can consist of arbitrary data, and is not sanitized by the API. Treat data within this object carefully.
-
-The below structure is only a convention that is used by official clients. It is not enforced by the API.
-*/
+// Activity metadata can consist of arbitrary data, and is not sanitized by the API. Treat data within this object carefully.
+//
+// The below structure is only a convention that is used by official clients. It is not enforced by the API.
 #[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct ActivityMetadata {

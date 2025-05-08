@@ -52,7 +52,7 @@ pub struct DiscoveryRequirements {
 	pub safe_environment:                bool,
 	pub healthy:                         bool,
 	pub health_score_pending:            bool,
-	pub size:                            bool, // "size: bool"🥺 (it means whether or not guild meets member reqs)
+	pub size:                            bool, /* "size: bool"🥺 (it means whether or not guild meets member reqs) */
 	pub nsfw_properties:                 DiscoveryNsfwProperties,
 	pub protected:                       bool,
 	pub sufficient:                      bool,

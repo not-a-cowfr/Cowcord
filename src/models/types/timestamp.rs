@@ -174,16 +174,22 @@ impl std::ops::Deref for Timestamp {
 	#[cfg(not(feature = "chrono"))]
 	type Target = OffsetDateTime;
 
-	fn deref(&self) -> &Self::Target { &self.0 }
+	fn deref(&self) -> &Self::Target {
+		&self.0
+	}
 }
 
 #[cfg(feature = "chrono")]
 impl<Tz: TimeZone> From<DateTime<Tz>> for Timestamp {
-	fn from(dt: DateTime<Tz>) -> Self { Self(dt.with_timezone(&Utc)) }
+	fn from(dt: DateTime<Tz>) -> Self {
+		Self(dt.with_timezone(&Utc))
+	}
 }
 #[cfg(not(feature = "chrono"))]
 impl From<OffsetDateTime> for Timestamp {
-	fn from(dt: OffsetDateTime) -> Self { Self(dt) }
+	fn from(dt: OffsetDateTime) -> Self {
+		Self(dt)
+	}
 }
 
 impl Default for Timestamp {
@@ -229,18 +235,24 @@ impl FromStr for Timestamp {
 	type Err = ParseError;
 
 	/// Parses an RFC 3339 date and time string such as `2016-04-30T11:18:25.796Z`.
-	fn from_str(s: &str) -> Result<Self, Self::Err> { Timestamp::parse(s) }
+	fn from_str(s: &str) -> Result<Self, Self::Err> {
+		Timestamp::parse(s)
+	}
 }
 
 impl<'a> std::convert::TryFrom<&'a str> for Timestamp {
 	type Error = ParseError;
 
 	/// Parses an RFC 3339 date and time string such as `2016-04-30T11:18:25.796Z`.
-	fn try_from(s: &'a str) -> Result<Self, Self::Error> { Timestamp::parse(s) }
+	fn try_from(s: &'a str) -> Result<Self, Self::Error> {
+		Timestamp::parse(s)
+	}
 }
 
 impl From<&Timestamp> for Timestamp {
-	fn from(ts: &Timestamp) -> Self { *ts }
+	fn from(ts: &Timestamp) -> Self {
+		*ts
+	}
 }
 
 #[cfg(test)]

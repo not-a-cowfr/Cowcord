@@ -65,7 +65,7 @@ pub struct TeenAuditLog {
 	pub actions:        Vec<Action>,
 	pub users:          Vec<User>,
 	pub guilds:         Vec<Guild>,
-	pub totals:         HashMap<u8, u16>, // the type (first one) _might_ be returned as a string not an int but maybe serde will dela with that for me
+	pub totals:         HashMap<u8, u16>, /* the type (first one) _might_ be returned as a string not an int but maybe serde will dela with that for me */
 }
 
 #[derive(Serialize, Deserialize, Default)]
