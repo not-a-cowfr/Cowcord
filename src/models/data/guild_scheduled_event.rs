@@ -20,11 +20,11 @@ pub struct GuildScheduledEvent {
 	pub scheduled_start_time:             Timestamp,
 	pub scheduled_end_time:               Option<Timestamp>,
 	pub auto_start:                       bool,
-	/// https://docs.discord.sex/resources/guild#privacy-level
+	/// https://docs.discord.food/resources/guild#privacy-level
 	pub privacy_level:                    u8,
-	/// https://docs.discord.sex/resources/guild-scheduled-event#guild-scheduled-event-status
+	/// https://docs.discord.food/resources/guild-scheduled-event#guild-scheduled-event-status
 	pub status:                           u8,
-	/// https://docs.discord.sex/resources/guild-scheduled-event#guild-scheduled-event-entity-type
+	/// https://docs.discord.food/resources/guild-scheduled-event#guild-scheduled-event-entity-type
 	pub entity_type:                      u8,
 	pub entity_id:                        Option<Snowflake>,
 	pub entity_metadata:                  Option<EntityMetadata>,
@@ -69,7 +69,7 @@ pub struct EntityMetadata {
 pub struct GuildScheduledEventRecurrenceRule {
 	pub start:        Timestamp,
 	pub end:          Option<Timestamp>,
-	/// https://docs.discord.sex/resources/guild-scheduled-event#guild-scheduled-event-recurrence-rule---frequency
+	/// https://docs.discord.food/resources/guild-scheduled-event#guild-scheduled-event-recurrence-rule---frequency
 	pub frequency:    u8,
 	pub interval:     u16, /* The spacing between the events, defined by frequency; for example, frequency of WEEKLY and an interval of 2 would be every other week */
 	pub by_weekday:   Option<Vec<u8>>,
@@ -149,7 +149,7 @@ pub struct GuildScheduledEventException {
 pub struct GuildScheduledEventUser {
 	pub guild_scheduled_event_id:           Snowflake,
 	pub guild_scheduled_event_exception_id: Snowflake,
-	/// https://docs.discord.sex/resources/guild-scheduled-event#guild-scheduled-event-user-response
+	/// https://docs.discord.food/resources/guild-scheduled-event#guild-scheduled-event-user-response
 	pub response:                           u8,
 	pub user_id:                            Snowflake,
 	pub user:                               User,

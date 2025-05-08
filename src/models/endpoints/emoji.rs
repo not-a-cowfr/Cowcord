@@ -47,7 +47,7 @@ pub fn GET_EMOJI_SOURCE_ENDPOINT(emoji_id: Snowflake) -> String {
 
 #[derive(Deserialize)]
 pub struct GetEmojiSourceResponse {
-	/// https://docs.discord.sex/resources/emoji#emoji-source-type
+	/// https://docs.discord.food/resources/emoji#emoji-source-type
 	pub r#type:      String,
 	pub guild:       Option<EmojiGuild>,
 	pub application: Option<EmojiApplication>,

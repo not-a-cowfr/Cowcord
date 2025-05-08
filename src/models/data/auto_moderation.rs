@@ -13,25 +13,25 @@ pub struct AutomodAlert {
 	pub rule_name:                    String,
 	pub decision_id:                  String,
 	pub decision_reason:              String,
-	/// https://docs.discord.sex/resources/auto-moderation#automod-decision-outcome
+	/// https://docs.discord.food/resources/auto-moderation#automod-decision-outcome
 	pub decision_outcome:             String,
 	pub channel_id:                   Snowflake,
 	pub flagged_message_id:           Snowflake,
 	pub keyword:                      String,
 	pub keyword_matched_content:      String,
-	/// https://docs.discord.sex/resources/auto-moderation#automod-profile-update-type
+	/// https://docs.discord.food/resources/auto-moderation#automod-profile-update-type
 	pub block_profile_update_type:    String,
-	/// https://docs.discord.sex/resources/auto-moderation#automod-quarantine-user-reason
+	/// https://docs.discord.food/resources/auto-moderation#automod-quarantine-user-reason
 	pub quarantine_user:              String,
-	/// https://docs.discord.sex/resources/auto-moderation#automod-quarantine-user-action
+	/// https://docs.discord.food/resources/auto-moderation#automod-quarantine-user-action
 	pub quarantine_user_action:       String,
-	/// https://docs.discord.sex/resources/auto-moderation#automod-quarantine-event-type
+	/// https://docs.discord.food/resources/auto-moderation#automod-quarantine-event-type
 	pub quarantine_event:             String,
-	/// https://docs.discord.sex/resources/auto-moderation#automod-decision-outcome
+	/// https://docs.discord.food/resources/auto-moderation#automod-decision-outcome
 	pub voice_channel_status_outcome: String,
 	pub application_name:             String,
 	pub interaction_user_id:          Snowflake,
-	/// https://docs.discord.sex/resources/auto-moderation#automod-interaction-callback-type
+	/// https://docs.discord.food/resources/auto-moderation#automod-interaction-callback-type
 	pub interaction_callback_type:    String,
 	pub timeout_duration:             u32,
 	pub alert_actions_execution:      AutomodAlertActionsExecution,
@@ -96,17 +96,17 @@ pub enum AutomodAlertActionType {
 #[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct AutomodIncidentNotificationEmbed {
-	/// https://docs.discord.sex/resources/auto-moderation#automod-incident-notification-type
+	/// https://docs.discord.food/resources/auto-moderation#automod-incident-notification-type
 	pub notification_type:                 String,
 	pub decision_id:                       String,
 	pub action_by_user_id:                 Snowflake,
-	/// https://docs.discord.sex/resources/auto-moderation#automod-raid-type
+	/// https://docs.discord.food/resources/auto-moderation#automod-raid-type
 	pub raid_type:                         String,
 	pub raid_datetime:                     Timestamp,
 	pub join_attempts:                     u32,
 	pub dms_sent:                          u32,
 	pub suspicious_mention_activity_until: Timestamp,
-	/// https://docs.discord.sex/resources/auto-moderation#automod-raid-resolution-reason
+	/// https://docs.discord.food/resources/auto-moderation#automod-raid-resolution-reason
 	pub resolved_reason:                   String,
 }
 
@@ -137,9 +137,9 @@ pub struct AutomodRule {
 	pub guild_id:         Snowflake,
 	pub name:             String,
 	pub creator_id:       Snowflake,
-	/// https://docs.discord.sex/resources/auto-moderation#automod-event-type
+	/// https://docs.discord.food/resources/auto-moderation#automod-event-type
 	pub event_type:       u8,
-	/// https://docs.discord.sex/resources/auto-moderation#automod-trigger-type
+	/// https://docs.discord.food/resources/auto-moderation#automod-trigger-type
 	pub trigger_type:     u8,
 	pub trigger_metadata: AutomodTriggerMetadata,
 	pub actions:          Vec<AutomodAction>,
@@ -178,7 +178,7 @@ enum_number! {
 pub struct AutomodTriggerMetadata {
 	pub keyword_filter:                  Vec<String>,
 	pub regex_patterns:                  Vec<String>,
-	/// https://docs.discord.sex/resources/auto-moderation#automod-keyword-preset-type
+	/// https://docs.discord.food/resources/auto-moderation#automod-keyword-preset-type
 	pub presets:                         Vec<u8>,
 	pub allow_list:                      Vec<String>,
 	pub mention_total_limit:             u8,
@@ -199,7 +199,7 @@ enum_number! {
 #[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct AutomodAction {
-	/// https://docs.discord.sex/resources/auto-moderation#automod-action-type
+	/// https://docs.discord.food/resources/auto-moderation#automod-action-type
 	pub r#type:   u8,
 	pub metadata: AutomodActionMetadata,
 }

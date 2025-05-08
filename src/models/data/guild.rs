@@ -30,17 +30,17 @@ pub struct Guild {
 	pub afk_timeout:                   u16,
 	pub widget_enabled:                bool,
 	pub widget_channel_id:             Option<Snowflake>,
-	/// https://docs.discord.sex/resources/guild#verification-level
+	/// https://docs.discord.food/resources/guild#verification-level
 	pub verification_level:            u8,
-	/// https://docs.discord.sex/resources/guild#message-notification-level
+	/// https://docs.discord.food/resources/guild#message-notification-level
 	pub default_message_notifications: u8,
-	pub explicit_content_filter:       u8, /* https://docs.discord.sex/resources/guild#explicit-content-filter-level */
-	/// https://docs.discord.sex/resources/guild#guild-features
+	pub explicit_content_filter:       u8, /* https://docs.discord.food/resources/guild#explicit-content-filter-level */
+	/// https://docs.discord.food/resources/guild#guild-features
 	pub features:                      Vec<String>,
 	pub roles:                         Vec<Role>,
 	pub emojis:                        Vec<Emoji>,
 	pub stickers:                      Vec<Sticker>,
-	/// https://docs.discord.sex/resources/guild#mfa-level
+	/// https://docs.discord.food/resources/guild#mfa-level
 	pub mfa_level:                     u8,
 	pub system_channel_id:             Option<Snowflake>,
 	pub public_updates_channel_id:     Option<Snowflake>,
@@ -48,16 +48,16 @@ pub struct Guild {
 	pub max_presences:                 Option<u32>,
 	pub max_members:                   u32,
 	pub vanity_url_code:               Option<String>,
-	pub premium_tier:                  u8, // https://docs.discord.sex/resources/guild#premium-tier
+	pub premium_tier:                  u8, // https://docs.discord.food/resources/guild#premium-tier
 	pub premium_subscription_count:    u32,
 	pub preferred_locale:              String,
 	pub max_video_channel_users:       u16,
 	pub max_stage_video_channel_users: u16,
 	#[deprecated]
 	pub nsfw:                          bool,
-	/// https://docs.discord.sex/resources/guild#nsfw-level
+	/// https://docs.discord.food/resources/guild#nsfw-level
 	pub nsfw_level:                    u8,
-	/// https://docs.discord.sex/resources/guild#hub-type
+	/// https://docs.discord.food/resources/guild#hub-type
 	pub hub_type:                      Option<u8>,
 	pub premium_progress_bar_enabled:  bool,
 	pub latest_onboarding_question_id: Option<Snowflake>,
@@ -323,7 +323,7 @@ pub enum GuildFeatures {
 	WELCOME_SCREEN_ENABLED,
 }
 
-// can be changed via https://docs.discord.sex/resources/guild#modify-guild
+// can be changed via https://docs.discord.food/resources/guild#modify-guild
 pub enum ModifiableGuildFeatures {
 	ACTIVITY_FEED_DISABLED_BY_USER,
 	ACTIVITY_FEED_ENABLED_BY_USER,
@@ -416,7 +416,7 @@ pub struct Role {
 	pub permissions:   String,
 	pub managed:       bool,
 	pub mentionable:   bool,
-	/// https://docs.discord.sex/resources/guild#role-flags
+	/// https://docs.discord.food/resources/guild#role-flags
 	pub flags:         u64,
 	pub tags:          RoleTags,
 }
@@ -442,7 +442,7 @@ pub struct RoleTags {
 pub struct RoleConnectionConfig {
 	pub connection_type:           String,
 	pub connection_metadata_field: Option<String>,
-	/// https://docs.discord.sex/resources/guild#role-connection-operator-type
+	/// https://docs.discord.food/resources/guild#role-connection-operator-type
 	pub operator:                  Option<u8>,
 	pub value:                     Option<String>,
 	pub application_id:            Snowflake,
@@ -479,7 +479,7 @@ pub struct GuildMember {
 	pub pending:                      bool,
 	pub communication_disabled_until: Option<Timestamp>,
 	pub unusual_dm_activity_until:    Option<Timestamp>,
-	/// https://docs.discord.sex/resources/guild#guild-member-flags
+	/// https://docs.discord.food/resources/guild#guild-member-flags
 	pub flags:                        u64,
 	pub permissions:                  String,
 }
@@ -555,7 +555,7 @@ pub struct MemberVerification {
 #[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct MemberVerificationForm {
-	/// https://docs.discord.sex/resources/guild#member-verification-form-field-type
+	/// https://docs.discord.food/resources/guild#member-verification-form-field-type
 	pub field_type:  String,
 	pub label:       String,
 	pub choices:     Vec<String>,

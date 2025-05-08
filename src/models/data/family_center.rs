@@ -42,9 +42,9 @@ enum_number! {
 pub struct LinkedUser {
 	pub created_at:   Timestamp,
 	pub updated_at:   Timestamp,
-	/// https://docs.discord.sex/resources/family-center#link-status
+	/// https://docs.discord.food/resources/family-center#link-status
 	pub link_status:  u8,
-	/// https://docs.discord.sex/resources/family-center#link-type
+	/// https://docs.discord.food/resources/family-center#link-type
 	pub link_type:    u8,
 	pub requestor_id: String,
 	pub user_id:      String,
@@ -74,6 +74,6 @@ pub struct Action {
 	pub event_id:     Snowflake,
 	pub user_id:      Snowflake,
 	pub entity_id:    Snowflake,
-	/// https://docs.discord.sex/resources/family-center#action-type
+	/// https://docs.discord.food/resources/family-center#action-type
 	pub display_type: u8,
 }

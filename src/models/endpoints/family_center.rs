@@ -39,7 +39,7 @@ pub const MODIFY_LINKED_USERS_ENDPOINT: &str = "/family-center/@me/linked-users"
 
 #[derive(Serialize)]
 pub struct ModifyLinkedUsersRequest {
-	/// https://docs.discord.sex/resources/family-center#link-status
+	/// https://docs.discord.food/resources/family-center#link-status
 	pub link_status:    u8,
 	pub linked_user_id: String,
 }

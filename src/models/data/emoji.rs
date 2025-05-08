@@ -36,10 +36,10 @@ pub struct EmojiGuild {
 	pub name:                       String,
 	pub icon:                       Option<String>,
 	pub description:                Option<String>,
-	/// https://docs.discord.sex/resources/guild#guild-features
+	/// https://docs.discord.food/resources/guild#guild-features
 	pub features:                   Vec<String>,
 	pub emojis:                     Vec<Emoji>,
-	/// https://docs.discord.sex/resources/guild#premium-tier
+	/// https://docs.discord.food/resources/guild#premium-tier
 	pub premium_tier:               u8,
 	pub premium_subscription_count: u32,
 	pub approximate_member_count:   u32,

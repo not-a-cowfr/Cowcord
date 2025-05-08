@@ -13,7 +13,7 @@ pub fn GET_DIRECTORY_COUNTS_ENDPOINT(channel_id: Snowflake) -> String {
 	format!("/channels/{}/directory-entries/counts", channel_id)
 }
 
-// returns a mapping of https://docs.discord.sex/resources/directory#directory-category ill do that later
+// returns a mapping of https://docs.discord.food/resources/directory#directory-category ill do that later
 
 /// Type: get
 ///
@@ -32,9 +32,9 @@ pub fn GET_DIRECTORY_ENTRIES_ENDPOINT(
 #[derive(Serialize)]
 #[serde(default)]
 pub struct GetDirectoryEntriesRequest {
-	/// https://docs.discord.sex/resources/directory#directory-entry-type
+	/// https://docs.discord.food/resources/directory#directory-entry-type
 	pub r#type:      u8,
-	/// https://docs.discord.sex/resources/directory#directory-category
+	/// https://docs.discord.food/resources/directory#directory-category
 	pub category_id: u8,
 }
 
@@ -80,9 +80,9 @@ pub fn SEARCH_DIRECTORY_ENTRIES_ENDPOINT(
 #[serde(default)]
 pub struct SearchDirectoryEntriesRequest {
 	pub query:       String,
-	/// https://docs.discord.sex/resources/directory#directory-entry-type
+	/// https://docs.discord.food/resources/directory#directory-entry-type
 	pub r#type:      u8,
-	/// https://docs.discord.sex/resources/directory#directory-category
+	/// https://docs.discord.food/resources/directory#directory-category
 	pub category_id: u8,
 }
 
@@ -113,9 +113,9 @@ pub fn CREATE_DIRECTORY_ENTRY_ENDPOINT(
 #[derive(Serialize)]
 #[serde(default)]
 pub struct CreateDirectoryEntryRequest {
-	/// https://docs.discord.sex/resources/directory#directory-entry-type
+	/// https://docs.discord.food/resources/directory#directory-entry-type
 	pub r#type:              u8,
-	/// https://docs.discord.sex/resources/directory#directory-category
+	/// https://docs.discord.food/resources/directory#directory-category
 	pub primary_category_id: u8,
 	pub description:         Option<String>,
 }
@@ -135,7 +135,7 @@ pub fn MODIFY_DIRECTORY_ENTRY_ENDPOINT(
 #[derive(Serialize)]
 #[serde(default)]
 pub struct ModifyDirectoryEntryRequest {
-	/// https://docs.discord.sex/resources/directory#directory-category
+	/// https://docs.discord.food/resources/directory#directory-category
 	pub primary_category_id: u8,
 	pub description:         String,
 }
@@ -167,7 +167,7 @@ pub fn GET_DIRECTORY_BROADCAST_INFO_ENDPOINT(
 #[derive(Serialize)]
 #[serde(default)]
 pub struct GetDirectoryBroadcastInfoRequest {
-	/// https://docs.discord.sex/resources/directory#directory-entry-type
+	/// https://docs.discord.food/resources/directory#directory-entry-type
 	pub r#type:    u8,
 	pub entity_id: Snowflake,
 }

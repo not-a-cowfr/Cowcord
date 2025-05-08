@@ -13,7 +13,7 @@ use crate::{bitflags, enum_number};
 #[serde(default)]
 pub struct Channel {
 	pub id:                                 Snowflake,
-	/// https://docs.discord.sex/resources/channel#channel-type
+	/// https://docs.discord.food/resources/channel#channel-type
 	pub r#type:                             u8,
 	pub guild_id:                           Snowflake,
 	pub position:                           u16,
@@ -26,9 +26,9 @@ pub struct Channel {
 	pub user_limit:                         u8,
 	pub rate_limit_per_user:                u16,
 	pub recipients:                         Vec<User>,
-	/// https://docs.discord.sex/resources/channel#recipient-flags
+	/// https://docs.discord.food/resources/channel#recipient-flags
 	pub recipient_falgs:                    u8,
-	pub icon:                               Option<String>, /* TODO: specific types for cdn hashes https://docs.discord.sex/reference#cdn-formatting */
+	pub icon:                               Option<String>, /* TODO: specific types for cdn hashes https://docs.discord.food/reference#cdn-formatting */
 	pub nicks:                              Vec<ChannelNick>,
 	pub managed:                            bool,
 	pub blocked_user_warning_dismissed:     bool,
@@ -38,9 +38,9 @@ pub struct Channel {
 	pub owner:                              Option<GuildMember>,
 	pub parent_id:                          Option<Snowflake>,
 	pub last_pin_timestamp:                 Option<Timestamp>,
-	/// https://docs.discord.sex/resources/voice#voice-region-object
+	/// https://docs.discord.food/resources/voice#voice-region-object
 	pub rtc_region:                         Option<String>,
-	/// https://docs.discord.sex/resources/channel#video-quality-mode
+	/// https://docs.discord.food/resources/channel#video-quality-mode
 	pub video_quality_mode:                 u8,
 	pub total_message_sent:                 usize, /* like message_count except it counts deleted messages and intial thread message */
 	pub message_count:                      usize,
@@ -51,14 +51,14 @@ pub struct Channel {
 	pub default_auto_archive_duration:      Option<u16>,
 	pub default_thread_rate_limit_per_user: isize,
 	pub permissions:                        String,
-	/// https://docs.discord.sex/resources/channel#channel-flags
+	/// https://docs.discord.food/resources/channel#channel-flags
 	pub flags:                              u64,
 	pub available_tags:                     Vec<ForumTag>, // max 5
 	pub applied_tags:                       Vec<Snowflake>,
 	pub default_reaction_emoji:             Option<DefaultReaction>,
-	/// https://docs.discord.sex/resources/channel#forum-layout-type
+	/// https://docs.discord.food/resources/channel#forum-layout-type
 	pub default_forum_layout:               u8,
-	/// https://docs.discord.sex/resources/channel#sort-order-type
+	/// https://docs.discord.food/resources/channel#sort-order-type
 	pub default_sort_order:                 Option<u8>,
 	pub icon_emoji:                         Option<IconEmoji>,
 	pub is_message_request:                 bool,
@@ -148,7 +148,7 @@ pub struct ChannelNick {
 #[serde(default)]
 pub struct SafetyWarning {
 	pub id:                String,
-	/// https://docs.discord.sex/resources/channel#safety-warning-type
+	/// https://docs.discord.food/resources/channel#safety-warning-type
 	pub r#type:            u8,
 	pub expiry:            Timestamp,
 	pub dismiss_timestamp: Option<Timestamp>,
@@ -172,7 +172,7 @@ pub struct FollowedChannel {
 #[serde(default)]
 pub struct PermissionOverwrite {
 	pub id:     Snowflake,
-	/// https://docs.discord.sex/resources/channel#permission-overwrite-type
+	/// https://docs.discord.food/resources/channel#permission-overwrite-type
 	pub r#type: u8,
 	pub allow:  String, // TODO: smth to convert bitwisevalue of perms into a hash of perms
 	pub deny:   String,
@@ -205,7 +205,7 @@ pub struct ThreadMember {
 	pub id:             Snowflake,
 	pub user_id:        Snowflake,
 	pub join_timestamp: Timestamp,
-	/// https://docs.discord.sex/resources/channel#thread-member-flags
+	/// https://docs.discord.food/resources/channel#thread-member-flags
 	pub flags:          u64,
 	pub muted:          bool,
 	pub mute_config:    MuteConfig,
@@ -286,7 +286,7 @@ pub struct ThreadOnlyChannelMessageParams {
 	sticker_ids:      Vec<Snowflake>,
 	activity:         MessageActivity,
 	application_id:   Snowflake,
-	/// https://docs.discord.sex/resources/message#message-flags
+	/// https://docs.discord.food/resources/message#message-flags
 	flags:            u64,
 	// files[n]: file contents
 	payload_json:     String,

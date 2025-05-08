@@ -17,7 +17,7 @@ pub struct GetGuildAuditLogRequest {
 	pub limit:       u8,
 	pub user_id:     Snowflake,
 	pub target_id:   Snowflake,
-	/// https://docs.discord.sex/resources/audit-log#audit-log-events
+	/// https://docs.discord.food/resources/audit-log#audit-log-events
 	pub action_type: u8,
 }
 

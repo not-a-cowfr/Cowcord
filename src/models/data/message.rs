@@ -33,12 +33,12 @@ pub struct Message {
 	pub nonce:                  NonceResponseType,
 	pub pinned:                 bool,
 	pub webhook_id:             Snowflake,
-	/// https://docs.discord.sex/resources/message#message-type
+	/// https://docs.discord.food/resources/message#message-type
 	pub r#type:                 u8,
 	pub activity:               MessageActivity,
 	pub application:            IntegrationApplication,
 	pub application_id:         Snowflake,
-	/// https://docs.discord.sex/resources/message#message-flags
+	/// https://docs.discord.food/resources/message#message-flags
 	pub flags:                  u64,
 	pub message_reference:      MessageReference,
 	pub referenced_message:     Option<Box<Message>>,
@@ -157,7 +157,7 @@ bitflags! {
 #[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct MessageActivity {
-	/// https://docs.discord.sex/resources/presence#activity-action-type
+	/// https://docs.discord.food/resources/presence#activity-action-type
 	pub r#type:     u8,
 	pub session_id: String,
 	pub party_id:   String,
@@ -174,12 +174,12 @@ pub struct MessageCall {
 #[serde(default)]
 pub struct MessageInteractionMetadata {
 	pub id:                              Snowflake,
-	/// https://docs.discord.sex/interactions/receiving-and-responding#interaction-type
+	/// https://docs.discord.food/interactions/receiving-and-responding#interaction-type
 	pub r#type:                          u8,
 	pub name:                            String,
-	/// https://docs.discord.sex/interactions/application-commands#application-command-types
+	/// https://docs.discord.food/interactions/application-commands#application-command-types
 	pub command_type:                    u8,
-	/// https://docs.discord.sex/resources/message#ephemerality-reason
+	/// https://docs.discord.food/resources/message#ephemerality-reason
 	pub ephemerality_reason:             u8,
 	pub user:                            User,
 	pub authorizing_integration_owners:  HashMap<u32, Snowflake>,
@@ -229,7 +229,7 @@ pub struct MessageRoleSubscription {
 #[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct MessagePurchaseNotification {
-	/// https://docs.discord.sex/resources/message#message-purchase-notification-type
+	/// https://docs.discord.food/resources/message#message-purchase-notification-type
 	pub r#type:                 u8,
 	pub guild_product_purchase: Option<GuildProductPurchase>,
 }
@@ -266,7 +266,7 @@ pub struct MessageSoundboardSound {
 #[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct MessageReference {
-	/// https://docs.discord.sex/resources/message#message-reference-type
+	/// https://docs.discord.food/resources/message#message-reference-type
 	pub r#type:             u8,
 	pub message_id:         Snowflake,
 	pub channel_id:         Snowflake,
@@ -308,9 +308,9 @@ pub struct SnapshotMessage {
 	pub mention_roles:     Vec<Snowflake>,
 	pub attachments:       Vec<MessageAttachment>,
 	pub embeds:            Vec<MessageEmbed>,
-	/// https://docs.discord.sex/resources/message#message-type
+	/// https://docs.discord.food/resources/message#message-type
 	pub r#type:            u8,
-	/// https://docs.discord.sex/resources/message#message-flags
+	/// https://docs.discord.food/resources/message#message-flags
 	pub flags:             u64,
 	pub components:        Vec<MessageComponent>,
 	pub sticker_items:     Vec<StickerItem>,
@@ -349,7 +349,7 @@ enum_number! {
 #[serde(default)]
 pub struct MessageEmbed {
 	pub title:                String,
-	/// https://docs.discord.sex/resources/message#embed-type
+	/// https://docs.discord.food/resources/message#embed-type
 	pub r#type:               String,
 	pub description:          String,
 	pub url:                  String,
@@ -364,7 +364,7 @@ pub struct MessageEmbed {
 	pub fields:               Vec<EmbedField>,
 	pub reference_id:         Snowflake,
 	pub content_scan_version: u8,
-	/// https://docs.discord.sex/resources/message#embed-flags
+	/// https://docs.discord.food/resources/message#embed-flags
 	pub flags:                u64,
 }
 
@@ -397,7 +397,7 @@ pub struct EmbedMedia {
 	pub proxy_url:             String,
 	pub height:                u16,
 	pub width:                 u16,
-	/// https://docs.discord.sex/resources/message#attachment-flags
+	/// https://docs.discord.food/resources/message#attachment-flags
 	pub flags:                 u64,
 	pub content_scan_metadata: String,
 	pub placeholder_version:   u8,
@@ -439,7 +439,7 @@ pub struct EmbedField {
 #[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct ContentScanMetadata {
-	/// https://docs.discord.sex/resources/message#content-scan-flags
+	/// https://docs.discord.food/resources/message#content-scan-flags
 	pub flags:   u64,
 	pub version: u8,
 }
@@ -470,7 +470,7 @@ pub struct MessageAttachment {
 	pub ephemeral:            bool,
 	pub duration_secs:        f64,
 	pub waveform:             String, /* Base64 encoded bytearray representing a sampled waveform (if voice message) */
-	pub flags:                u64,    /* https://docs.discord.sex/resources/message#attachment-flags */
+	pub flags:                u64,    /* https://docs.discord.food/resources/message#attachment-flags */
 	pub is_clip:              bool,
 	pub is_thumbnail:         bool,
 	pub is_remix:             bool,
@@ -515,7 +515,7 @@ pub struct Poll {
 	pub answers:           Vec<PollAnswer>,
 	pub expiry:            Option<Timestamp>,
 	pub allow_multiselect: bool,
-	/// https://docs.discord.sex/resources/message#poll-layout-type
+	/// https://docs.discord.food/resources/message#poll-layout-type
 	pub layout_type:       u8,
 	pub results:           PollResults,
 }
@@ -527,7 +527,7 @@ pub struct PollCreate {
 	pub answers:           Vec<PollAnswer>,
 	pub duraction:         u32,
 	pub allow_multiselect: bool,
-	/// https://docs.discord.sex/resources/message#poll-layout-type
+	/// https://docs.discord.food/resources/message#poll-layout-type
 	pub layout_type:       u8,
 }
 
@@ -570,7 +570,7 @@ pub struct PollAnswerCount {
 	pub me_voted: bool,
 }
 
-// another one of those bs things that look like a pain to deserialize https://docs.discord.sex/resources/message#example-poll-result-embed
+// another one of those bs things that look like a pain to deserialize https://docs.discord.food/resources/message#example-poll-result-embed
 #[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct PollResultNotifications {
@@ -620,9 +620,9 @@ pub struct ConversationSummary {
 	pub start_id:    Snowflake,
 	pub end_id:      Snowflake,
 	pub count:       u16,
-	/// https://docs.discord.sex/resources/message#summary-source
+	/// https://docs.discord.food/resources/message#summary-source
 	pub source:      u8,
-	/// https://docs.discord.sex/resources/message#summary-type
+	/// https://docs.discord.food/resources/message#summary-type
 	pub r#type:      u8,
 }
 

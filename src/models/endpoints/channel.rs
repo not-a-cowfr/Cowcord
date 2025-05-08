@@ -86,7 +86,7 @@ pub struct CreateGuildChannelRequest {
 	pub name:                               String,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub position:                           Option<u8>,
-	/// https://docs.discord.sex/resources/channel#channel-type
+	/// https://docs.discord.food/resources/channel#channel-type
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub r#type:                             Option<u8>,
 	/// Only for: Text, News, Stage, Forum, Media
@@ -125,7 +125,7 @@ pub struct CreateGuildChannelRequest {
 	/// Only for: Voice, Stage
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub rtc_region:                         Option<String>,
-	/// https://docs.discord.sex/resources/channel#video-quality-mode
+	/// https://docs.discord.food/resources/channel#video-quality-mode
 	///
 	/// Only for: Voice, Stage
 	#[serde(skip_serializing_if = "Option::is_none")]
@@ -142,12 +142,12 @@ pub struct CreateGuildChannelRequest {
 	/// Only for: Forum, Media
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub default_reaction_emoji:             Option<DefaultReaction>,
-	/// https://docs.discord.sex/resources/channel#forum-layout-type
+	/// https://docs.discord.food/resources/channel#forum-layout-type
 	///
 	/// Only for: Forum
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub default_forum_layout:               Option<u8>,
-	/// https://docs.discord.sex/resources/channel#sort-order-type
+	/// https://docs.discord.food/resources/channel#sort-order-type
 	///
 	/// Only for: Forum, Media
 	#[serde(skip_serializing_if = "Option::is_none")]
@@ -197,7 +197,7 @@ pub fn MODIFY_CHANNEL_ENDPOINT(channel_id: Snowflake) -> String {
 pub struct ModifyChannelRequest {
 	/// Only for: Text, News, Voice, Category, Stage, Forum, Media, Thread, Group DM
 	pub name:                               String,
-	/// https://docs.discord.sex/resources/channel#channel-type
+	/// https://docs.discord.food/resources/channel#channel-type
 	///
 	/// Only for: Text, News
 	pub r#type:                             u8,
@@ -247,7 +247,7 @@ pub struct ModifyChannelRequest {
 	/// Only for: Voice, Stage
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub rtc_region:                         Option<String>,
-	/// https://docs.discord.sex/resources/channel#video-quality-mode
+	/// https://docs.discord.food/resources/channel#video-quality-mode
 	///
 	/// Only for: Voice, Stage
 	#[serde(skip_serializing_if = "Option::is_none")]
@@ -270,7 +270,7 @@ pub struct ModifyChannelRequest {
 	/// Only for: Private Thread
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub invitable:                          Option<bool>,
-	/// https://docs.discord.sex/resources/channel#channel-flags
+	/// https://docs.discord.food/resources/channel#channel-flags
 	///
 	/// only GUILD_FEED_REMOVED, PINNED, ACTIVE_CHANNELS_REMOVED, and REQUIRE_TAG can be set
 	pub flags:                              u64,
@@ -281,12 +281,12 @@ pub struct ModifyChannelRequest {
 	/// Only for: Forum, Media
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub default_reaction_emoji:             Option<DefaultReaction>,
-	/// https://docs.discord.sex/resources/channel#forum-layout-type
+	/// https://docs.discord.food/resources/channel#forum-layout-type
 	///
 	/// Only for: Forum
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub default_forum_layout:               Option<u8>,
-	/// https://docs.discord.sex/resources/channel#sort-order-type
+	/// https://docs.discord.food/resources/channel#sort-order-type
 	///
 	/// Only for: Forum, Media
 	#[serde(skip_serializing_if = "Option::is_none")]
@@ -365,9 +365,9 @@ pub fn MODIFY_CHANNEL_PERMISSIONS_ENDPOINT(
 pub struct ModifyChannelPermissionsRequest {
 	/// role = 0, member = 1
 	pub r#type: u8,
-	/// https://docs.discord.sex/topics/permissions#permissions
+	/// https://docs.discord.food/topics/permissions#permissions
 	pub allow:  String,
-	/// https://docs.discord.sex/topics/permissions#permissions
+	/// https://docs.discord.food/topics/permissions#permissions
 	pub deny:   String,
 }
 
@@ -431,7 +431,7 @@ pub fn MODIFY_CALL_ENDPOINT(channel_id: Snowflake) -> String {
 #[derive(Serialize)]
 #[serde(default)]
 pub struct ModifyCallRequest {
-	/// https://docs.discord.sex/resources/voice#voice-region-object
+	/// https://docs.discord.food/resources/voice#voice-region-object
 	pub region: String,
 }
 
@@ -503,7 +503,7 @@ pub fn UPDATE_MESSAGE_REQUEST_ENDPOINT(channel_id: Snowflake) -> String {
 #[derive(Serialize)]
 // message request request 🔥
 pub struct UpdateMessageRequestRequest {
-	/// https://docs.discord.sex/resources/channel#consent-status
+	/// https://docs.discord.food/resources/channel#consent-status
 	///
 	/// any consent status other than ACCEPTED is only usable by discord employees
 	pub consent_status: u8,
@@ -562,7 +562,7 @@ pub fn ADD_SAFETY_WARNING_ENDPOINT(channel_id: Snowflake) -> String {
 
 #[derive(Serialize)]
 pub struct AddSafetyWarningRequest {
-	/// https://docs.discord.sex/resources/channel#safety-warning-type
+	/// https://docs.discord.food/resources/channel#safety-warning-type
 	pub safety_warning_type: u8,
 }
 
@@ -697,7 +697,7 @@ pub struct SearchThreadsRequest {
 	/// match_some or match_all, default match_some
 	pub tag_setting: String,
 	pub archived:    bool,
-	/// https://docs.discord.sex/resources/channel#thread-sort-type
+	/// https://docs.discord.food/resources/channel#thread-sort-type
 	pub sort_by:     String,
 	/// asc or desc, default desc
 	pub sort_order:  String,
@@ -751,7 +751,7 @@ pub struct CreateThreadRequest {
 	pub name:                  String,
 	pub auto_archive_duration: u16,
 	pub rate_limit_per_user:   u16,
-	/// https://docs.discord.sex/resources/channel#channel-type
+	/// https://docs.discord.food/resources/channel#channel-type
 	///
 	/// required in api v10
 	pub r#type:                u8,
@@ -858,7 +858,7 @@ pub fn MODIFY_THREAD_SETTINGS_ENDPOINT(channeL_id: Snowflake) -> String {
 #[derive(Serialize)]
 #[serde(default)]
 pub struct ModifyThreadSettingsRequest {
-	/// https://docs.discord.sex/resources/channel#thread-member-flags
+	/// https://docs.discord.food/resources/channel#thread-member-flags
 	///
 	/// all but the first flag can be set
 	pub flags:       u64,

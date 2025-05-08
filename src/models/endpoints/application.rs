@@ -47,7 +47,7 @@ pub const CREATE_APPLICATION_ENDPOINT: &str = "/applications";
 #[derive(Serialize)]
 pub struct CreateApplicationRequest {
 	pub name:          String,
-	/// https://docs.discord.sex/resources/application#application-type
+	/// https://docs.discord.food/resources/application#application-type
 	pub r#type:        u8,
 	pub team_id:       Snowflake,
 	#[serde(skip_serializing_if = "Option::is_none")]
@@ -56,7 +56,7 @@ pub struct CreateApplicationRequest {
 	pub icon:          Option<CdnUri>,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub cover_image:   Option<CdnUri>,
-	/// https://docs.discord.sex/resources/application#application-flags
+	/// https://docs.discord.food/resources/application#application-flags
 	pub flags:         u64,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub guild_id:      Option<Snowflake>,
@@ -122,11 +122,11 @@ pub struct ModifyApplicationRequest {
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub role_connections_verification_url: Option<String>,
 	pub interactions_endpoint_url:         String,
-	/// https://docs.discord.sex/resources/application#application-interactions-version
+	/// https://docs.discord.food/resources/application#application-interactions-version
 	pub interactions_version:              u8,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub interactions_event_types:          Option<Vec<String>>,
-	/// https://docs.discord.sex/resources/application#explicit-content-filter-level
+	/// https://docs.discord.food/resources/application#explicit-content-filter-level
 	pub explicit_content_filter:           u8,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub tags:                              Option<Vec<String>>,
@@ -135,9 +135,9 @@ pub struct ModifyApplicationRequest {
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub custom_install_url:                Option<String>,
 	pub integration_types_config:          HashMap<u8, Option<ApplicationIntegrationTypeConfig>>,
-	/// https://docs.discord.sex/resources/application#application-discoverability-state
+	/// https://docs.discord.food/resources/application#application-discoverability-state
 	pub discoverability_state:             u8,
-	/// https://docs.discord.sex/resources/application#application-monetization-state
+	/// https://docs.discord.food/resources/application#application-monetization-state
 	pub monetization_state:                u8,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub max_participants:                  Option<i32>,
@@ -166,11 +166,11 @@ pub struct ModifyCurrentApplicationRequest {
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub role_connections_verification_url: Option<String>,
 	pub interactions_endpoint_url:         String,
-	/// https://docs.discord.sex/resources/application#application-interactions-version
+	/// https://docs.discord.food/resources/application#application-interactions-version
 	pub interactions_version:              u8,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub interactions_event_types:          Option<Vec<String>>,
-	/// https://docs.discord.sex/resources/application#explicit-content-filter-level
+	/// https://docs.discord.food/resources/application#explicit-content-filter-level
 	pub explicit_content_filter:           u8,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub tags:                              Option<Vec<String>>,
@@ -270,7 +270,7 @@ pub fn REQUEST_APPLICATION_GATEWAY_INTENTS_ENDPOINT(application_id: Snowflake) -
 #[derive(Serialize)]
 pub struct RequestApplicationGatewayIntentsRequest {
 	pub application_description:                                                    String,
-	/// https://docs.discord.sex/resources/application#application-flags
+	/// https://docs.discord.food/resources/application#application-flags
 	pub intents_flags_requested:                                                    u64,
 	#[serde(skip_serializing_if = "Option::is_none")]
 	pub intents_gateway_presence_use_case_description:                              Option<String>,
@@ -329,9 +329,9 @@ pub fn GET_APPLICATION_DISCOVERABILITY_STATE_ENDPOINT(application_id: Snowflake)
 
 #[derive(Deserialize)]
 pub struct GetApplicationDiscoverabilityStateResponse {
-	/// https://docs.discord.sex/resources/application#application-discoverability-state
+	/// https://docs.discord.food/resources/application#application-discoverability-state
 	pub discoverability_state:       u8,
-	/// https://docs.discord.sex/resources/application#application-discovery-eligibility-flags
+	/// https://docs.discord.food/resources/application#application-discovery-eligibility-flags
 	pub discovery_eligibility_flags: u64,
 	pub bad_commands:                Vec<ApplicationCommand>,
 }
@@ -374,9 +374,9 @@ pub fn MODIFY_APPLICATION_EMBEDDED_ACTIVITY_ENDPOINT(application_id: Snowflake) 
 pub struct ModifyApplicationEmbeddedActivityConfigRequest {
 	pub activity_preview_video_asset_id:       Option<Snowflake>,
 	pub supported_platforms:                   Option<Vec<String>>,
-	/// https://docs.discord.sex/resources/application#embedded-activity-orientation-lock-state-type
+	/// https://docs.discord.food/resources/application#embedded-activity-orientation-lock-state-type
 	pub default_orientation_lock_state:        u8,
-	/// https://docs.discord.sex/resources/application#embedded-activity-orientation-lock-state-type
+	/// https://docs.discord.food/resources/application#embedded-activity-orientation-lock-state-type
 	pub tablet_default_orientation_lock_state: u8,
 	pub requires_age_gate:                     bool,
 	#[deprecated]
@@ -431,7 +431,7 @@ pub fn CREATE_APPLICATION_ASSET_ENDPOINT(application_id: Snowflake) -> String {
 #[derive(Serialize)]
 pub struct CreateApplicationAssetRequest {
 	pub name:   String,
-	/// https://docs.discord.sex/resources/application#application-asset-type
+	/// https://docs.discord.food/resources/application#application-asset-type
 	pub r#type: u8,
 	pub image:  CdnUri,
 }
@@ -522,9 +522,9 @@ pub fn GET_APPLICATION_DISCLOSURES_ENDPOINT(application_id: Snowflake) -> String
 
 #[derive(Deserialize)]
 pub struct GetApplicationDisclosuresResponse {
-	/// https://docs.discord.sex/resources/application#application-disclosure-type
+	/// https://docs.discord.food/resources/application#application-disclosure-type
 	pub disclosures:       Vec<u8>,
-	/// https://docs.discord.sex/resources/application#application-disclosure-type
+	/// https://docs.discord.food/resources/application#application-disclosure-type
 	pub acked_disclosures: Vec<u8>,
 	pub all_acked:         bool,
 }
@@ -536,13 +536,13 @@ pub fn ACKNOWLEDGE_APPLICATION_DISCLOSURES_ENDPOINT(application_id: Snowflake) -
 
 #[derive(Serialize)]
 pub struct AcknowledgeApplicationDisclsuresRequest {
-	/// https://docs.discord.sex/resources/application#application-disclosure-type
+	/// https://docs.discord.food/resources/application#application-disclosure-type
 	pub disclosures: Vec<u8>,
 }
 
 #[derive(Deserialize)]
 pub struct AcknowledgeApplicationDisclsuresResponse {
-	/// https://docs.discord.sex/resources/application#application-disclosure-type
+	/// https://docs.discord.food/resources/application#application-disclosure-type
 	pub disclosures: Vec<u8>,
 }
 
@@ -560,7 +560,7 @@ pub fn GET_GUILD_APPLICATIONS_ENDPOINT(
 
 #[derive(Serialize)]
 pub struct GetGuildApplicationsRequest {
-	/// https://docs.discord.sex/resources/application#application-type
+	/// https://docs.discord.food/resources/application#application-type
 	pub r#type:       u8,
 	pub include_team: bool,
 	pub channel_id:   Snowflake,
@@ -586,7 +586,7 @@ pub struct ReportUnverifiedApplicationRequest {
 pub struct ReportUnverifiedApplicationResponse {
 	pub name:         String,
 	pub hash:         String,
-	/// https://docs.discord.sex/resources/application#application-missing-data-type
+	/// https://docs.discord.food/resources/application#application-missing-data-type
 	pub missing_data: Vec<String>,
 }
 
@@ -628,7 +628,7 @@ pub fn MODIFY_USER_APPLICATION_ROLE_CONNECTION_ENDPOINT(application_id: Snowflak
 pub struct ModifyUserApplicationRoleConnectionRequest {
 	pub platform_name:     String,
 	pub platform_username: String,
-	/// mapping of https://docs.discord.sex/resources/application#application-role-connection-metadata-object to stringified values
+	/// mapping of https://docs.discord.food/resources/application#application-role-connection-metadata-object to stringified values
 	pub metadata:          HashMap<String, String>,
 }
 

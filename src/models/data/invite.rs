@@ -14,15 +14,15 @@ use crate::{bitflags, enum_number};
 #[serde(default)]
 pub struct Invite {
 	pub code:                       String,
-	/// https://docs.discord.sex/resources/invite#invite-type
+	/// https://docs.discord.food/resources/invite#invite-type
 	pub r#type:                     u8,
 	pub channel:                    Option<Channel>,
 	pub guild_id:                   Snowflake,
 	pub guild:                      InviteGuild,
 	pub inviter:                    User,
-	/// https://docs.discord.sex/resources/invite#invite-flags
+	/// https://docs.discord.food/resources/invite#invite-flags
 	pub flags:                      u64,
-	/// https://docs.discord.sex/resources/invite#invite-target-type
+	/// https://docs.discord.food/resources/invite#invite-target-type
 	pub target_type:                u8,
 	pub target_user:                User,
 	pub target_application:         Application,
@@ -87,15 +87,15 @@ pub struct InviteGuild {
 	pub description:                Option<String>,
 	pub banner:                     Option<String>,
 	pub splash:                     Option<String>,
-	/// https://docs.discord.sex/resources/guild#verification-level
+	/// https://docs.discord.food/resources/guild#verification-level
 	pub verification_level:         u8,
-	/// https://docs.discord.sex/resources/guild#guild-features
+	/// https://docs.discord.food/resources/guild#guild-features
 	pub features:                   Vec<String>,
 	pub vanity_url_code:            Option<String>,
 	pub premium_subscription_count: u32,
 	#[deprecated]
 	pub nsfw:                       bool,
-	/// https://docs.discord.sex/resources/guild#nsfw-level
+	/// https://docs.discord.food/resources/guild#nsfw-level
 	pub nsfw_level:                 u8,
 }
 

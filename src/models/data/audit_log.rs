@@ -31,9 +31,9 @@ pub struct LogEntry {
 	pub changes:     Vec<LogChange>,
 	pub user_id:     Option<Snowflake>,
 	pub id:          Snowflake,
-	/// https://docs.discord.sex/resources/audit-log#audit-log-events
+	/// https://docs.discord.food/resources/audit-log#audit-log-events
 	pub action_type: u8,
-	/// https://docs.discord.sex/resources/audit-log#optional-audit-entry-info
+	/// https://docs.discord.food/resources/audit-log#optional-audit-entry-info
 	pub options:     Option<OptionalLogInfo>,
 	pub reason:      String,
 }
@@ -124,23 +124,23 @@ enum_number! {
 pub struct OptionalLogInfo {
 	pub application_id:                    Snowflake,
 	pub auto_moderation_rule_name:         String,
-	/// https://docs.discord.sex/resources/auto-moderation#automod-trigger-type
+	/// https://docs.discord.food/resources/auto-moderation#automod-trigger-type
 	pub auto_moderation_rule_trigger_type: String,
 	pub channel_id:                        Snowflake,
 	pub count:                             String,
 	pub delete_member_days:                String,
 	pub event_exception_id:                Snowflake,
 	pub id:                                Snowflake,
-	/// https://docs.discord.sex/resources/integration#integration-type
+	/// https://docs.discord.food/resources/integration#integration-type
 	pub integration_type:                  String,
 	pub members_removed:                   String,
 	pub message_id:                        Snowflake,
 	pub role_name:                         String,
 	pub status:                            String,
-	pub r#type:                            String, /* serialized as string but is u8 https://docs.discord.sex/resources/channel#permission-overwrite-type */
+	pub r#type:                            String, /* serialized as string but is u8 https://docs.discord.food/resources/channel#permission-overwrite-type */
 }
 
-// theres a lot of changing to these types https://docs.discord.sex/resources/audit-log#audit-log-change-exceptions
+// theres a lot of changing to these types https://docs.discord.food/resources/audit-log#audit-log-change-exceptions
 #[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct LogChange {

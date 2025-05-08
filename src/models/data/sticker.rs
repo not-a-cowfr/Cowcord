@@ -24,8 +24,8 @@ pub struct Sticker {
 	pub name:        String,
 	pub description: Option<String>,
 	pub tags:        String, /* comma separated list of keywords, official clients literally jsut use the name for this though */
-	pub r#type:      u8,     // https://docs.discord.sex/resources/sticker#sticker-types
-	pub format_type: u8,     // https://docs.discord.sex/resources/sticker#sticker-format-types
+	pub r#type:      u8,     // https://docs.discord.food/resources/sticker#sticker-types
+	pub format_type: u8,     // https://docs.discord.food/resources/sticker#sticker-format-types
 	pub available:   bool,
 	pub guild_id:    Snowflake,
 	pub user:        User,
@@ -59,5 +59,5 @@ enum_number! {
 pub struct StickerItem {
 	id:          Snowflake,
 	name:        String,
-	format_type: u8, // https://docs.discord.sex/resources/sticker#sticker-format-types
+	format_type: u8, // https://docs.discord.food/resources/sticker#sticker-format-types
 }

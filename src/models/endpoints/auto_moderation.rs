@@ -38,11 +38,11 @@ pub fn CREATE_GUILD_AUTOMOD_RULE_ENDPOINT(guild_id: Snowflake) -> String {
 #[derive(Serialize)]
 pub struct CreateGuildAutomodRuleRequest {
 	pub name:             String,
-	/// https://docs.discord.sex/resources/auto-moderation#automod-event-type
+	/// https://docs.discord.food/resources/auto-moderation#automod-event-type
 	pub event_type:       u8,
-	/// https://docs.discord.sex/resources/auto-moderation#automod-trigger-type
+	/// https://docs.discord.food/resources/auto-moderation#automod-trigger-type
 	pub trigger_type:     u8,
-	/// see the trigger types in https://docs.discord.sex/resources/auto-moderation#automod-trigger-metadata for when to include this
+	/// see the trigger types in https://docs.discord.food/resources/auto-moderation#automod-trigger-metadata for when to include this
 	pub trigger_metadata: AutomodTriggerMetadata,
 	pub actions:          Vec<AutomodAction>,
 	pub enabled:          bool,
@@ -89,7 +89,7 @@ pub fn VALIDATE_GUILD_AUTOMOD_RULE_ENDPOINT(guild_id: Snowflake) -> String {
 
 #[derive(Serialize)]
 pub struct ValidateGuildAutomodRuleRequest {
-	/// see the trigger types in https://docs.discord.sex/resources/auto-moderation#automod-trigger-metadata for when to include this
+	/// see the trigger types in https://docs.discord.food/resources/auto-moderation#automod-trigger-metadata for when to include this
 	pub trigger_metadata: AutomodTriggerMetadata,
 }
 
@@ -109,7 +109,7 @@ pub fn EXECUTE_AUTOMOD_ALERT_ACTION_ENDPOINT(guild_id: Snowflake) -> String {
 pub struct ExecuteAutomodAlertActionRequest {
 	pub channel_id:        Snowflake,
 	pub message_id:        Snowflake,
-	/// https://docs.discord.sex/resources/auto-moderation#automod-alert-action-type
+	/// https://docs.discord.food/resources/auto-moderation#automod-alert-action-type
 	pub alert_action_type: u8,
 }
 

@@ -13,7 +13,7 @@ pub struct UserGuildSettingsArr {
 #[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct NotificationSettings {
-	/// https://docs.discord.sex/resources/user-settings#notification-settings-flags
+	/// https://docs.discord.food/resources/user-settings#notification-settings-flags
 	pub flags: u64,
 }
 
@@ -21,17 +21,17 @@ pub struct NotificationSettings {
 #[serde(default)]
 pub struct UserGuildSettings {
 	pub channel_overrides:     ChannelOverrides,
-	/// https://docs.discord.sex/resources/user-settings#user-guild-settings-flags
+	/// https://docs.discord.food/resources/user-settings#user-guild-settings-flags
 	pub flags:                 u64,
 	pub guild_id:              Option<Snowflake>,
 	pub hide_muted_channels:   bool,
-	/// https://docs.discord.sex/resources/guild#message-notification-level
+	/// https://docs.discord.food/resources/guild#message-notification-level
 	pub message_notifications: u8,
 	pub mobile_push:           bool,
 	pub mute_scheduled_events: bool,
 	pub muted:                 bool,
 	pub mute_config:           Option<MuteConfig>,
-	/// https://docs.discord.sex/resources/user-settings#highlight-level
+	/// https://docs.discord.food/resources/user-settings#highlight-level
 	pub notify_highlights:     u8,
 	pub suppress_everyone:     u8,
 	pub suppress_roles:        u8,
@@ -43,9 +43,9 @@ pub struct UserGuildSettings {
 pub struct ChannelOverrides {
 	pub channel_id:            Snowflake,
 	pub collapsed:             bool,
-	/// https://docs.discord.sex/resources/user-settings#channel-override-flags
+	/// https://docs.discord.food/resources/user-settings#channel-override-flags
 	pub flags:                 u64,
-	/// https://docs.discord.sex/resources/guild#message-notification-level
+	/// https://docs.discord.food/resources/guild#message-notification-level
 	pub message_notifications: u16,
 	pub muted:                 bool,
 	pub mute_config:           Option<MuteConfig>,
@@ -68,7 +68,7 @@ pub struct UserSettings {
 	pub allow_activity_party_privacy_friends:       bool,
 	pub allow_activity_party_privacy_voice_channel: bool,
 	pub animate_emoji:                              bool,
-	/// https://docs.discord.sex/resources/user-settings#sticker-animation-option
+	/// https://docs.discord.food/resources/user-settings#sticker-animation-option
 	pub animate_stickers:                           u8,
 	pub contact_sync_enabled:                       bool,
 	pub convert_emoticons:                          bool,

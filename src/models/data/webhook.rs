@@ -11,7 +11,7 @@ use crate::models::types::Snowflake;
 #[serde(default)]
 pub struct Webhook {
 	pub id:             Snowflake,
-	/// https://docs.discord.sex/resources/webhook#webhook-types
+	/// https://docs.discord.food/resources/webhook#webhook-types
 	pub r#type:         u8,
 	pub guild_id:       Option<Snowflake>,
 	pub channel_id:     Option<Snowflake>,

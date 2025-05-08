@@ -10,7 +10,7 @@ use crate::models::types::{Snowflake, Timestamp};
 #[serde(default)]
 pub struct Relationship {
 	pub id:                    String,
-	/// https://docs.discord.sex/resources/relationships#relationship-type
+	/// https://docs.discord.food/resources/relationships#relationship-type
 	pub r#type:                u8,
 	pub user:                  User,
 	pub nickname:              Option<String>,
@@ -41,10 +41,10 @@ enum_number! {
 pub struct GameRelationship {
 	id:             String,
 	application_id: Snowflake,
-	r#type:         u8, // https://docs.discord.sex/resources/relationships#game-relationship-type
+	r#type:         u8, // https://docs.discord.food/resources/relationships#game-relationship-type
 	user:           User,
 	since:          Timestamp,
-	dm_access_type: u8, // https://docs.discord.sex/resources/relationships#dm-access-type
+	dm_access_type: u8, // https://docs.discord.food/resources/relationships#dm-access-type
 	user_id:        Snowflake,
 }
 
@@ -79,7 +79,7 @@ pub struct FriendSuggestion {
 #[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct FriendSuggestionReason {
-	r#type:   u8, // https://docs.discord.sex/resources/relationships#friend-suggestion-reason-type
+	r#type:   u8, // https://docs.discord.food/resources/relationships#friend-suggestion-reason-type
 	platform: String,
 	name:     String,
 }
