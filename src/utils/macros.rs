@@ -1,0 +1,163 @@
+//! ISC License (ISC)
+//! Copyright (c) 2016, Serenity Contributors
+//!
+//! Permission to use, copy, modify, and/or distribute this software for any purpose
+//! with or without fee is hereby granted, provided that the above copyright notice
+//! and this permission notice appear in all copies.
+//!
+//! THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
+//! REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND
+//! FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
+//! INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS
+//! OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER
+//! TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF
+//! THIS SOFTWARE.
+
+/// The macro forwards the generation to the `bitflags::bitflags!` macro and implements the default
+/// (de)serialization for Discord's bitmask values.
+///
+/// The flags are created with `T::from_bits_truncate` for the deserialized integer value.
+///
+/// Use the `bitflags::bitflags! macro directly if a different serde implementation is required.
+#[macro_export]
+macro_rules! bitflags {
+    (
+        $(#[$outer:meta])*
+        $vis:vis struct $BitFlags:ident: $T:ty {
+            $(
+                $(#[$inner:ident $($args:tt)*])*
+                const $Flag:ident = $value:expr;
+            )*
+        }
+    ) => {
+        $(#[$outer])*
+        #[repr(Rust, packed)]
+        $vis struct $BitFlags($T);
+
+        bitflags::bitflags! {
+            impl $BitFlags: $T {
+                $(
+                    $(#[$inner $($args)*])*
+                    const $Flag = $value;
+                )*
+            }
+        }
+
+        bitflags!(__impl_serde $BitFlags: $T);
+    };
+    (__impl_serde $BitFlags:ident: $T:tt) => {
+        impl<'de> serde::de::Deserialize<'de> for $BitFlags {
+            fn deserialize<D: serde::de::Deserializer<'de>>(deserializer: D) -> std::result::Result<Self, D::Error> {
+                Ok(Self::from_bits_truncate(<$T>::deserialize(deserializer)?))
+            }
+        }
+
+        impl serde::ser::Serialize for $BitFlags {
+            fn serialize<S: serde::ser::Serializer>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error> {
+                self.bits().serialize(serializer)
+            }
+        }
+    };
+}
+
+/// The `enum_number!` macro generates `From` implementations to convert between values and the
+/// enum which can then be utilized by `serde` with `#[serde(from = "u8", into = "u8")]`.
+///
+/// When defining the enum like this:
+/// ```ignore
+/// enum_number! {
+///     /// The `Foo` enum
+///     #[derive(Clone, Copy, Deserialize, Serialize)]
+///     #[serde(from = "u8", into = "u8")]
+///     pub enum Foo {
+///         /// First
+///         Aah = 1,
+///         /// Second
+///         Bar = 2,
+///         _ => Unknown(u8),
+///     }
+/// }
+/// ```
+///
+/// Code like this will be generated:
+///
+/// ```
+/// # use serde::{Deserialize, Serialize};
+/// #
+/// /// The `Foo` enum
+/// #[derive(Clone, Copy, Deserialize, Serialize)]
+/// #[serde(from = "u8", into = "u8")]
+/// pub enum Foo {
+/// 	/// First
+/// 	Aah,
+/// 	/// Second,
+/// 	Bar,
+/// 	/// Variant value is unknown.
+/// 	Unknown(u8),
+/// }
+///
+/// impl From<u8> for Foo {
+/// 	fn from(value: u8) -> Self {
+/// 		match value {
+/// 			| 1 => Self::Aah,
+/// 			| 2 => Self::Bar,
+/// 			| unknown => Self::Unknown(unknown),
+/// 		}
+/// 	}
+/// }
+///
+/// impl From<Foo> for u8 {
+/// 	fn from(value: Foo) -> Self {
+/// 		match value {
+/// 			| Foo::Aah => 1,
+/// 			| Foo::Bar => 2,
+/// 			| Foo::Unknown(unknown) => unknown,
+/// 		}
+/// 	}
+/// }
+/// ```
+#[macro_export]
+macro_rules! enum_number {
+    (
+        $(#[$outer:meta])*
+        $vis:vis enum $Enum:ident {
+            $(
+                $(#[doc = $doc:literal])*
+                $(#[cfg $($cfg:tt)*])?
+                $(#[default $($dummy:tt)?])?
+                $Variant:ident = $value:literal,
+            )*
+            _ => Unknown($T:ty),
+        }
+    ) => {
+        $(#[$outer])*
+        $vis enum $Enum {
+            $(
+                $(#[doc = $doc])*
+                $(#[cfg $($cfg)*])?
+                $(#[default $($dummy:tt)?])?
+                $Variant,
+            )*
+            /// Variant value is unknown.
+            Unknown($T),
+        }
+
+        impl From<$T> for $Enum {
+            fn from(value: $T) -> Self {
+                match value {
+                    $($(#[cfg $($cfg)*])? $value => Self::$Variant,)*
+                    unknown => Self::Unknown(unknown),
+                }
+            }
+        }
+
+        impl From<$Enum> for $T {
+            fn from(value: $Enum) -> Self {
+                match value {
+                    $($(#[cfg $($cfg)*])? $Enum::$Variant => $value,)*
+                    $Enum::Unknown(unknown) => unknown,
+                }
+            }
+        }
+    };
+}
