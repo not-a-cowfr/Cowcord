@@ -4,6 +4,7 @@ use serde::{Deserialize, Serialize};
 
 use super::guild::Guild;
 use super::user::User;
+use crate::enum_number;
 use crate::models::types::{Snowflake, Timestamp};
 
 #[derive(Serialize, Deserialize, Default)]
@@ -15,23 +16,25 @@ pub struct FamilyCenter {
 }
 
 enum_number! {
-    #[derive(Deserialize, Serialize)]
-    #[serde(from = "u8", into = "u8")]
-    pub enum LinkStatus {
-    	SENT = 1,
-    	CONNECTED = 2,
-    	DISCONNECTED = 3,
-    	REJECTED = 4,
-    }
+	#[derive(Deserialize, Serialize)]
+	#[serde(from = "u8", into = "u8")]
+	pub enum LinkStatus {
+		SENT = 1,
+		CONNECTED = 2,
+		DISCONNECTED = 3,
+		REJECTED = 4,
+		_ => Unknown(u8),
+	}
 }
 
 enum_number! {
-    #[derive(Deserialize, Serialize)]
-    #[serde(from = "u8", into = "u8")]
-    pub enum LinkType {
-    	RECIEVER = 1,
-    	SENDER = 2,
-    }
+	#[derive(Deserialize, Serialize)]
+	#[serde(from = "u8", into = "u8")]
+	pub enum LinkType {
+		RECIEVER = 1,
+		SENDER = 2,
+		_ => Unknown(u8),
+	}
 }
 
 #[derive(Serialize, Deserialize, Default)]

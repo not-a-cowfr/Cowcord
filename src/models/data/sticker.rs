@@ -1,6 +1,7 @@
 use serde::{Deserialize, Serialize};
 
 use super::user::User;
+use crate::enum_number;
 use crate::models::types::Snowflake;
 
 #[derive(Serialize, Deserialize, Default)]
@@ -32,23 +33,25 @@ pub struct Sticker {
 }
 
 enum_number! {
-    #[derive(Deserialize, Serialize)]
-    #[serde(from = "u8", into = "u8")]
-    pub enum StickerTypes {
-    	STANDARD = 1,
-    	GUILD = 2,
-    }
+	#[derive(Deserialize, Serialize)]
+	#[serde(from = "u8", into = "u8")]
+	pub enum StickerTypes {
+		STANDARD = 1,
+		GUILD = 2,
+		_ => Unknown(u8),
+	}
 }
 
 enum_number! {
-    #[derive(Deserialize, Serialize)]
-    #[serde(from = "u8", into = "u8")]
-    pub enum StickerFormatTypes {
-    	PNG = 1,
-    	APNG = 2, // not a typo
-    	LOTTIE = 3,
-    	GIF = 4, // GIF stickers are not available through the CDN, and must be accessed at https://media.discordapp.net/stickers/{sticker_id}.gif
-    }
+	#[derive(Deserialize, Serialize)]
+	#[serde(from = "u8", into = "u8")]
+	pub enum StickerFormatTypes {
+		PNG = 1,
+		APNG = 2, // not a typo
+		LOTTIE = 3,
+		GIF = 4, // GIF stickers are not available through the CDN, and must be accessed at https://media.discordapp.net/stickers/{sticker_id}.gif
+		_ => Unknown(u8),
+	}
 }
 
 #[derive(Serialize, Deserialize, Default)]

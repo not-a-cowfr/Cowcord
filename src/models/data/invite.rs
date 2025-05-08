@@ -7,8 +7,8 @@ use super::channel::Channel;
 use super::directory::GuildScheduledEvent;
 use super::guild::GuildMember;
 use super::user::User;
-use crate::bitflags;
 use crate::models::types::{Snowflake, Timestamp};
+use crate::{bitflags, enum_number};
 
 #[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
@@ -37,13 +37,14 @@ pub struct Invite {
 }
 
 enum_number! {
-    #[derive(Deserialize, Serialize)]
-    #[serde(from = "u8", into = "u8")]
-    pub enum InviteType {
-    	GUILD = 0,
-    	GROUP_DM = 1,
-    	FRIEND = 2,
-    }
+	#[derive(Deserialize, Serialize)]
+	#[serde(from = "u8", into = "u8")]
+	pub enum InviteType {
+		GUILD = 0,
+		GROUP_DM = 1,
+		FRIEND = 2,
+		_ => Unknown(u8),
+	}
 }
 
 bitflags! {
@@ -56,14 +57,15 @@ bitflags! {
 }
 
 enum_number! {
-    #[derive(Deserialize, Serialize)]
-    #[serde(from = "u8", into = "u8")]
-    pub enum InviteTargetType {
-    	STREAM = 1,
-    	EMBEDDED_APPLICATION = 2,
-    	ROLE_SUBSCRIPTIONS = 3,
-    	CREATOR_PAGE = 4,
-    }
+	#[derive(Deserialize, Serialize)]
+	#[serde(from = "u8", into = "u8")]
+	pub enum InviteTargetType {
+		STREAM = 1,
+		EMBEDDED_APPLICATION = 2,
+		ROLE_SUBSCRIPTIONS = 3,
+		CREATOR_PAGE = 4,
+		_ => Unknown(u8),
+	}
 }
 
 #[derive(Serialize, Deserialize, Default)]

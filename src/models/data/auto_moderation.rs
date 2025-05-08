@@ -4,6 +4,7 @@ use std::collections::HashMap;
 
 use serde::{Deserialize, Serialize};
 
+use crate::enum_number;
 use crate::models::types::{Snowflake, Timestamp};
 
 #[derive(Serialize, Deserialize, Default)]
@@ -148,26 +149,28 @@ pub struct AutomodRule {
 }
 
 enum_number! {
-    #[derive(Deserialize, Serialize)]
-    #[serde(from = "u8", into = "u8")]
-    pub enum AutomodEventType {
-    	MESSAGE_SEND = 1,
-    	GUILD_MEMBER_EVENT = 2,
-    }
+	#[derive(Deserialize, Serialize)]
+	#[serde(from = "u8", into = "u8")]
+	pub enum AutomodEventType {
+		MESSAGE_SEND = 1,
+		GUILD_MEMBER_EVENT = 2,
+		_ => Unknown(u8),
+	}
 }
 
 enum_number! {
-    #[derive(Deserialize, Serialize)]
-    #[serde(from = "u8", into = "u8")]
-    pub enum AutomodTriggerType {
-    	KEYWORD = 1,
-    	HARMFUL_LINK = 2,
-    	SPAM = 3,
-    	KEYWORD_PRESET = 4,
-    	MENTION_SPAM = 5,
-    	USER_PROFILE = 6,
-    	GUILD_POLICY = 7,
-    }
+	#[derive(Deserialize, Serialize)]
+	#[serde(from = "u8", into = "u8")]
+	pub enum AutomodTriggerType {
+		KEYWORD = 1,
+		HARMFUL_LINK = 2,
+		SPAM = 3,
+		KEYWORD_PRESET = 4,
+		MENTION_SPAM = 5,
+		USER_PROFILE = 6,
+		GUILD_POLICY = 7,
+		_ => Unknown(u8),
+	}
 }
 
 #[derive(Serialize, Deserialize, Default)]
@@ -183,13 +186,14 @@ pub struct AutomodTriggerMetadata {
 }
 
 enum_number! {
-    #[derive(Deserialize, Serialize)]
-    #[serde(from = "u8", into = "u8")]
-    pub enum AutomodKeywordPresetType {
-    	PROFANITY = 1,
-    	SEXUAL_CONTENT = 2,
-    	SLURS = 3,
-    }
+	#[derive(Deserialize, Serialize)]
+	#[serde(from = "u8", into = "u8")]
+	pub enum AutomodKeywordPresetType {
+		PROFANITY = 1,
+		SEXUAL_CONTENT = 2,
+		SLURS = 3,
+		_ => Unknown(u8),
+	}
 }
 
 #[derive(Serialize, Deserialize, Default)]
@@ -201,14 +205,15 @@ pub struct AutomodAction {
 }
 
 enum_number! {
-    #[derive(Deserialize, Serialize)]
-    #[serde(from = "u8", into = "u8")]
-    pub enum AutomodActionType {
-    	BLOCK_MESSAGE = 1,
-    	SEND_ALERT_MESSAGE = 2,
-    	TIMEOUT_USER = 3,
-    	QUARANTINE_USER = 4,
-    }
+	#[derive(Deserialize, Serialize)]
+	#[serde(from = "u8", into = "u8")]
+	pub enum AutomodActionType {
+		BLOCK_MESSAGE = 1,
+		SEND_ALERT_MESSAGE = 2,
+		TIMEOUT_USER = 3,
+		QUARANTINE_USER = 4,
+		_ => Unknown(u8),
+	}
 }
 
 #[derive(Serialize, Deserialize, Default)]

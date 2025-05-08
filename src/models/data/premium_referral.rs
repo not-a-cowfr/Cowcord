@@ -6,6 +6,7 @@ use serde::{Deserialize, Serialize};
 use serde_json::Value;
 
 use super::user::User;
+use crate::enum_number;
 use crate::models::types::{Snowflake, Timestamp};
 
 #[derive(Serialize, Deserialize, Default)]
@@ -38,22 +39,24 @@ pub struct PremiumReferralEligibility {
 }
 
 enum_number! {
-    #[derive(Deserialize, Serialize)]
-    #[serde(from = "u8", into = "u8")]
-    pub enum PremiumReferralRecipientStatus {
-    	REDEEMED = 1,
-    	PENDING = 2,
-    }
+	#[derive(Deserialize, Serialize)]
+	#[serde(from = "u8", into = "u8")]
+	pub enum PremiumReferralRecipientStatus {
+		REDEEMED = 1,
+		PENDING = 2,
+		_ => Unknown(u8),
+	}
 }
 
 enum_number! {
-    #[derive(Deserialize, Serialize)]
-    #[serde(from = "u8", into = "u8")]
-    pub enum PremiumReferralIncentiveStatus {
-    	NOT_ELIGIBLE = 0,
-    	ELIGIBLE = 1,
-    	QUALIFIED = 2,
-    	COOLDOWN = 3,
-    	UNAPPLIED = 4,
-    }
+	#[derive(Deserialize, Serialize)]
+	#[serde(from = "u8", into = "u8")]
+	pub enum PremiumReferralIncentiveStatus {
+		NOT_ELIGIBLE = 0,
+		ELIGIBLE = 1,
+		QUALIFIED = 2,
+		COOLDOWN = 3,
+		UNAPPLIED = 4,
+		_ => Unknown(u8),
+	}
 }

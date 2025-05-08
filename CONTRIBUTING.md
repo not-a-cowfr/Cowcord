@@ -131,6 +131,7 @@ enum_number! {
     pub enum FieldOneType {
         THIS_COOL_TYPE = 1,
         THIS_OTHER_COOL_TYPE = 2,
+        _ => Unknown(u8),
     }
 }
 ```

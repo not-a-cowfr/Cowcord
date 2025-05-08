@@ -116,6 +116,7 @@ macro_rules! bitflags {
 ///     }
 /// }
 /// ```
+#[macro_export]
 macro_rules! enum_number {
     (
         $(#[$outer:meta])*

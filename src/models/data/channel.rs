@@ -6,8 +6,8 @@ use super::guild::GuildMember;
 use super::message::{AllowedMentions, Message, MessageActivity, MessageAttachment, MessageEmbed};
 use super::user::User;
 use super::user_settings::MuteConfig;
-use crate::bitflags;
 use crate::models::types::{Snowflake, Timestamp};
+use crate::{bitflags, enum_number};
 
 #[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
@@ -179,12 +179,13 @@ pub struct PermissionOverwrite {
 }
 
 enum_number! {
-    #[derive(Deserialize, Serialize)]
-    #[serde(from = "u8", into = "u8")]
-    pub enum PermissionOverwriteType {
-    	role = 0,
-    	member = 1,
-    }
+	#[derive(Deserialize, Serialize)]
+	#[serde(from = "u8", into = "u8")]
+	pub enum PermissionOverwriteType {
+		role = 0,
+		member = 1,
+		_ => Unknown(u8),
+	}
 }
 
 #[derive(Serialize, Deserialize, Default)]
@@ -245,14 +246,15 @@ pub struct ForumTag {
 }
 
 enum_number! {
-    #[derive(Deserialize, Serialize)]
-    #[serde(from = "u8", into = "u8")]
-    pub enum ConsentStatus {
-    	UNSPECIFIED = 0,
-    	PENDING = 1,
-    	ACCEPTED = 2,
-    	REJECTED = 3,
-    }
+	#[derive(Deserialize, Serialize)]
+	#[serde(from = "u8", into = "u8")]
+	pub enum ConsentStatus {
+		UNSPECIFIED = 0,
+		PENDING = 1,
+		ACCEPTED = 2,
+		REJECTED = 3,
+		_ => Unknown(u8),
+	}
 }
 
 #[derive(Serialize, Deserialize, Default)]

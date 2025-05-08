@@ -2,6 +2,7 @@
 
 use serde::{Deserialize, Serialize};
 
+use crate::enum_number;
 use crate::models::types::Snowflake;
 
 #[derive(Serialize, Deserialize, Default)]
@@ -20,25 +21,27 @@ pub struct DirectoryEntry {
 }
 
 enum_number! {
-    #[derive(Deserialize, Serialize)]
-    #[serde(from = "u8", into = "u8")]
-    pub enum EntryType {
-    	GUILD = 0,
-    	GUILD_SCHEDULED_EVENT = 1,
-    }
+	#[derive(Deserialize, Serialize)]
+	#[serde(from = "u8", into = "u8")]
+	pub enum EntryType {
+		GUILD = 0,
+		GUILD_SCHEDULED_EVENT = 1,
+		_ => Unknown(u8),
+	}
 }
 
 enum_number! {
-    #[derive(Deserialize, Serialize)]
-    #[serde(from = "u8", into = "u8")]
-    pub enum Category {
-    	UNCATEGORIZED = 0,
-    	SCHOOL_CLUB = 1,
-    	CLASS = 2,
-    	STUDY_SOCIAL = 3,
-    	// SUBJECT_MAJOR = 4,
-    	MISC = 5,
-    }
+	#[derive(Deserialize, Serialize)]
+	#[serde(from = "u8", into = "u8")]
+	pub enum Category {
+		UNCATEGORIZED = 0,
+		SCHOOL_CLUB = 1,
+		CLASS = 2,
+		STUDY_SOCIAL = 3,
+		// SUBJECT_MAJOR = 4,
+		MISC = 5,
+		_ => Unknown(u8),
+	}
 }
 
 #[derive(Serialize, Deserialize, Default)]
