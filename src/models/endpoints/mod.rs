@@ -2,7 +2,6 @@ pub mod application;
 pub mod audit_log;
 pub mod auto_moderation;
 pub mod channel;
-pub mod clan;
 pub mod directory;
 pub mod discovery;
 pub mod emoji;
