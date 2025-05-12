@@ -9,6 +9,9 @@ use wasm_bindgen::closure::Closure;
 use wasm_bindgen::prelude::*;
 use web_sys::{BinaryType, MessageEvent, WebSocket, console};
 
+#[macro_use]
+pub mod utils;
+
 mod views;
 use views::*;
 
@@ -16,8 +19,6 @@ use views::*;
 // use components::*;
 
 pub mod models;
-#[macro_use]
-pub mod utils;
 
 // https://github.com/DioxusLabs/dioxus/issues/3211
 #[derive(Debug, Clone, Routable, PartialEq)]
