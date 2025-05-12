@@ -7,7 +7,6 @@ use serde::{Deserialize, Serialize};
 use super::emoji::Emoji;
 use super::family_center::LinkedUser;
 use super::integration::{IntegrationAccount, IntegrationGuild};
-use crate::bitflags;
 use crate::models::types::{Snowflake, Timestamp};
 
 #[derive(Serialize, Deserialize, Default)]

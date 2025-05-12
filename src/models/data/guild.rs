@@ -9,7 +9,6 @@ use super::integration::IntegrationApplication;
 use super::sticker::Sticker;
 use super::user::{AvatarDecorationData, User};
 use crate::models::types::{Snowflake, Timestamp};
-use crate::{bitflags, enum_number};
 
 #[derive(Serialize, Deserialize, Default)]
 #[serde(default)]

@@ -2,7 +2,6 @@
 
 use serde::{Deserialize, Serialize};
 
-use crate::enum_number;
 use crate::models::types::Snowflake;
 
 #[derive(Serialize, Deserialize, Default)]

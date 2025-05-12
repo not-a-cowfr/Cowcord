@@ -7,7 +7,6 @@ use super::message::{AllowedMentions, Message, MessageActivity, MessageAttachmen
 use super::user::User;
 use super::user_settings::MuteConfig;
 use crate::models::types::{Snowflake, Timestamp};
-use crate::{bitflags, enum_number};
 
 #[derive(Serialize, Deserialize, Default)]
 #[serde(default)]

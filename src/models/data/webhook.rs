@@ -4,7 +4,6 @@ use serde::{Deserialize, Serialize};
 
 use super::integration::IntegrationGuild;
 use super::user::User;
-use crate::enum_number;
 use crate::models::types::Snowflake;
 
 #[derive(Serialize, Deserialize, Default)]

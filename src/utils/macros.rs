@@ -19,7 +19,6 @@
 /// The flags are created with `T::from_bits_truncate` for the deserialized integer value.
 ///
 /// Use the `bitflags::bitflags! macro directly if a different serde implementation is required.
-#[macro_export]
 macro_rules! bitflags {
     (
         $(#[$outer:meta])*
@@ -116,7 +115,6 @@ macro_rules! bitflags {
 /// 	}
 /// }
 /// ```
-#[macro_export]
 macro_rules! enum_number {
     (
         $(#[$outer:meta])*

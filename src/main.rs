@@ -16,6 +16,7 @@ use views::*;
 // use components::*;
 
 pub mod models;
+#[macro_use]
 pub mod utils;
 
 // https://github.com/DioxusLabs/dioxus/issues/3211

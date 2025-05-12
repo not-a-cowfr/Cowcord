@@ -12,7 +12,6 @@ use super::soundboard::SoundboardSound;
 use super::sticker::{Sticker, StickerItem};
 use super::user::User;
 use crate::models::types::{Snowflake, Timestamp};
-use crate::{bitflags, enum_number};
 
 #[derive(Serialize, Deserialize, Default)]
 #[serde(default)]

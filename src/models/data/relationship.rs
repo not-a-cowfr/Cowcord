@@ -3,7 +3,6 @@
 use serde::{Deserialize, Serialize};
 
 use super::user::User;
-use crate::enum_number;
 use crate::models::types::{Snowflake, Timestamp};
 
 #[derive(Serialize, Deserialize, Default)]

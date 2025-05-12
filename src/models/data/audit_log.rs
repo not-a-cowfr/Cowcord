@@ -8,7 +8,6 @@ use super::guild_scheduled_event::GuildScheduledEvent;
 use super::integration::Integration;
 use super::user::User;
 use super::webhook::Webhook;
-use crate::enum_number;
 use crate::models::types::Snowflake;
 
 #[derive(Serialize, Deserialize, Default)]

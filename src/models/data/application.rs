@@ -8,7 +8,6 @@ use super::integration::Integration;
 use super::team::{Company, Team};
 use super::user::User;
 use crate::models::types::{Snowflake, Timestamp};
-use crate::{bitflags, enum_number};
 
 #[derive(Serialize, Deserialize, Default)]
 #[serde(default)]

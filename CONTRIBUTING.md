@@ -115,17 +115,13 @@ This is because if in the future if one changes its very easy to edit them and i
 
 <details><summary><h2>Structs</h2></summary>
 
-For things like flags or anything that uses an integer to represent something else, it can get pretty confusing without looking at the docs, so just make sure to include what the int type is referencing
 ```rust
 pub struct MyCoolStruct {
-    /// link to documentation for whatever this is, if no link is there, its assumed that this is just a regular number
-    field_one: u8,
+    field_one: FieldOneType,
+    field_two: FieldTwoFlags,
 }
 ```
-
-And make sure to include an enum that repesents it
 ```rust
-use crate::enum_number;
 enum_number! {
     #[derive(Deserialize, Serialize)]
     #[serde(from = "u8", into = "u8")]
@@ -137,9 +133,8 @@ enum_number! {
 }
 ```
 ```rust
-use crate::bitflags;
 bitflags! {
-    pub struct FieldOneFlags: u64 {
+    pub struct FieldTwoFlags: u64 {
         const THIS_COOL_FLAG = 1 << 0;
         const THIS_OTHER_COOL_FLAG = 1 << 1;
     }
