@@ -5,14 +5,18 @@ edition = "2024"
 
 [dependencies]
 base64 = "0.22.1"
+bitflags = "2.9.0"
+chrono = { version = "0.4.41", optional = true }
 console_error_panic_hook = "0.1.7"
 dioxus = { version = "0.6.3", features = ["router"] }
 gloo-timers = "0.3.0"
-iso8601-timestamp = "0.3.3"
 js-sys = "0.3.77"
-reqwest = { version = "0.12.15", features = ["json", "blocking"] }
-serde = "1.0.219"
+prost-types = "0.13.5"
+reqwest = { version = "0.12.15", features = ["json", "blocking", "multipart"] }
+serde = { version = "1.0.219", features = ["derive"] }
 serde_json = "1.0.140"
+serde_urlencoded = "0.7.1"
+url = "2.5.4"
 wasm-bindgen = "0.2.100"
 wasm-bindgen-futures = "0.4.50"
 web-sys = { version = "0.3.77", features = [
@@ -26,11 +30,27 @@ web-sys = { version = "0.3.77", features = [
     "CloseEvent",
     "console",
 ] }
+typesize = { version = "0.1.14", optional = true, features = [
+    "url",
+    "time",
+    "serde_json",
+    "secrecy",
+    "dashmap",
+    "parking_lot",
+    "details",
+] }
+time = { version = "0.3.41", features = [
+    "formatting",
+    "parsing",
+    "serde-well-known",
+] }
+serde_repr = "0.1.20"
 
 [features]
 default = ["web"]
 web = ["dioxus/web"]
 desktop = ["dioxus/desktop"]
+chrono = ["dep:chrono", "typesize?/chrono"]
 
 [profile.release]
 opt-level = "z"
@@ -44,8 +64,6 @@ incremental = false
 [profile.beta]
 inherits = "release"
 opt-level = 3
-build-std = ["std", "panic_abort", "core", "alloc"]
-build-std-features = ["panic_immediate_abort"]
 
 [profile.wasm-dev]
 inherits = "dev"

@@ -3,20 +3,22 @@ use std::rc::Rc;
 
 use dioxus::prelude::*;
 use gloo_timers::callback::Interval;
-use models::websocket::GatewayRecieveEvent;
+use models::http::websocket::GatewayRecieveEvent;
 use serde_json::json;
 use wasm_bindgen::closure::Closure;
 use wasm_bindgen::prelude::*;
 use web_sys::{BinaryType, MessageEvent, WebSocket, console};
 
+#[macro_use]
+pub mod utils;
+
 mod views;
 use views::*;
 
-pub mod components;
-use components::*;
+// pub mod components;
+// use components::*;
 
 pub mod models;
-pub mod utils;
 
 // https://github.com/DioxusLabs/dioxus/issues/3211
 #[derive(Debug, Clone, Routable, PartialEq)]
@@ -24,27 +26,11 @@ pub mod utils;
 #[allow(clippy::empty_line_after_outer_attr)]
 pub enum Route {
     #[layout(ServerList)]
-        #[nest("/channels")]
-        #[layout(Server)]
-            #[route("/:server_id")]
-            Roles { server_id: String },
-
-            #[route("/:server_id/:channel_id")]
-            Channel { server_id: String, channel_id: String },
-        #[end_layout]
-
-            // #[nest("/@me")]
-            // #[layout()]
-                // todo
-            // #[end_layout]
-            // #[end_nest]
-        #[end_nest]
+        // #[nest("/channels")]
+        // #[end_nest]
     #[end_layout]
 
     #[route("/")]
-    Home {},
-
-    #[route("/app")]
     FateDecider {},
 
     #[route("/login")]
@@ -52,11 +38,16 @@ pub enum Route {
 
     #[route("/register")]
     Register {},
+
+	#[route("/:..segments")]
+    PageNotFound { segments: Vec<String> },
 }
 
 const TAILWIND_CSS: Asset = asset!("/assets/tailwind.css");
 
-fn main() { dioxus::launch(App); }
+fn main() {
+	dioxus::launch(App);
+}
 
 #[component]
 fn App() -> Element {
