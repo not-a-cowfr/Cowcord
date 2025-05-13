@@ -1,6 +1,7 @@
 use std::collections::HashMap;
 
 use serde::{Deserialize, Serialize};
+use serde_repr::{Deserialize_repr, Serialize_repr};
 
 use super::guild::Guild;
 use super::user::User;
@@ -14,26 +15,20 @@ pub struct FamilyCenter {
 	pub users:          Vec<User>,
 }
 
-enum_number! {
-	#[derive(Deserialize, Serialize)]
-	#[serde(from = "u8", into = "u8")]
-	pub enum LinkStatus {
-		SENT = 1,
-		CONNECTED = 2,
-		DISCONNECTED = 3,
-		REJECTED = 4,
-		_ => Unknown(u8),
-	}
+#[derive(Serialize_repr, Deserialize_repr)]
+#[repr(u8)]
+pub enum LinkStatus {
+	SENT = 1,
+	CONNECTED = 2,
+	DISCONNECTED = 3,
+	REJECTED = 4,
 }
 
-enum_number! {
-	#[derive(Deserialize, Serialize)]
-	#[serde(from = "u8", into = "u8")]
-	pub enum LinkType {
-		RECIEVER = 1,
-		SENDER = 2,
-		_ => Unknown(u8),
-	}
+#[derive(Serialize_repr, Deserialize_repr)]
+#[repr(u8)]
+pub enum LinkType {
+	RECIEVER = 1,
+	SENDER = 2,
 }
 
 #[derive(Serialize, Deserialize, Default)]
@@ -75,4 +70,13 @@ pub struct Action {
 	pub entity_id:    Snowflake,
 	/// https://docs.discord.food/resources/family-center#action-type
 	pub display_type: u8,
+
+#[derive(Serialize_repr, Deserialize_repr)]
+#[repr(u8)]
+pub enum ActionType {
+	USERS_ADDED = 1,
+	GUILDS_JOINED = 2,
+	USERS_MESSAGED = 3,
+	GUILDS_MESSAGED = 4,
+	USERS_CALLED = 5,
 }

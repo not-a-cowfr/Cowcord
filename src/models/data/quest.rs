@@ -3,6 +3,7 @@
 use std::collections::HashMap;
 
 use serde::{Deserialize, Serialize};
+use serde_repr::{Deserialize_repr, Serialize_repr};
 
 use crate::models::types::{Snowflake, Timestamp};
 
@@ -16,40 +17,37 @@ pub struct Quest {
 	pub preview:          bool,
 }
 
-enum_number! {
-	#[derive(Deserialize, Serialize)]
-	#[serde(from = "u8", into = "u8")]
-	pub enum ContentType {
-		GIFT_INVENTORY_SETTINGS_BADGE = 0,
-		QUEST_BAR = 1,
-		QUEST_INVENTORY_CARD = 2,
-		QUESTS_EMBED = 3,
-		ACTIVITY_PANEL = 4,
-		QUEST_LIVE_STREAM = 5,
-		MEMBERS_LIST = 6,
-		QUEST_BADGE = 7,
-		GIFT_INVENTORY_FOR_YOU = 8,
-		GIFT_INVENTORY_OTHER = 9,
-		QUEST_BAR_V2 = 10,
-		QUEST_HOME_DESKTOP = 11,
-		QUEST_HOME_MOBILE = 12,
-		QUEST_BAR_MOBILE = 13,
-		THIRD_PARTY_APP = 14,
-		QUEST_BOTTOM_SHEET = 15,
-		QUEST_EMBED_MOBILE = 16,
-		QUEST_HOME_MOVE_CALLOUT = 17,
-		DISCOVERY_SIDEBAR = 18,
-		QUEST_SHARE_LINK = 19,
-		CONNECTIONS_MODAL = 20,
-		DISCOVERY_COMPASS = 21,
-		TROPHY_CASE_CARD = 22,
-		VIDEO_MODAL = 23,
-		VIDEO_MODAL_END_CARD = 24,
-		REWARD_MODAL = 25,
-		EXCLUDED_QUEST_EMBED = 26,
-		VIDEO_MODAL_MOBILE = 27,
-		_ => Unknown(u8),
-	}
+#[derive(Serialize_repr, Deserialize_repr)]
+#[repr(u8)]
+pub enum ContentType {
+	GIFT_INVENTORY_SETTINGS_BADGE = 0,
+	QUEST_BAR = 1,
+	QUEST_INVENTORY_CARD = 2,
+	QUESTS_EMBED = 3,
+	ACTIVITY_PANEL = 4,
+	QUEST_LIVE_STREAM = 5,
+	MEMBERS_LIST = 6,
+	QUEST_BADGE = 7,
+	GIFT_INVENTORY_FOR_YOU = 8,
+	GIFT_INVENTORY_OTHER = 9,
+	QUEST_BAR_V2 = 10,
+	QUEST_HOME_DESKTOP = 11,
+	QUEST_HOME_MOBILE = 12,
+	QUEST_BAR_MOBILE = 13,
+	THIRD_PARTY_APP = 14,
+	QUEST_BOTTOM_SHEET = 15,
+	QUEST_EMBED_MOBILE = 16,
+	QUEST_HOME_MOVE_CALLOUT = 17,
+	DISCOVERY_SIDEBAR = 18,
+	QUEST_SHARE_LINK = 19,
+	CONNECTIONS_MODAL = 20,
+	DISCOVERY_COMPASS = 21,
+	TROPHY_CASE_CARD = 22,
+	VIDEO_MODAL = 23,
+	VIDEO_MODAL_END_CARD = 24,
+	REWARD_MODAL = 25,
+	EXCLUDED_QUEST_EMBED = 26,
+	VIDEO_MODAL_MOBILE = 27,
 }
 
 #[derive(Serialize, Deserialize, Default)]
@@ -72,40 +70,34 @@ pub struct Config {
 	pub video_metadata: VideoMetadata,
 }
 
-enum_number! {
-	#[derive(Deserialize, Serialize)]
-	#[serde(from = "u8", into = "u8")]
-	pub enum ConfigVersion {
-		Active = 1,
-		Discontinued = 2,
-		_ => Unknown(u8),
-	}
+#[derive(Serialize_repr, Deserialize_repr)]
+#[repr(u8)]
+pub enum ConfigVersion {
+	Active = 1,
+	Discontinued = 2,
 }
 
-enum_number! {
-	#[derive(Deserialize, Serialize)]
-	#[serde(from = "u8", into = "u8")]
-	pub enum Feature {
-		POST_ENROLLMENT_CTA = 1,
-		PLAYTIME_CRITERIA = 2,
-		QUEST_BAR_V2 = 3,
-		// EXCLUDE_MINORS = 4,
-		EXCLUDE_RUSSIA = 5,
-		IN_HOUSE_CONSOLE_QUEST = 6,
-		MOBILE_CONSOLE_QUEST = 7,
-		START_QUEST_CTA = 8,
-		REWARD_HIGHLIGHTING = 9,
-		FRACTIONS_QUEST = 10,
-		ADDITIONAL_REDEMPTION_INSTRUCTIONS = 11,
-		PACING_V2 = 12,
-		DISMISSAL_SURVEY = 13,
-		MOBILE_QUEST_DOCK = 14,
-		QUESTS_CDN = 15,
-		PACING_CONTROLLER = 16,
-		QUEST_HOME_FORCE_STATIC_IMAGE = 17,
-		VIDEO_QUEST_FORCE_HLS_VIDEO = 18,
-		_ => Unknown(u8),
-	}
+#[derive(Serialize_repr, Deserialize_repr)]
+#[repr(u8)]
+pub enum Feature {
+	POST_ENROLLMENT_CTA = 1,
+	PLAYTIME_CRITERIA = 2,
+	QUEST_BAR_V2 = 3,
+	// EXCLUDE_MINORS = 4,
+	EXCLUDE_RUSSIA = 5,
+	IN_HOUSE_CONSOLE_QUEST = 6,
+	MOBILE_CONSOLE_QUEST = 7,
+	START_QUEST_CTA = 8,
+	REWARD_HIGHLIGHTING = 9,
+	FRACTIONS_QUEST = 10,
+	ADDITIONAL_REDEMPTION_INSTRUCTIONS = 11,
+	PACING_V2 = 12,
+	DISMISSAL_SURVEY = 13,
+	MOBILE_QUEST_DOCK = 14,
+	QUESTS_CDN = 15,
+	PACING_CONTROLLER = 16,
+	QUEST_HOME_FORCE_STATIC_IMAGE = 17,
+	VIDEO_QUEST_FORCE_HLS_VIDEO = 18,
 }
 
 #[derive(Serialize, Deserialize, Default)]
@@ -162,14 +154,11 @@ pub struct TaskConfig {
 	pub tasks:                    HashMap<String, Task>,
 }
 
-enum_number! {
-	#[derive(Deserialize, Serialize)]
-	#[serde(from = "u8", into = "u8")]
-	pub enum TaskConfigType {
-		FIRST_PARTY = 1,
-		THIRD_PARTY = 2,
-		_ => Unknown(u8),
-	}
+#[derive(Serialize_repr, Deserialize_repr)]
+#[repr(u8)]
+pub enum TaskConfigType {
+	FIRST_PARTY = 1,
+	THIRD_PARTY = 2,
 }
 
 #[derive(Serialize, Deserialize, Default)]
@@ -203,27 +192,21 @@ pub struct RewardsConfig {
 	pub platforms:         Vec<u8>,
 }
 
-enum_number! {
-	#[derive(Deserialize, Serialize)]
-	#[serde(from = "u8", into = "u8")]
-	pub enum RewardAssignmentMethod {
-		ALL = 1,
-		TIERED = 2,
-		_ => Unknown(u8),
-	}
+#[derive(Serialize_repr, Deserialize_repr)]
+#[repr(u8)]
+pub enum RewardAssignmentMethod {
+	ALL = 1,
+	TIERED = 2,
 }
 
-enum_number! {
-	#[derive(Deserialize, Serialize)]
-	#[serde(from = "u8", into = "u8")]
-	pub enum PlatformType {
-		CROSS_PLATFORM = 0,
-		XBOX = 1,
-		PLAYSTATION = 2,
-		SWITCH = 3,
-		PC = 4,
-		_ => Unknown(u8),
-	}
+#[derive(Serialize_repr, Deserialize_repr)]
+#[repr(u8)]
+pub enum PlatformType {
+	CROSS_PLATFORM = 0,
+	XBOX = 1,
+	PLAYSTATION = 2,
+	SWITCH = 3,
+	PC = 4,
 }
 
 #[derive(Serialize, Deserialize, Default)]
@@ -245,28 +228,22 @@ pub struct Reward {
 	pub quantity:           u8,
 }
 
-enum_number! {
-	#[derive(Deserialize, Serialize)]
-	#[serde(from = "u8", into = "u8")]
-	pub enum RewardType {
-		REWARD_CODE = 1,
-		IN_GAME = 2,
-		COLLECTIBLE = 3,
-		VIRTUAL_CURRENCY = 4,
-		FRACTIONAL_PREMIUM = 5,
-		_ => Unknown(u8),
-	}
+#[derive(Serialize_repr, Deserialize_repr)]
+#[repr(u8)]
+pub enum RewardType {
+	REWARD_CODE = 1,
+	IN_GAME = 2,
+	COLLECTIBLE = 3,
+	VIRTUAL_CURRENCY = 4,
+	FRACTIONAL_PREMIUM = 5,
 }
 
-enum_number! {
-	#[derive(Deserialize, Serialize)]
-	#[serde(from = "u8", into = "u8")]
-	pub enum ExpirationMode {
-		NORMAL = 1,
-		PREMIUM_EXTENSION = 2,
-		PREMIUM_PERMANENT = 3,
-		_ => Unknown(u8),
-	}
+#[derive(Serialize_repr, Deserialize_repr)]
+#[repr(u8)]
+pub enum ExpirationMode {
+	NORMAL = 1,
+	PREMIUM_EXTENSION = 2,
+	PREMIUM_PERMANENT = 3,
 }
 
 #[derive(Serialize, Deserialize, Default)]

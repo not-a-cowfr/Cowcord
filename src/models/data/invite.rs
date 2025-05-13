@@ -1,6 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use serde::{Deserialize, Serialize};
+use serde_repr::{Deserialize_repr, Serialize_repr};
 
 use super::application::Application;
 use super::channel::Channel;
@@ -35,15 +36,12 @@ pub struct Invite {
 	pub is_nickname_changeable:     bool,
 }
 
-enum_number! {
-	#[derive(Deserialize, Serialize)]
-	#[serde(from = "u8", into = "u8")]
-	pub enum InviteType {
-		GUILD = 0,
-		GROUP_DM = 1,
-		FRIEND = 2,
-		_ => Unknown(u8),
-	}
+#[derive(Serialize_repr, Deserialize_repr)]
+#[repr(u8)]
+pub enum InviteType {
+	GUILD = 0,
+	GROUP_DM = 1,
+	FRIEND = 2,
 }
 
 bitflags! {
@@ -55,16 +53,13 @@ bitflags! {
   }
 }
 
-enum_number! {
-	#[derive(Deserialize, Serialize)]
-	#[serde(from = "u8", into = "u8")]
-	pub enum InviteTargetType {
-		STREAM = 1,
-		EMBEDDED_APPLICATION = 2,
-		ROLE_SUBSCRIPTIONS = 3,
-		CREATOR_PAGE = 4,
-		_ => Unknown(u8),
-	}
+#[derive(Serialize_repr, Deserialize_repr)]
+#[repr(u8)]
+pub enum InviteTargetType {
+	STREAM = 1,
+	EMBEDDED_APPLICATION = 2,
+	ROLE_SUBSCRIPTIONS = 3,
+	CREATOR_PAGE = 4,
 }
 
 #[derive(Serialize, Deserialize, Default)]

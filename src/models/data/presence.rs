@@ -1,4 +1,5 @@
 use serde::{Deserialize, Serialize};
+use serde_repr::{Deserialize_repr, Serialize_repr};
 
 use super::user::User;
 use crate::models::types::Snowflake;
@@ -38,6 +39,28 @@ pub struct Activity {
 	pub assets:              ActivityAssets,
 	pub secrets:             ActivitySecrets,
 	pub metadata:            ActivityMetadata,
+}
+
+#[derive(Serialize_repr, Deserialize_repr)]
+#[repr(u8)]
+pub enum ActivityType {
+	PLAYING = 0,
+	STREAMING = 1,
+	LISTENING = 2,
+	WATCHING = 3,
+	CUSTOM = 4,
+	COMPETING = 5,
+	HANG = 6,
+}
+
+#[derive(Serialize_repr, Deserialize_repr)]
+#[repr(u8)]
+pub enum ActivityActionType {
+	JOIN = 1,
+	SPECTATE = 2,
+	LISTEN = 3,
+	WATCH = 4,
+	JOIN_REQUEST = 5,
 }
 
 #[derive(Serialize, Deserialize, Default)]

@@ -1,6 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use serde::{Deserialize, Serialize};
+use serde_repr::{Deserialize_repr, Serialize_repr};
 
 use super::user::User;
 use crate::models::types::{Snowflake, Timestamp};
@@ -20,19 +21,16 @@ pub struct Relationship {
 	pub since:                 Timestamp,
 }
 
-enum_number! {
-	#[derive(Deserialize, Serialize)]
-	#[serde(from = "u8", into = "u8")]
-	pub enum RelationshipType {
-		NONE = 0,
-		FRIEND = 1,
-		BLOCKED = 2,
-		INCOMING_REQUEST = 3,
-		OUTGOING_REQUEST = 4,
-		IMPLICIT = 5,
-		// SUGGESTION = 6,
-		_ => Unknown(u8),
-	}
+#[derive(Serialize_repr, Deserialize_repr)]
+#[repr(u8)]
+pub enum RelationshipType {
+	NONE = 0,
+	FRIEND = 1,
+	BLOCKED = 2,
+	INCOMING_REQUEST = 3,
+	OUTGOING_REQUEST = 4,
+	IMPLICIT = 5,
+	// SUGGESTION = 6,
 }
 
 #[derive(Serialize, Deserialize, Default)]
@@ -47,24 +45,18 @@ pub struct GameRelationship {
 	user_id:        Snowflake,
 }
 
-enum_number! {
-	#[derive(Deserialize, Serialize)]
-	#[serde(from = "u8", into = "u8")]
-	pub enum GameRelationshipType {
-		FRIEND = 1,
-		INCOMING_REQUEST = 3,
-		OUTGOING_REQUEST = 4,
-		_ => Unknown(u8),
-	}
+#[derive(Serialize_repr, Deserialize_repr)]
+#[repr(u8)]
+pub enum GameRelationshipType {
+	FRIEND = 1,
+	INCOMING_REQUEST = 3,
+	OUTGOING_REQUEST = 4,
 }
 
-enum_number! {
-	#[derive(Deserialize, Serialize)]
-	#[serde(from = "u8", into = "u8")]
-	pub enum DmAccessType {
-		// unknown
-		_ => Unknown(u8),
-	}
+#[derive(Serialize_repr, Deserialize_repr)]
+#[repr(u8)]
+pub enum DmAccessType {
+	// unknown
 }
 
 #[derive(Serialize, Deserialize, Default)]
@@ -83,11 +75,8 @@ pub struct FriendSuggestionReason {
 	name:     String,
 }
 
-enum_number! {
-	#[derive(Deserialize, Serialize)]
-	#[serde(from = "u8", into = "u8")]
-	pub enum FriendSuggestionType {
-		EXTERNAL_FRIEND = 1,
-		_ => Unknown(u8),
-	}
+#[derive(Serialize_repr, Deserialize_repr)]
+#[repr(u8)]
+pub enum FriendSuggestionType {
+	EXTERNAL_FRIEND = 1,
 }

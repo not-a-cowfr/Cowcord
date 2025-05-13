@@ -1,6 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use serde::{Deserialize, Serialize};
+use serde_repr::{Deserialize_repr, Serialize_repr};
 
 use super::guild::GuildMember;
 use super::message::{AllowedMentions, Message, MessageActivity, MessageAttachment, MessageEmbed};
@@ -69,28 +70,28 @@ pub struct Channel {
 	pub hd_streaming_buyer_id:              Option<Snowflake>,
 }
 
-// Obfuscated channel names and topics are always returned as ___hidden___
+#[derive(Serialize_repr, Deserialize_repr)]
+#[repr(u8)]
 pub enum ChannelType {
-	___hidden___,
-	GUILD_TEXT,
-	DM,
-	GUILD_VOICE,
-	GROUP_DM,
-	GUILD_CATEGORY,
-	GUILD_NEWS,
-	GUILD_STORE,
-	// GUILD_LFG,
-	// LFG_GROUP_DM,
-	// THREAD_ALPHA,
-	NEWS_THREAD,
-	PUBLIC_THREAD,
-	PRIVATE_THREAD,
-	GUILD_STAGE_VOICE,
-	GUILD_DIRECTORY,
-	GUILD_FORUM,
-	GUILD_MEDIA,
-	LOBBY,
-	EPHEMERAL_DM,
+	GUILD_TEXT = 0,
+	DM = 1,
+	GUILD_VOICE = 2,
+	GROUP_DM = 3,
+	GUILD_CATEGORY = 4,
+	GUILD_NEWS = 5,
+	GUILD_STORE = 6,
+	// GUILD_LFG = 7,
+	// LFG_GROUP_DM = 8,
+	// THREAD_ALPHA = 9,
+	NEWS_THREAD = 10,
+	PUBLIC_THREAD = 11,
+	PRIVATE_THREAD = 12,
+	GUILD_STAGE_VOICE = 13,
+	GUILD_DIRECTORY = 14,
+	GUILD_FORUM = 15,
+	GUILD_MEDIA = 16,
+	LOBBY = 17,
+	EPHEMERAL_DM = 18,
 }
 
 bitflags! {
@@ -98,10 +99,11 @@ bitflags! {
 	const DISMISSED_IN_GAME_MESSAGE_NUX = 1 << 0;
   }
 }
-
+#[derive(Serialize_repr, Deserialize_repr)]
+#[repr(u8)]
 pub enum VideoQualityMode {
-	AUTO,
-	FULL,
+	AUTO = 0,
+	FULL = 1,
 }
 
 bitflags! {
@@ -125,15 +127,19 @@ bitflags! {
   }
 }
 
+#[derive(Serialize_repr, Deserialize_repr)]
+#[repr(u8)]
 pub enum FormLayoutType {
-	DEFAULT,
-	LIST,
-	GRID,
+	DEFAULT = 0,
+	LIST = 1,
+	GRID = 2,
 }
 
+#[derive(Serialize_repr, Deserialize_repr)]
+#[repr(u8)]
 pub enum SortOrderType {
-	LATEST_ACTIVITY,
-	CREATION_TIME,
+	LATEST_ACTIVITY = 0,
+	CREATION_TIME = 1,
 }
 
 #[derive(Serialize, Deserialize, Default)]
@@ -153,11 +159,13 @@ pub struct SafetyWarning {
 	pub dismiss_timestamp: Option<Timestamp>,
 }
 
+#[derive(Serialize_repr, Deserialize_repr)]
+#[repr(u8)]
 pub enum SafetWarningType {
-	STRANGER_DANGER,
-	INAPPROPRIATE_CONVERSATION_TIER_1,
-	INAPPROPRIATE_CONVERSATION_TIER_2,
-	LIKELY_ATO,
+	STRANGER_DANGER = 1,
+	INAPPROPRIATE_CONVERSATION_TIER_1 = 2,
+	INAPPROPRIATE_CONVERSATION_TIER_2 = 3,
+	LIKELY_ATO = 4,
 }
 
 #[derive(Serialize, Deserialize, Default)]
@@ -171,20 +179,16 @@ pub struct FollowedChannel {
 #[serde(default)]
 pub struct PermissionOverwrite {
 	pub id:     Snowflake,
-	/// https://docs.discord.food/resources/channel#permission-overwrite-type
-	pub r#type: u8,
-	pub allow:  String, // TODO: smth to convert bitwisevalue of perms into a hash of perms
+	pub r#type: PermissionOverwriteType,
+	pub allow:  String, // TODO: smth to convert bitwise value of perms into a hash of perms
 	pub deny:   String,
 }
 
-enum_number! {
-	#[derive(Deserialize, Serialize)]
-	#[serde(from = "u8", into = "u8")]
-	pub enum PermissionOverwriteType {
-		role = 0,
-		member = 1,
-		_ => Unknown(u8),
-	}
+#[derive(Serialize_repr, Deserialize_repr)]
+#[repr(u8)]
+pub enum PermissionOverwriteType {
+	role = 0,
+	member = 1,
 }
 
 #[derive(Serialize, Deserialize, Default)]
@@ -244,16 +248,13 @@ pub struct ForumTag {
 	pub emoji_name: Option<String>,
 }
 
-enum_number! {
-	#[derive(Deserialize, Serialize)]
-	#[serde(from = "u8", into = "u8")]
-	pub enum ConsentStatus {
-		UNSPECIFIED = 0,
-		PENDING = 1,
-		ACCEPTED = 2,
-		REJECTED = 3,
-		_ => Unknown(u8),
-	}
+#[derive(Serialize_repr, Deserialize_repr)]
+#[repr(u8)]
+pub enum ConsentStatus {
+	UNSPECIFIED = 0,
+	PENDING = 1,
+	ACCEPTED = 2,
+	REJECTED = 3,
 }
 
 #[derive(Serialize, Deserialize, Default)]

@@ -1,6 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use serde::{Deserialize, Serialize};
+use serde_repr::{Deserialize_repr, Serialize_repr};
 
 use super::auto_moderation::AutomodIncedentsData;
 use super::clan::Clan;
@@ -66,74 +67,56 @@ pub struct Guild {
 	pub clan:                          Clan,
 }
 
-enum_number! {
-	#[derive(Deserialize, Serialize)]
-	#[serde(from = "u8", into = "u8")]
-	pub enum MessageNotificationLevel {
-		ALL_MESSAGES = 0,
-		ONLY_MENTIONS = 1,
-		NO_MESSAGES = 2,
-		INHERIT = 3,
-		_ => Unknown(u8),
-	}
+#[derive(Serialize_repr, Deserialize_repr)]
+#[repr(u8)]
+pub enum MessageNotificationLevel {
+	ALL_MESSAGES = 0,
+	ONLY_MENTIONS = 1,
+	NO_MESSAGES = 2,
+	INHERIT = 3,
 }
 
-enum_number! {
-	#[derive(Deserialize, Serialize)]
-	#[serde(from = "u8", into = "u8")]
-	pub enum ExplicitContentFilter {
-		DISABLED = 0,
-		MEMBERS_WITHOUT_ROLES = 1,
-		ALL_MEMBERS = 2,
-		_ => Unknown(u8),
-	}
+#[derive(Serialize_repr, Deserialize_repr)]
+#[repr(u8)]
+pub enum ExplicitContentFilter {
+	DISABLED = 0,
+	MEMBERS_WITHOUT_ROLES = 1,
+	ALL_MEMBERS = 2,
 }
 
-enum_number! {
-	#[derive(Deserialize, Serialize)]
-	#[serde(from = "u8", into = "u8")]
-	pub enum MFALevel {
-		NONE = 0,
-		ELEVATED = 1,
-		_ => Unknown(u8),
-	}
+#[derive(Serialize_repr, Deserialize_repr)]
+#[repr(u8)]
+pub enum MFALevel {
+	NONE = 0,
+	ELEVATED = 1,
 }
 
-enum_number! {
-	#[derive(Deserialize, Serialize)]
-	#[serde(from = "u8", into = "u8")]
-	pub enum VerificationLevel {
-		NONE = 0,
-		LOW = 1,
-		MEDIUM = 2,
-		HIGH = 3,
-		VERY_HIGH = 4,
-		_ => Unknown(u8),
-	}
+#[derive(Serialize_repr, Deserialize_repr)]
+#[repr(u8)]
+pub enum VerificationLevel {
+	NONE = 0,
+	LOW = 1,
+	MEDIUM = 2,
+	HIGH = 3,
+	VERY_HIGH = 4,
 }
 
-enum_number! {
-	#[derive(Deserialize, Serialize)]
-	#[serde(from = "u8", into = "u8")]
-	pub enum NsfwLevel {
-		DEFAULT = 0,
-		EXPLICIT = 1,
-		SAFE = 2,
-		AGE_RESTRICTED = 3,
-		_ => Unknown(u8),
-	}
+#[derive(Serialize_repr, Deserialize_repr)]
+#[repr(u8)]
+pub enum NsfwLevel {
+	DEFAULT = 0,
+	EXPLICIT = 1,
+	SAFE = 2,
+	AGE_RESTRICTED = 3,
 }
 
-enum_number! {
-	#[derive(Deserialize, Serialize)]
-	#[serde(from = "u8", into = "u8")]
-	pub enum PremiumTier {
-		NONE = 0,
-		TIER_1 = 1,
-		TIER_2 = 2,
-		TIER_3 = 3,
-		_ => Unknown(u8),
-	}
+#[derive(Serialize_repr, Deserialize_repr)]
+#[repr(u8)]
+pub enum PremiumTier {
+	NONE = 0,
+	TIER_1 = 1,
+	TIER_2 = 2,
+	TIER_3 = 3,
 }
 
 bitflags! {
@@ -148,25 +131,19 @@ bitflags! {
   }
 }
 
-enum_number! {
-	#[derive(Deserialize, Serialize)]
-	#[serde(from = "u8", into = "u8")]
-	pub enum PrivacyLevel {
-		PUBLIC = 1,
-		GUILD_ONLY = 2,
-		_ => Unknown(u8),
-	}
+#[derive(Serialize_repr, Deserialize_repr)]
+#[repr(u8)]
+pub enum PrivacyLevel {
+	PUBLIC = 1,
+	GUILD_ONLY = 2,
 }
 
-enum_number! {
-	#[derive(Deserialize, Serialize)]
-	#[serde(from = "u8", into = "u8")]
-	pub enum HubType {
-		DEFAULT = 0,
-		HIGH_SCHOOL = 1,
-		COLLEGE = 2,
-		_ => Unknown(u8),
-	}
+#[derive(Serialize_repr, Deserialize_repr)]
+#[repr(u8)]
+pub enum HubType {
+	DEFAULT = 0,
+	HIGH_SCHOOL = 1,
+	COLLEGE = 2,
 }
 
 pub enum GuildFeatures {
@@ -451,15 +428,17 @@ pub struct RoleConnectionConfig {
 	pub result:                    bool,
 }
 
+#[derive(Serialize_repr, Deserialize_repr)]
+#[repr(u8)]
 pub enum RoleConnectionOperatorType {
-	INTEGER_LESS_THAN_OR_EQUAL,
-	INTEGER_GREATER_THAN_OR_EQUAL,
-	INTEGER_EQUAL,
-	INTEGER_NOT_EQUAL,
-	DATETIME_LESS_THAN_OR_EQUAL,
-	DATETIME_GREATER_THAN_OR_EQUAL,
-	BOOLEAN_EQUAL,
-	BOOLEAN_NOT_EQUAL,
+	INTEGER_LESS_THAN_OR_EQUAL = 1,
+	INTEGER_GREATER_THAN_OR_EQUAL = 2,
+	INTEGER_EQUAL = 3,
+	INTEGER_NOT_EQUAL = 4,
+	DATETIME_LESS_THAN_OR_EQUAL = 5,
+	DATETIME_GREATER_THAN_OR_EQUAL = 6,
+	BOOLEAN_EQUAL = 7,
+	BOOLEAN_NOT_EQUAL = 8,
 }
 
 #[derive(Serialize, Deserialize, Default)]
@@ -682,16 +661,13 @@ pub struct PremiumGuildSubscription {
 	pub user:          User,
 }
 
-enum_number! {
-	#[derive(Deserialize, Serialize)]
-	#[serde(from = "u8", into = "u8")]
-	pub enum MmemberSortType {
-		JOINED_AT_DESC = 1,
-		JOINED_AT_ASC = 2,
-		USER_ID_DESC = 3,
-		USER_ID_ASC = 4,
-		_ => Unknown(u8),
-	}
+#[derive(Serialize_repr, Deserialize_repr)]
+#[repr(u8)]
+pub enum MmemberSortType {
+	JOINED_AT_DESC = 1,
+	JOINED_AT_ASC = 2,
+	USER_ID_DESC = 3,
+	USER_ID_ASC = 4,
 }
 
 #[derive(Serialize, Deserialize, Default)]

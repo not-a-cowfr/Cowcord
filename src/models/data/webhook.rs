@@ -1,6 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use serde::{Deserialize, Serialize};
+use serde_repr::{Deserialize_repr, Serialize_repr};
 
 use super::integration::IntegrationGuild;
 use super::user::User;
@@ -24,15 +25,12 @@ pub struct Webhook {
 	pub url:            String,
 }
 
-enum_number! {
-	#[derive(Deserialize, Serialize)]
-	#[serde(from = "u8", into = "u8")]
-	pub enum WebcookType {
-		INCOMING = 1,
-		CHANNEL_FOLLOWER = 2,
-		APPLICATION = 3,
-		_ => Unknown(u8),
-	}
+#[derive(Serialize_repr, Deserialize_repr)]
+#[repr(u8)]
+pub enum WebcookType {
+	INCOMING = 1,
+	CHANNEL_FOLLOWER = 2,
+	APPLICATION = 3,
 }
 
 #[derive(Serialize, Deserialize, Default)]

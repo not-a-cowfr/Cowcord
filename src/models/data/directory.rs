@@ -1,6 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use serde::{Deserialize, Serialize};
+use serde_repr::{Deserialize_repr, Serialize_repr};
 
 use crate::models::types::Snowflake;
 
@@ -19,28 +20,22 @@ pub struct DirectoryEntry {
 	pub guild_scheduled_event: GuildScheduledEvent,
 }
 
-enum_number! {
-	#[derive(Deserialize, Serialize)]
-	#[serde(from = "u8", into = "u8")]
-	pub enum EntryType {
-		GUILD = 0,
-		GUILD_SCHEDULED_EVENT = 1,
-		_ => Unknown(u8),
-	}
+#[derive(Serialize_repr, Deserialize_repr)]
+#[repr(u8)]
+pub enum EntryType {
+	GUILD = 0,
+	GUILD_SCHEDULED_EVENT = 1,
 }
 
-enum_number! {
-	#[derive(Deserialize, Serialize)]
-	#[serde(from = "u8", into = "u8")]
-	pub enum Category {
-		UNCATEGORIZED = 0,
-		SCHOOL_CLUB = 1,
-		CLASS = 2,
-		STUDY_SOCIAL = 3,
-		// SUBJECT_MAJOR = 4,
-		MISC = 5,
-		_ => Unknown(u8),
-	}
+#[derive(Serialize_repr, Deserialize_repr)]
+#[repr(u8)]
+pub enum Category {
+	UNCATEGORIZED = 0,
+	SCHOOL_CLUB = 1,
+	CLASS = 2,
+	STUDY_SOCIAL = 3,
+	// SUBJECT_MAJOR = 4,
+	MISC = 5,
 }
 
 #[derive(Serialize, Deserialize, Default)]

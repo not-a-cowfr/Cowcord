@@ -1,6 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use serde::{Deserialize, Serialize};
+use serde_repr::{Deserialize_repr, Serialize_repr};
 
 use super::application::{ApplicationRoleConnectionMetadata, ApplicationSKU};
 use super::user::User;
@@ -38,9 +39,11 @@ pub enum IntegrationType {
 	guild_subscription,
 }
 
+#[derive(Serialize_repr, Deserialize_repr)]
+#[repr(u8)]
 pub enum IntegrationExpireBehavior {
-	REMOVE_ROLE,
-	KICK,
+	REMOVE_ROLE = 0,
+	KICK = 1,
 }
 
 #[derive(Serialize, Deserialize, Default)]
