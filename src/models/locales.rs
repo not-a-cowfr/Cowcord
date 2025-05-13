@@ -1,7 +1,8 @@
 #![allow(non_camel_case_types)]
 
-use serde::{Deserialize, Serialize};
 use std::fmt;
+
+use serde::{Deserialize, Serialize};
 
 #[derive(Serialize, Deserialize)]
 #[serde(rename_all = "kebab-case")]

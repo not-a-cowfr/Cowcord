@@ -1,8 +1,7 @@
 use serde::{Deserialize, Serialize};
 
-use crate::models::types::Snowflake;
-
 use super::guild::PrivacyLevel;
+use crate::models::types::Snowflake;
 
 #[derive(Serialize, Deserialize, Default)]
 #[serde(default)]

@@ -15,38 +15,38 @@ use crate::models::types::{Snowflake, Timestamp};
 #[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct User {
-	pub id: Snowflake,
-	pub username: String,
+	pub id:                      Snowflake,
+	pub username:                String,
 	#[deprecated]
-	pub discriminator: String,
-	pub global_name: Option<String>,
-	pub avatar: Option<String>,
-	pub avatar_decoration_data: Option<AvatarDecorationData>,
-	pub primary_guild: Option<PrimaryGuild>,
-	pub linked_users: Vec<LinkedUser>,
-	pub bot: bool,
-	pub system: bool,
-	pub mfa_enabled: bool,
-	pub nsfw_allowed: Option<bool>,
+	pub discriminator:           String,
+	pub global_name:             Option<String>,
+	pub avatar:                  Option<String>,
+	pub avatar_decoration_data:  Option<AvatarDecorationData>,
+	pub primary_guild:           Option<PrimaryGuild>,
+	pub linked_users:            Vec<LinkedUser>,
+	pub bot:                     bool,
+	pub system:                  bool,
+	pub mfa_enabled:             bool,
+	pub nsfw_allowed:            Option<bool>,
 	pub age_verification_status: AgeVerificationStatus,
-	pub pronouns: String,
-	pub bio: String,
-	pub banner: Option<String>,
-	pub accent_color: Option<u32>,
-	pub locale: Locales,
-	pub verified: bool,
-	pub email: Option<String>,
-	pub phone: Option<String>,
-	pub premium_type: PremiumType,
-	pub personal_connection_id: Snowflake,
-	pub flags: UserFlags,
-	pub public_flags: u64,
-	pub purchased_flags: PurchasedFlags,
-	pub premium_flags: PremiumFlags,
-	pub desktop: bool,
-	pub mobile: bool,
-	pub has_bounced_email: bool,
-	pub authenticator_types: Vec<AuthenticatorType>,
+	pub pronouns:                String,
+	pub bio:                     String,
+	pub banner:                  Option<String>,
+	pub accent_color:            Option<u32>,
+	pub locale:                  Locales,
+	pub verified:                bool,
+	pub email:                   Option<String>,
+	pub phone:                   Option<String>,
+	pub premium_type:            PremiumType,
+	pub personal_connection_id:  Snowflake,
+	pub flags:                   UserFlags,
+	pub public_flags:            u64,
+	pub purchased_flags:         PurchasedFlags,
+	pub premium_flags:           PremiumFlags,
+	pub desktop:                 bool,
+	pub mobile:                  bool,
+	pub has_bounced_email:       bool,
+	pub authenticator_types:     Vec<AuthenticatorType>,
 }
 
 bitflags! {
@@ -144,8 +144,8 @@ pub enum RequiredActionType {
 #[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct AvatarDecorationData {
-	pub asset: String,
-	pub sku_id: String,
+	pub asset:      String,
+	pub sku_id:     String,
 	pub expires_at: Option<usize>,
 }
 
@@ -158,10 +158,10 @@ pub struct Collectibles {
 #[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct NameplateData {
-	pub asset: String,
-	pub sku_id: Snowflake,
-	pub label: String,
-	pub palette: NameplateColorPalette,
+	pub asset:      String,
+	pub sku_id:     Snowflake,
+	pub label:      String,
+	pub palette:    NameplateColorPalette,
 	pub expires_at: Option<u32>,
 }
 
@@ -183,39 +183,39 @@ pub enum NameplateColorPalette {
 #[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct ProfileMetadata {
-	pub guild_id: Snowflake,
-	pub pronouns: String,
-	pub bio: String,
-	pub banner: Option<String>,
-	pub accent_color: Option<u32>,
-	pub theme_colors: Option<Vec<(u32, u32)>>,
+	pub guild_id:                       Snowflake,
+	pub pronouns:                       String,
+	pub bio:                            String,
+	pub banner:                         Option<String>,
+	pub accent_color:                   Option<u32>,
+	pub theme_colors:                   Option<Vec<(u32, u32)>>,
 	pub popout_animation_particle_type: Option<Snowflake>,
-	pub emoji: Option<Emoji>,
-	pub profile_effect: Option<ProfileEffect>,
+	pub emoji:                          Option<Emoji>,
+	pub profile_effect:                 Option<ProfileEffect>,
 }
 
 #[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct ProfileEffect {
-	pub id: Snowflake,
+	pub id:         Snowflake,
 	pub expires_at: Option<u32>,
 }
 
 #[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct PrimaryGuild {
-	pub identity_enabled: Option<bool>,
+	pub identity_enabled:  Option<bool>,
 	pub identity_guild_id: Option<String>,
-	pub tag: Option<String>,
-	pub badge: Option<String>,
+	pub tag:               Option<String>,
+	pub badge:             Option<String>,
 }
 
 #[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct Authenticator {
-	pub id: String,
+	pub id:     String,
 	pub r#type: String,
-	pub name: String,
+	pub name:   String,
 }
 
 #[derive(Serialize_repr, Deserialize_repr)]
@@ -229,25 +229,25 @@ pub enum AuthenticatorType {
 #[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct BackupCode {
-	pub user_id: Snowflake,
-	pub code: String,
+	pub user_id:  Snowflake,
+	pub code:     String,
 	pub consumed: bool,
 }
 
 #[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct DataHarvest {
-	pub harvest_id: Snowflake,
-	pub user_id: Snowflake,
-	pub email: String,
-	pub state: HarvestState,
-	pub status: HarvestStatus,
-	pub created_at: Timestamp,
-	pub completed_at: Option<Timestamp>,
-	pub polled_at: Option<Timestamp>,
-	pub backends: HashMap<HarvestBackendType, HarvestBackendState>,
-	pub updated_at: Timestamp,
-	pub shadow_run: bool,
+	pub harvest_id:       Snowflake,
+	pub user_id:          Snowflake,
+	pub email:            String,
+	pub state:            HarvestState,
+	pub status:           HarvestStatus,
+	pub created_at:       Timestamp,
+	pub completed_at:     Option<Timestamp>,
+	pub polled_at:        Option<Timestamp>,
+	pub backends:         HashMap<HarvestBackendType, HarvestBackendState>,
+	pub updated_at:       Timestamp,
+	pub shadow_run:       bool,
 	pub harvest_metadata: HarvestMetadata,
 }
 
@@ -284,22 +284,22 @@ pub enum HarvestBackendState {
 #[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct HarvestMetadata {
-	pub user_is_staff: bool,
-	pub sla_email_sent: bool,
+	pub user_is_staff:   bool,
+	pub sla_email_sent:  bool,
 	pub bypass_cooldown: bool,
 }
 
 #[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct UserSurvey {
-	pub id: Snowflake,
-	pub key: Snowflake,
-	pub prompt: String,
-	pub cta: String,
-	pub url: String,
+	pub id:                 Snowflake,
+	pub key:                Snowflake,
+	pub prompt:             String,
+	pub cta:                String,
+	pub url:                String,
 	pub guild_requirements: Vec<SurveryRequirementType>,
-	pub guild_size: Vec<(Option<u32>, Option<u32>)>,
-	pub guild_permissions: Vec<String>,
+	pub guild_size:         Vec<(Option<u32>, Option<u32>)>,
+	pub guild_permissions:  Vec<String>,
 }
 
 pub enum SurveryRequirementType {
@@ -316,19 +316,19 @@ pub enum SurveryRequirementType {
 #[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct Connection {
-	pub id: String,
-	pub r#type: String,
-	pub name: String,
-	pub verified: bool,
-	pub metadata: Value,
+	pub id:                  String,
+	pub r#type:              String,
+	pub name:                String,
+	pub verified:            bool,
+	pub metadata:            Value,
 	pub metadata_visibility: VisibilityType,
-	pub revoked: bool,
-	pub integrations: Vec<ConnectionIntegration>,
-	pub friend_sync: bool,
-	pub show_activity: bool,
-	pub two_way_link: bool,
-	pub visibility: VisibilityType,
-	pub access_token: String,
+	pub revoked:             bool,
+	pub integrations:        Vec<ConnectionIntegration>,
+	pub friend_sync:         bool,
+	pub show_activity:       bool,
+	pub two_way_link:        bool,
+	pub visibility:          VisibilityType,
+	pub access_token:        String,
 }
 
 #[derive(Serialize_repr, Deserialize_repr)]
@@ -341,10 +341,10 @@ pub enum VisibilityType {
 #[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct ConnectionIntegration {
-	pub id: Snowflake,
-	pub r#type: String,
+	pub id:      Snowflake,
+	pub r#type:  String,
 	pub account: IntegrationAccount,
-	pub guild: IntegrationGuild,
+	pub guild:   IntegrationGuild,
 }
 
 #[derive(Serialize, Deserialize)]
