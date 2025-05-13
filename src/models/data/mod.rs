@@ -24,6 +24,5 @@ pub mod stage_instance;
 pub mod sticker;
 pub mod team;
 pub mod user;
-pub mod user_settings;
 pub mod voice;
 pub mod webhook;
