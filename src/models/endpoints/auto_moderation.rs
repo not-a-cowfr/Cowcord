@@ -2,7 +2,7 @@
 
 use serde::{Deserialize, Serialize};
 
-use crate::models::data::auto_moderation::{AutomodAction, AutomodRule, AutomodTriggerMetadata};
+use crate::models::auto_moderation::{AutomodAction, AutomodRule, AutomodTriggerMetadata};
 use crate::models::types::{Snowflake, Timestamp};
 
 /// Type: get

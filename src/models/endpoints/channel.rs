@@ -4,7 +4,7 @@ use std::collections::HashMap;
 
 use serde::{Deserialize, Serialize};
 
-use crate::models::data::channel::{
+use crate::models::channel::{
 	Channel,
 	DefaultReaction,
 	FollowedChannel,
@@ -16,8 +16,8 @@ use crate::models::data::channel::{
 	ThreadOnlyChannelMessageParams,
 	ThreadPostData,
 };
-use crate::models::data::message::Message;
-use crate::models::data::user_settings::MuteConfig;
+use crate::models::message::Message;
+use crate::models::user_settings::MuteConfig;
 use crate::models::types::{CdnUri, Snowflake, Timestamp};
 use crate::utils::request::{API_VERSION, to_string_query};
 

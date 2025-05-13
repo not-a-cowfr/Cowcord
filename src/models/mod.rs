@@ -3,6 +3,7 @@
 pub mod endpoints;
 pub mod locales;
 pub mod types;
+pub mod http;
 
 pub mod application;
 pub mod audit_log;

@@ -2,8 +2,8 @@
 
 use serde::Serialize;
 
-use crate::models::data::guild::Guild;
-use crate::models::data::guild_template::GuildTemplate;
+use crate::models::guild::Guild;
+use crate::models::guild_template::GuildTemplate;
 use crate::models::types::{CdnUri, Snowflake};
 
 /// Type: get

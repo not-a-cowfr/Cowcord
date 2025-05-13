@@ -2,7 +2,7 @@
 
 use serde::{Deserialize, Serialize};
 
-use crate::models::data::family_center::{FamilyCenter, LinkedUsers};
+use crate::models::family_center::{FamilyCenter, LinkedUsers};
 use crate::models::types::Snowflake;
 
 /// Type: get

@@ -2,7 +2,7 @@
 
 use serde::{Deserialize, Serialize};
 
-use crate::models::data::discovery::{
+use crate::models::discovery::{
 	DiscoverableGuild,
 	DiscoveryMetadata,
 	DiscoveryReason,

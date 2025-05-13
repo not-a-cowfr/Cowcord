@@ -2,8 +2,8 @@
 
 use serde::{Deserialize, Serialize};
 
-use crate::models::data::discovery::DiscoverableGuild;
-use crate::models::data::emoji::{Emoji, EmojiApplication, EmojiGuild, TopEmoji};
+use crate::models::discovery::DiscoverableGuild;
+use crate::models::emoji::{Emoji, EmojiApplication, EmojiGuild, TopEmoji};
 use crate::models::types::{CdnUri, Snowflake};
 
 /// Type: get

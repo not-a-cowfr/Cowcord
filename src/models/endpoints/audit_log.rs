@@ -2,7 +2,7 @@
 
 use serde::Serialize;
 
-use crate::models::data::audit_log::AuditLog;
+use crate::models::audit_log::AuditLog;
 use crate::models::types::Snowflake;
 
 /// Type: get
