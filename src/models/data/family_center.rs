@@ -1,3 +1,5 @@
+#![allow(non_camel_case_types)]
+
 use std::collections::HashMap;
 
 use serde::{Deserialize, Serialize};
@@ -36,10 +38,8 @@ pub enum LinkType {
 pub struct LinkedUser {
 	pub created_at:   Timestamp,
 	pub updated_at:   Timestamp,
-	/// https://docs.discord.food/resources/family-center#link-status
-	pub link_status:  u8,
-	/// https://docs.discord.food/resources/family-center#link-type
-	pub link_type:    u8,
+	pub link_status:  LinkStatus,
+	pub link_type:    LinkType,
 	pub requestor_id: String,
 	pub user_id:      String,
 }
@@ -59,7 +59,7 @@ pub struct TeenAuditLog {
 	pub actions:        Vec<Action>,
 	pub users:          Vec<User>,
 	pub guilds:         Vec<Guild>,
-	pub totals:         HashMap<u8, u16>, /* the type (first one) _might_ be returned as a string not an int but maybe serde will dela with that for me */
+	pub totals:         HashMap<ActionType, u16>,
 }
 
 #[derive(Serialize, Deserialize, Default)]
@@ -68,8 +68,8 @@ pub struct Action {
 	pub event_id:     Snowflake,
 	pub user_id:      Snowflake,
 	pub entity_id:    Snowflake,
-	/// https://docs.discord.food/resources/family-center#action-type
-	pub display_type: u8,
+	pub display_type: ActionType,
+}
 
 #[derive(Serialize_repr, Deserialize_repr)]
 #[repr(u8)]

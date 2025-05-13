@@ -1,5 +1,6 @@
 use serde::{Deserialize, Serialize};
 
+use super::guild::{GuildFeatures, PremiumTier};
 use super::user::User;
 use crate::models::types::Snowflake;
 
@@ -8,8 +9,7 @@ use crate::models::types::Snowflake;
 pub struct Emoji {
 	pub id:             Option<Snowflake>,
 	pub name:           String,
-	/// may be null if emoji has been deleted
-	pub roles:          Vec<Snowflake>,
+	pub roles:          Option<Vec<Snowflake>>,
 	pub user:           User,
 	pub require_colons: bool,
 	pub managed:        bool,
@@ -36,11 +36,9 @@ pub struct EmojiGuild {
 	pub name:                       String,
 	pub icon:                       Option<String>,
 	pub description:                Option<String>,
-	/// https://docs.discord.food/resources/guild#guild-features
-	pub features:                   Vec<String>,
+	pub features:                   Vec<GuildFeatures>,
 	pub emojis:                     Vec<Emoji>,
-	/// https://docs.discord.food/resources/guild#premium-tier
-	pub premium_tier:               u8,
+	pub premium_tier:               PremiumTier,
 	pub premium_subscription_count: u32,
 	pub approximate_member_count:   u32,
 	pub approximate_presence_count: u32,

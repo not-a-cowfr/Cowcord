@@ -12,16 +12,14 @@ use crate::models::types::{Snowflake, Timestamp};
 pub struct Integration {
 	pub id:                        Snowflake,
 	pub name:                      String,
-	/// https://docs.discord.food/resources/integration#integration-type
-	pub r#type:                    String,
+	pub r#type:                    IntegrationType,
 	pub enabled:                   bool,
 	pub account:                   IntegrationAccount,
 	pub syncing:                   bool,
 	pub role_id:                   Snowflake,
 	pub enable_emoticons:          bool,
-	/// https://docs.discord.food/resources/integration#integration-expire-behavior
-	pub expire_behavior:           u8,
-	/// https://docs.discord.food/topics/oauth2#oauth2-scopes
+	pub expire_behavior:           IntegrationExpireBehavior,
+	/// in days
 	pub expire_grace_period:       u8,
 	pub synced_at:                 Timestamp,
 	pub subscriber_count:          u32,
@@ -62,8 +60,7 @@ pub struct IntegrationApplication {
 	pub icon:                              Option<String>,
 	pub cover_image:                       String,
 	pub splash:                            String,
-	/// https://docs.discord.food/resources/integration#integration-type
-	pub r#type:                            Option<u8>,
+	pub r#type:                            Option<ApplicationType>,
 	pub primary_sku_id:                    Snowflake,
 	pub bot:                               User,
 	pub deeplink_uri:                      Option<String>,

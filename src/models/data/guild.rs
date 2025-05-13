@@ -30,35 +30,29 @@ pub struct Guild {
 	pub afk_timeout:                   u16,
 	pub widget_enabled:                bool,
 	pub widget_channel_id:             Option<Snowflake>,
-	/// https://docs.discord.food/resources/guild#verification-level
-	pub verification_level:            u8,
-	/// https://docs.discord.food/resources/guild#message-notification-level
-	pub default_message_notifications: u8,
-	pub explicit_content_filter:       u8, /* https://docs.discord.food/resources/guild#explicit-content-filter-level */
-	/// https://docs.discord.food/resources/guild#guild-features
-	pub features:                      Vec<String>,
+	pub verification_level:            VerificationLevel,
+	pub default_message_notifications: MessageNotificationLevel,
+	pub explicit_content_filter:       ExplicitContentFilter,
+	pub features:                      Vec<GuildFeatures>,
 	pub roles:                         Vec<Role>,
 	pub emojis:                        Vec<Emoji>,
 	pub stickers:                      Vec<Sticker>,
-	/// https://docs.discord.food/resources/guild#mfa-level
-	pub mfa_level:                     u8,
+	pub mfa_level:                     MFALevel,
 	pub system_channel_id:             Option<Snowflake>,
 	pub public_updates_channel_id:     Option<Snowflake>,
 	pub safety_alerts_channel_id:      Option<Snowflake>,
 	pub max_presences:                 Option<u32>,
 	pub max_members:                   u32,
 	pub vanity_url_code:               Option<String>,
-	pub premium_tier:                  u8, // https://docs.discord.food/resources/guild#premium-tier
+	pub premium_tier:                  PremiumTier,
 	pub premium_subscription_count:    u32,
 	pub preferred_locale:              String,
 	pub max_video_channel_users:       u16,
 	pub max_stage_video_channel_users: u16,
 	#[deprecated]
 	pub nsfw:                          bool,
-	/// https://docs.discord.food/resources/guild#nsfw-level
-	pub nsfw_level:                    u8,
-	/// https://docs.discord.food/resources/guild#hub-type
-	pub hub_type:                      Option<u8>,
+	pub nsfw_level:                    NsfwLevel,
+	pub hub_type:                      Option<HubType>,
 	pub premium_progress_bar_enabled:  bool,
 	pub latest_onboarding_question_id: Option<Snowflake>,
 	pub incidents_data:                Option<AutomodIncedentsData>,
@@ -127,7 +121,7 @@ bitflags! {
 	const SUPPRESS_JOIN_NOTIFICATION_REPLIES = 1 << 3;
 	const SUPPRESS_ROLE_SUBSCRIPTION_PURCHASE_NOTIFICATIONS = 1 << 4;
 	const SUPPRESS_ROLE_SUBSCRIPTION_PURCHASE_NOTIFICATION_REPLIES = 1 << 5;
-		const SUPPRESS_CHANNEL_PROMPT_DEADCHAT = 1 << 7;
+	const SUPPRESS_CHANNEL_PROMPT_DEADCHAT = 1 << 7;
   }
 }
 
@@ -299,7 +293,6 @@ pub enum GuildFeatures {
 	WELCOME_SCREEN_ENABLED,
 }
 
-// can be changed via https://docs.discord.food/resources/guild#modify-guild
 pub enum ModifiableGuildFeatures {
 	ACTIVITY_FEED_DISABLED_BY_USER,
 	ACTIVITY_FEED_ENABLED_BY_USER,
@@ -323,7 +316,7 @@ pub struct UserGuild {
 	pub icon:                       Option<String>,
 	pub banner:                     Option<String>,
 	pub owner:                      bool,
-	pub features:                   Vec<String>, /* enabled guild features, should replace with enum */
+	pub features:                   Vec<GuildFeatures>,
 	pub permissions:                String,
 	pub approximate_member_count:   u32,
 	pub approximate_presence_count: u32,
@@ -348,7 +341,7 @@ pub struct WidgetChannel {
 	pub position: u16,
 }
 
-// Due to privacy concerns, id, discriminator, and avatar are anonymized. id is replaced with an incrementing integer, discriminator is always 0000, and avatar is always null (replaced with an encrypted avatar_url field).
+/// Due to privacy concerns, id, discriminator, and avatar are anonymized. id is replaced with an incrementing integer, discriminator is always 0000, and avatar is always null (replaced with an encrypted avatar_url field).
 #[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct WidgetMember {
@@ -392,16 +385,17 @@ pub struct Role {
 	pub permissions:   String,
 	pub managed:       bool,
 	pub mentionable:   bool,
-	/// https://docs.discord.food/resources/guild#role-flags
-	pub flags:         u64,
+	pub flags:         RoleFlags,
 	pub tags:          RoleTags,
 }
 
-pub enum RoleFlags {
-	IN_PROMPT,
+bitflags! {
+  pub struct RoleFlags: u64 {
+	const IN_PROMPT = 1 << 0;
+  }
 }
 
-// all Option<String> in this object will be null if true and empty if false for whatever reason
+// Tags with type null represent booleans. They will be present and set to null if they are true, and will be not present if they are false.
 #[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct RoleTags {
@@ -418,8 +412,7 @@ pub struct RoleTags {
 pub struct RoleConnectionConfig {
 	pub connection_type:           String,
 	pub connection_metadata_field: Option<String>,
-	/// https://docs.discord.food/resources/guild#role-connection-operator-type
-	pub operator:                  Option<u8>,
+	pub operator:                  Option<RoleConnectionOperatorType>,
 	pub value:                     Option<String>,
 	pub application_id:            Snowflake,
 	pub application:               IntegrationApplication,
@@ -533,8 +526,7 @@ pub struct MemberVerification {
 #[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct MemberVerificationForm {
-	/// https://docs.discord.food/resources/guild#member-verification-form-field-type
-	pub field_type:  String,
+	pub field_type:  MemberVerificationFormFieldType,
 	pub label:       String,
 	pub choices:     Vec<String>,
 	pub values:      Option<Vec<String>>,
@@ -574,7 +566,7 @@ pub struct MemberVerificationGuild {
 	pub discovery_splash:           Option<String>,
 	pub home_header:                Option<String>,
 	pub verification_level:         u8,
-	pub features:                   Vec<String>,
+	pub features:                   Vec<GuildFeatures>,
 	pub emojis:                     Vec<Emoji>,
 	pub approximate_member_count:   u32,
 	pub approximate_presence_count: u32,

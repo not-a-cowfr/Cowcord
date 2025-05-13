@@ -33,13 +33,11 @@ pub struct Message {
 	pub nonce:                  NonceResponseType,
 	pub pinned:                 bool,
 	pub webhook_id:             Snowflake,
-	/// https://docs.discord.food/resources/message#message-type
-	pub r#type:                 u8,
+	pub r#type:                 MessageType,
 	pub activity:               MessageActivity,
 	pub application:            IntegrationApplication,
 	pub application_id:         Snowflake,
-	/// https://docs.discord.food/resources/message#message-flags
-	pub flags:                  u64,
+	pub flags:                  MessageFlags,
 	pub message_reference:      MessageReference,
 	pub referenced_message:     Option<Box<Message>>,
 	pub message_snapshots:      Vec<MessageSnapshot>,
@@ -147,15 +145,14 @@ bitflags! {
 	const IS_VOICE_MESSAGE = 1 << 13;
 	const HAS_SNAPSHOT = 1 << 14;
 	const IS_COMPONENTS_V2 = 1 << 15;
-		const SENT_BY_SOCIAL_LAYER_INTEGRATION = 1 << 16;
+	const SENT_BY_SOCIAL_LAYER_INTEGRATION = 1 << 16;
   }
 }
 
 #[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct MessageActivity {
-	/// https://docs.discord.food/resources/presence#activity-action-type
-	pub r#type:     u8,
+	pub r#type:     ActivityActionType,
 	pub session_id: String,
 	pub party_id:   String,
 }
@@ -176,8 +173,7 @@ pub struct MessageInteractionMetadata {
 	pub name:                            String,
 	/// https://docs.discord.food/interactions/application-commands#application-command-types
 	pub command_type:                    u8,
-	/// https://docs.discord.food/resources/message#ephemerality-reason
-	pub ephemerality_reason:             u8,
+	pub ephemerality_reason:             MessageEphemeralityReason,
 	pub user:                            User,
 	pub authorizing_integration_owners:  HashMap<u32, Snowflake>,
 	pub original_response_message_id:    Snowflake,
@@ -223,8 +219,7 @@ pub struct MessageRoleSubscription {
 #[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct MessagePurchaseNotification {
-	/// https://docs.discord.food/resources/message#message-purchase-notification-type
-	pub r#type:                 u8,
+	pub r#type:                 MessagePurchaseNotificationType,
 	pub guild_product_purchase: Option<GuildProductPurchase>,
 }
 
@@ -257,8 +252,7 @@ pub struct MessageSoundboardSound {
 #[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct MessageReference {
-	/// https://docs.discord.food/resources/message#message-reference-type
-	pub r#type:             u8,
+	pub r#type:             MessageReferenceType,
 	pub message_id:         Snowflake,
 	pub channel_id:         Snowflake,
 	pub guild_id:           Snowflake,
@@ -296,10 +290,8 @@ pub struct SnapshotMessage {
 	pub mention_roles:     Vec<Snowflake>,
 	pub attachments:       Vec<MessageAttachment>,
 	pub embeds:            Vec<MessageEmbed>,
-	/// https://docs.discord.food/resources/message#message-type
-	pub r#type:            u8,
-	/// https://docs.discord.food/resources/message#message-flags
-	pub flags:             u64,
+	pub r#type:            MessageType,
+	pub flags:             MessageFlags,
 	pub components:        Vec<MessageComponent>,
 	pub sticker_items:     Vec<StickerItem>,
 	pub soundboard_sounds: Vec<SoundboardSound>,
@@ -334,8 +326,7 @@ pub enum MessageReactionType {
 #[serde(default)]
 pub struct MessageEmbed {
 	pub title:                String,
-	/// https://docs.discord.food/resources/message#embed-type
-	pub r#type:               String,
+	pub r#type:               EmbedType,
 	pub description:          String,
 	pub url:                  String,
 	pub timestamp:            Timestamp,
@@ -349,8 +340,7 @@ pub struct MessageEmbed {
 	pub fields:               Vec<EmbedField>,
 	pub reference_id:         Snowflake,
 	pub content_scan_version: u8,
-	/// https://docs.discord.food/resources/message#embed-flags
-	pub flags:                u64,
+	pub flags:                EmbedFlags,
 }
 
 pub enum EmbedType {
@@ -371,7 +361,7 @@ pub enum EmbedType {
 bitflags! {
   pub struct EmbedFlags: u64 {
 	const CONTAINS_EXPLICIT_MEDIA = 1 << 4;
-		const CONTENT_INVENTORY_ENTRY = 1 << 5;
+	const CONTENT_INVENTORY_ENTRY = 1 << 5;
   }
 }
 
@@ -382,8 +372,7 @@ pub struct EmbedMedia {
 	pub proxy_url:             String,
 	pub height:                u16,
 	pub width:                 u16,
-	/// https://docs.discord.food/resources/message#attachment-flags
-	pub flags:                 u64,
+	pub flags:                 AttachmentFlags,
 	pub content_scan_metadata: String,
 	pub placeholder_version:   u8,
 	pub placeholder:           String,
@@ -424,8 +413,7 @@ pub struct EmbedField {
 #[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct ContentScanMetadata {
-	/// https://docs.discord.food/resources/message#content-scan-flags
-	pub flags:   u64,
+	pub flags:   ContentScanFlags,
 	pub version: u8,
 }
 
@@ -455,7 +443,7 @@ pub struct MessageAttachment {
 	pub ephemeral:            bool,
 	pub duration_secs:        f64,
 	pub waveform:             String, /* Base64 encoded bytearray representing a sampled waveform (if voice message) */
-	pub flags:                u64,    /* https://docs.discord.food/resources/message#attachment-flags */
+	pub flags:                AttachmentFlags,
 	pub is_clip:              bool,
 	pub is_thumbnail:         bool,
 	pub is_remix:             bool,
@@ -474,7 +462,7 @@ bitflags! {
 	const IS_REMIX = 1 << 2;
 	const IS_SPOILER = 1 << 3;
 	const CONTAINS_EXPLICIT_MEDIA = 1 << 4;
-		const IS_ANIMATED = 1 << 5;
+	const IS_ANIMATED = 1 << 5;
   }
 }
 
@@ -500,8 +488,7 @@ pub struct Poll {
 	pub answers:           Vec<PollAnswer>,
 	pub expiry:            Option<Timestamp>,
 	pub allow_multiselect: bool,
-	/// https://docs.discord.food/resources/message#poll-layout-type
-	pub layout_type:       u8,
+	pub layout_type:       PollLayoutType,
 	pub results:           PollResults,
 }
 
@@ -512,8 +499,7 @@ pub struct PollCreate {
 	pub answers:           Vec<PollAnswer>,
 	pub duraction:         u32,
 	pub allow_multiselect: bool,
-	/// https://docs.discord.food/resources/message#poll-layout-type
-	pub layout_type:       u8,
+	pub layout_type:       PollLayoutType,
 }
 
 #[derive(Serialize_repr, Deserialize_repr)]
@@ -552,7 +538,7 @@ pub struct PollAnswerCount {
 	pub me_voted: bool,
 }
 
-// another one of those bs things that look like a pain to deserialize https://docs.discord.food/resources/message#example-poll-result-embed
+/// another one of those bs things that look like a pain to deserialize https://docs.discord.food/resources/message#example-poll-result-embed
 #[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct PollResultNotifications {
@@ -599,10 +585,8 @@ pub struct ConversationSummary {
 	pub start_id:    Snowflake,
 	pub end_id:      Snowflake,
 	pub count:       u16,
-	/// https://docs.discord.food/resources/message#summary-source
-	pub source:      u8,
-	/// https://docs.discord.food/resources/message#summary-type
-	pub r#type:      u8,
+	pub source:      SummarySource,
+	pub r#type:      SummaryType,
 }
 
 #[derive(Serialize_repr, Deserialize_repr)]

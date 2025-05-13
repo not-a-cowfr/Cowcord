@@ -60,7 +60,7 @@ bitflags! {
 	const NITRO_CLASSIC = 1 << 0;
 	const NITRO = 1 << 1;
 	const GUILD_BOOST = 1 << 2;
-		const NITRO_BASIC = 1 << 3;
+	const NITRO_BASIC = 1 << 3;
   }
 }
 
@@ -68,7 +68,7 @@ bitflags! {
   pub struct PremiumFlags: u64 {
 	const PREMIUM_DISCRIMINATOR = 1 << 0;
 	const ANIMATED_AVATAR = 1 << 1;
-		const PROFILE_BANNER = 1 << 2;
+	const PROFILE_BANNER = 1 << 2;
   }
 }
 

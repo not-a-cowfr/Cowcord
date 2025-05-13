@@ -3,6 +3,7 @@
 use std::collections::HashMap;
 
 use serde::{Deserialize, Serialize};
+use serde_json::Value;
 use serde_repr::{Deserialize_repr, Serialize_repr};
 
 use crate::models::types::{Snowflake, Timestamp};
@@ -53,13 +54,11 @@ pub enum ContentType {
 #[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct Config {
-	/// https://docs.discord.food/resources/quests#quest-config-version
-	pub config_version: u8,
+	pub config_version: ConfigVersion,
 	pub id:             Snowflake,
 	pub starts_at:      Timestamp,
 	pub expires_at:     Timestamp,
-	/// https://docs.discord.food/resources/quests#quest-feature
-	pub features:       Vec<u8>,
+	pub features:       Vec<Feature>,
 	pub experiments:    Rollout,
 	pub application:    Application,
 	pub assets:         Assets,
@@ -130,8 +129,9 @@ pub struct Assets {
 #[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct Gradient {
-	// both are in hex format
+	/// hex format
 	pub primary:   String,
+	/// hex format
 	pub secondary: String,
 }
 
@@ -146,12 +146,16 @@ pub struct Messages {
 #[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct TaskConfig {
-	/// https://docs.discord.food/resources/quests#quest-task-config-type
-	pub r#type:                   u8,
-	pub join_operator:            String, // "and" or "or"
+	pub r#type:                   TaskConfigType,
+	pub join_operator:            JoinOperator,
 	pub enrollment_url:           String,
 	pub developer_application_id: Snowflake,
 	pub tasks:                    HashMap<String, Task>,
+}
+
+pub enum JoinOperator {
+	and,
+	or,
 }
 
 #[derive(Serialize_repr, Deserialize_repr)]
@@ -164,8 +168,7 @@ pub enum TaskConfigType {
 #[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct Task {
-	/// https://docs.discord.food/resources/quests#quest-task-event-name
-	pub event_name:   String,
+	pub event_name:   TaskEventName,
 	pub target:       u32,
 	pub external_ids: Vec<String>,
 	pub description:  String,
@@ -184,12 +187,10 @@ pub enum TaskEventName {
 #[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct RewardsConfig {
-	/// https://docs.discord.food/resources/quests#quest-reward-assignment-method
-	pub assignment_method: u8,
+	pub assignment_method: RewardAssignmentMethod,
 	pub rewards:           Vec<Reward>,
 	pub rewards_expire_at: Option<Timestamp>,
-	/// https://docs.discord.food/resources/quests#quest-platform-type
-	pub platforms:         Vec<u8>,
+	pub platforms:         Vec<PlatformType>,
 }
 
 #[derive(Serialize_repr, Deserialize_repr)]
@@ -212,8 +213,7 @@ pub enum PlatformType {
 #[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct Reward {
-	/// https://docs.discord.food/resources/quests#quest-reward-type
-	pub r#type:             u8,
+	pub r#type:             RewardType,
 	pub sku_id:             Snowflake,
 	pub asset:              Option<String>,
 	pub asset_video:        Option<String>,
@@ -222,8 +222,7 @@ pub struct Reward {
 	pub redemption_link:    Option<String>,
 	pub expires_at:         Option<Timestamp>,
 	pub expires_at_premium: Option<Timestamp>,
-	/// https://docs.discord.food/resources/quests#quest-reward-expiration-mode
-	pub expiration_mode:    u8,
+	pub expiration_mode:    ExpirationMode,
 	pub orb_quantity:       u32,
 	pub quantity:           u8,
 }
@@ -298,8 +297,7 @@ pub struct ClaimedConfig {
 	pub id:         Snowflake,
 	pub starts_at:  Timestamp,
 	pub expires_at: Timestamp,
-	/// https://docs.discord.food/resources/quests#quest-feature
-	pub features:   Vec<u8>,
+	pub features:   Vec<Feature>,
 	pub colors:     Gradient,
 	pub assets:     Assets,
 	pub messages:   Messages,
@@ -309,8 +307,7 @@ pub struct ClaimedConfig {
 #[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct ClaimedQuestReward {
-	/// https://docs.discord.food/resources/quests#quest-reward-type
-	pub r#type:              u8,
+	pub r#type:              RewardType,
 	pub sku_id:              Snowflake,
 	pub name:                String,
 	pub name_with_article:   String,
@@ -318,7 +315,7 @@ pub struct ClaimedQuestReward {
 	pub asset_video:         Option<String>,
 	pub orb_quantity:        Option<u8>,
 	/// "collectible object" but not the user collectibles object, idk man just fix it when it gets used
-	pub collectible_product: String,
+	pub collectible_product: Value,
 }
 
 #[derive(Serialize, Deserialize, Default)]
@@ -332,8 +329,7 @@ pub struct UserStatus {
 	pub claimed_tier:             Option<u8>,
 	pub last_stream_heartbeat_at: Option<Timestamp>,
 	pub stream_progress_seconds:  Timestamp,
-	/// https://docs.discord.food/resources/quests#dismissible-quest-content-flags
-	pub dismissed_quest_content:  u8,
+	pub dismissed_quest_content:  DismissibleQuestContentFlags,
 	pub progress:                 HashMap<String, TaskProgress>,
 }
 
@@ -342,7 +338,7 @@ bitflags! {
 	const GIFT_INVENTORY_SETTINGS_BADGE = 1 << 0;
 	const QUEST_BAR = 1 << 1;
 	const ACTIVITY_PANEL = 1 << 2;
-		const QUEST_LIVE_STREAM = 1 << 3;
+	const QUEST_LIVE_STREAM = 1 << 3;
   }
 }
 
@@ -368,8 +364,7 @@ pub struct TaskHeartbeat {
 pub struct RewardCode {
 	pub quest_id:   Snowflake,
 	pub code:       String,
-	/// https://docs.discord.food/resources/quests#quest-platform-type
-	pub platform:   String,
+	pub platform:   PlatformType,
 	pub user_id:    Snowflake,
 	pub claimed_at: Timestamp,
 	pub tier:       Option<u8>,

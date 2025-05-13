@@ -7,14 +7,14 @@ use super::guild::GuildMember;
 use super::message::{AllowedMentions, Message, MessageActivity, MessageAttachment, MessageEmbed};
 use super::user::User;
 use super::user_settings::MuteConfig;
+use super::voice::VoiceRegion;
 use crate::models::types::{Snowflake, Timestamp};
 
 #[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct Channel {
 	pub id:                                 Snowflake,
-	/// https://docs.discord.food/resources/channel#channel-type
-	pub r#type:                             u8,
+	pub r#type:                             ChannelType,
 	pub guild_id:                           Snowflake,
 	pub position:                           u16,
 	pub permission_overwrites:              Vec<PermissionOverwrite>,
@@ -26,8 +26,7 @@ pub struct Channel {
 	pub user_limit:                         u8,
 	pub rate_limit_per_user:                u16,
 	pub recipients:                         Vec<User>,
-	/// https://docs.discord.food/resources/channel#recipient-flags
-	pub recipient_falgs:                    u8,
+	pub recipient_flags:                    RecipientFlags,
 	pub icon:                               Option<String>, /* TODO: specific types for cdn hashes https://docs.discord.food/reference#cdn-formatting */
 	pub nicks:                              Vec<ChannelNick>,
 	pub managed:                            bool,
@@ -38,28 +37,25 @@ pub struct Channel {
 	pub owner:                              Option<GuildMember>,
 	pub parent_id:                          Option<Snowflake>,
 	pub last_pin_timestamp:                 Option<Timestamp>,
-	/// https://docs.discord.food/resources/voice#voice-region-object
-	pub rtc_region:                         Option<String>,
-	/// https://docs.discord.food/resources/channel#video-quality-mode
-	pub video_quality_mode:                 u8,
-	pub total_message_sent:                 usize, /* like message_count except it counts deleted messages and intial thread message */
+	pub rtc_region:                         Option<VoiceRegion>,
+	pub video_quality_mode:                 VideoQualityMode,
+	/// like message_count except it counts deleted messages and intial thread message
+	pub total_message_sent:                 usize,
 	pub message_count:                      usize,
-	pub member_count:                       u8, // stops counting at 50, nice one discord
+	/// stops counting after 50
+	pub member_count:                       u8,
 	pub member_ids_preview:                 Vec<Snowflake>,
 	pub thread_metadata:                    ThreadMetaData,
 	pub member:                             ThreadMember,
 	pub default_auto_archive_duration:      Option<u16>,
 	pub default_thread_rate_limit_per_user: isize,
 	pub permissions:                        String,
-	/// https://docs.discord.food/resources/channel#channel-flags
-	pub flags:                              u64,
-	pub available_tags:                     Vec<ForumTag>, // max 5
+	pub flags:                              ChannelFlags,
+	pub available_tags:                     Vec<ForumTag>,
 	pub applied_tags:                       Vec<Snowflake>,
 	pub default_reaction_emoji:             Option<DefaultReaction>,
-	/// https://docs.discord.food/resources/channel#forum-layout-type
-	pub default_forum_layout:               u8,
-	/// https://docs.discord.food/resources/channel#sort-order-type
-	pub default_sort_order:                 Option<u8>,
+	pub default_forum_layout:               FormLayoutType,
+	pub default_sort_order:                 Option<SortOrderType>,
 	pub icon_emoji:                         Option<IconEmoji>,
 	pub is_message_request:                 bool,
 	pub is_message_request_timestamp:       Option<Timestamp>,
@@ -123,7 +119,7 @@ bitflags! {
 	const IS_BROADCASTING = 1 << 14;
 	const HIDE_MEDIA_DOWNLOAD_OPTIONS = 1 << 15;
 	const IS_JOIN_REQUEST_INTERVIEW_CHANNEL = 1 << 16;
-		const OBFUSCATED = 1 << 17;
+	const OBFUSCATED = 1 << 17;
   }
 }
 
@@ -154,7 +150,7 @@ pub struct ChannelNick {
 pub struct SafetyWarning {
 	pub id:                String,
 	/// https://docs.discord.food/resources/channel#safety-warning-type
-	pub r#type:            u8,
+	pub r#type:            SafetWarningType,
 	pub expiry:            Timestamp,
 	pub dismiss_timestamp: Option<Timestamp>,
 }
@@ -208,8 +204,7 @@ pub struct ThreadMember {
 	pub id:             Snowflake,
 	pub user_id:        Snowflake,
 	pub join_timestamp: Timestamp,
-	/// https://docs.discord.food/resources/channel#thread-member-flags
-	pub flags:          u64,
+	pub flags:          ThreadMemberFlags,
 	pub muted:          bool,
 	pub mute_config:    MuteConfig,
 	pub member:         GuildMember,
@@ -220,7 +215,7 @@ bitflags! {
 	const HAS_INTERACTED = 1 << 0;
 	const ALL_MESSAGES = 1 << 1;
 	const ONLY_MENTIONS = 1 << 2;
-		const NO_MESSAGES = 1 << 3;
+	const NO_MESSAGES = 1 << 3;
   }
 }
 

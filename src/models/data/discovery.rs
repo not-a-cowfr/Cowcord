@@ -21,8 +21,7 @@ pub struct DiscoverableGuild {
 	pub banner:                     Option<String>,
 	pub splash:                     Option<String>,
 	pub discovery_splash:           Option<String>,
-	/// https://docs.discord.food/resources/guild#guild-features
-	pub features:                   Vec<String>,
+	pub features:                   Vec<GuildFeatures>,
 	pub vanity_url_code:            Option<String>,
 	pub preferred_locale:           String,
 	pub premium_subscription_count: u32,
@@ -52,7 +51,7 @@ pub struct DiscoveryRequirements {
 	pub safe_environment:                bool,
 	pub healthy:                         bool,
 	pub health_score_pending:            bool,
-	pub size:                            bool, /* "size: bool"🥺 (it means whether or not guild meets member reqs) */
+	pub size:                            bool,
 	pub nsfw_properties:                 DiscoveryNsfwProperties,
 	pub protected:                       bool,
 	pub sufficient:                      bool,
@@ -61,7 +60,8 @@ pub struct DiscoveryRequirements {
 	pub retention_healthy:               bool,
 	pub engagement_healthy:              bool,
 	pub age:                             bool,
-	pub minimum_age:                     Option<u16>, // in days
+	/// in days
+	pub minimum_age:                     Option<u16>,
 	pub health_score:                    DiscoveryHealthScore,
 	pub minimum_size:                    Option<u32>,
 	pub grace_period_end_date:           Timestamp,
@@ -78,7 +78,7 @@ pub struct DiscoveryNsfwProperties {
 	pub description_banned_keywords: Vec<String>,
 }
 
-// Activity metrics are recalculated weekly, as an 8-week rolling average. If they are not yet eligible to be calculated, all fields will be null.
+/// Activity metrics are recalculated weekly, as an 8-week rolling average. If they are not yet eligible to be calculated, all fields will be null.
 #[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct DiscoveryHealthScore {

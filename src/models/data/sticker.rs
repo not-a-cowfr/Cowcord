@@ -23,9 +23,10 @@ pub struct Sticker {
 	pub pack_id:     Snowflake,
 	pub name:        String,
 	pub description: Option<String>,
-	pub tags:        String, /* comma separated list of keywords, official clients literally jsut use the name for this though */
-	pub r#type:      u8,     // https://docs.discord.food/resources/sticker#sticker-types
-	pub format_type: u8,     // https://docs.discord.food/resources/sticker#sticker-format-types
+	/// comma separated list of keywords, official clients literally just use the name for this though
+	pub tags:        String,
+	pub r#type:      StickerTypes,
+	pub format_type: StickerFormatTypes,
 	pub available:   bool,
 	pub guild_id:    Snowflake,
 	pub user:        User,
@@ -45,7 +46,8 @@ pub enum StickerFormatTypes {
 	PNG = 1,
 	APNG = 2, // not a typo
 	LOTTIE = 3,
-	GIF = 4, /* GIF stickers are not available through the CDN, and must be accessed at https://media.discordapp.net/stickers/{sticker_id}.gif */
+	/// GIF stickers are not available through the CDN, and must be accessed at https://media.discordapp.net/stickers/{sticker_id}.gif
+	GIF = 4,
 }
 
 #[derive(Serialize, Deserialize, Default)]
@@ -53,5 +55,5 @@ pub enum StickerFormatTypes {
 pub struct StickerItem {
 	id:          Snowflake,
 	name:        String,
-	format_type: u8, // https://docs.discord.food/resources/sticker#sticker-format-types
+	format_type: StickerFormatTypes,
 }

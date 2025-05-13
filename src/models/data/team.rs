@@ -15,8 +15,7 @@ pub struct Team {
 	pub icon:                      Option<String>,
 	pub owner_user_id:             Snowflake,
 	pub members:                   Vec<Member>,
-	/// https://docs.discord.food/resources/team#team-payout-account-status
-	pub payout_account_status:     Option<u8>,
+	pub payout_account_status:     Option<PayoutAccountStatus>,
 	pub stripe_connect_account_id: String,
 }
 
@@ -36,10 +35,8 @@ pub enum PayoutAccountStatus {
 pub struct Member {
 	pub user:             User,
 	pub team_id:          Snowflake,
-	/// https://docs.discord.food/resources/team#membership-state
-	pub membership_state: u8,
-	/// https://docs.discord.food/resources/team#team-member-role-types
-	pub role:             String,
+	pub membership_state: MembershipState,
+	pub role:             MemberRoleType,
 }
 
 #[derive(Serialize_repr, Deserialize_repr)]
@@ -61,8 +58,7 @@ pub struct Payout {
 	pub id:                                 Snowflake,
 	pub user_id:                            Snowflake,
 	pub amount:                             u32,
-	/// https://docs.discord.food/resources/team#team-payout-status
-	pub status:                             u8,
+	pub status:                             PayoutStatus,
 	pub period_start:                       Timestamp,
 	pub period_end:                         Option<Timestamp>,
 	pub payout_date:                        Option<Timestamp>,

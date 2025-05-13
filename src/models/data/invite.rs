@@ -14,16 +14,13 @@ use crate::models::types::{Snowflake, Timestamp};
 #[serde(default)]
 pub struct Invite {
 	pub code:                       String,
-	/// https://docs.discord.food/resources/invite#invite-type
-	pub r#type:                     u8,
+	pub r#type:                     InviteType,
 	pub channel:                    Option<Channel>,
 	pub guild_id:                   Snowflake,
 	pub guild:                      InviteGuild,
 	pub inviter:                    User,
-	/// https://docs.discord.food/resources/invite#invite-flags
-	pub flags:                      u64,
-	/// https://docs.discord.food/resources/invite#invite-target-type
-	pub target_type:                u8,
+	pub flags:                      InviteFlags,
+	pub target_type:                InviteType,
 	pub target_user:                User,
 	pub target_application:         Application,
 	pub approximate_member_count:   u32,
@@ -49,7 +46,7 @@ bitflags! {
 	const IS_GUEST_INVITE = 1 << 0;
 	const IS_VIEWED = 1 << 1;
 	const IS_ENHANCED = 1 << 2;
-		const IS_APPLICATION_BYPASS = 1 << 3;
+	const IS_APPLICATION_BYPASS = 1 << 3;
   }
 }
 
@@ -81,16 +78,13 @@ pub struct InviteGuild {
 	pub description:                Option<String>,
 	pub banner:                     Option<String>,
 	pub splash:                     Option<String>,
-	/// https://docs.discord.food/resources/guild#verification-level
-	pub verification_level:         u8,
-	/// https://docs.discord.food/resources/guild#guild-features
-	pub features:                   Vec<String>,
+	pub verification_level:         VerificationLevel,
+	pub features:                   Vec<GuildFeatures>,
 	pub vanity_url_code:            Option<String>,
 	pub premium_subscription_count: u32,
 	#[deprecated]
 	pub nsfw:                       bool,
-	/// https://docs.discord.food/resources/guild#nsfw-level
-	pub nsfw_level:                 u8,
+	pub nsfw_level:                 NsfwLevel,
 }
 
 #[derive(Serialize, Deserialize, Default)]

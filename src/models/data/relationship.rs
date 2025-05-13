@@ -10,8 +10,7 @@ use crate::models::types::{Snowflake, Timestamp};
 #[serde(default)]
 pub struct Relationship {
 	pub id:                    String,
-	/// https://docs.discord.food/resources/relationships#relationship-type
-	pub r#type:                u8,
+	pub r#type:                RelationshipType,
 	pub user:                  User,
 	pub nickname:              Option<String>,
 	pub is_spam_request:       bool,
@@ -30,7 +29,7 @@ pub enum RelationshipType {
 	INCOMING_REQUEST = 3,
 	OUTGOING_REQUEST = 4,
 	IMPLICIT = 5,
-	// SUGGESTION = 6,
+	SUGGESTION = 6,
 }
 
 #[derive(Serialize, Deserialize, Default)]
@@ -38,10 +37,11 @@ pub enum RelationshipType {
 pub struct GameRelationship {
 	id:             String,
 	application_id: Snowflake,
-	r#type:         u8, // https://docs.discord.food/resources/relationships#game-relationship-type
+	r#type:         GameRelationshipType,
 	user:           User,
 	since:          Timestamp,
-	dm_access_type: u8, // https://docs.discord.food/resources/relationships#dm-access-type
+	/// https://docs.discord.food/resources/relationships#dm-access-type
+	dm_access_type: u8,
 	user_id:        Snowflake,
 }
 
@@ -53,11 +53,11 @@ pub enum GameRelationshipType {
 	OUTGOING_REQUEST = 4,
 }
 
-#[derive(Serialize_repr, Deserialize_repr)]
-#[repr(u8)]
-pub enum DmAccessType {
-	// unknown
-}
+// #[derive(Serialize_repr, Deserialize_repr)]
+// #[repr(u8)]
+// pub enum DmAccessType {
+// 	// unknown
+// }
 
 #[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
@@ -70,7 +70,7 @@ pub struct FriendSuggestion {
 #[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct FriendSuggestionReason {
-	r#type:   u8, // https://docs.discord.food/resources/relationships#friend-suggestion-reason-type
+	r#type:   FriendSuggestionType,
 	platform: String,
 	name:     String,
 }

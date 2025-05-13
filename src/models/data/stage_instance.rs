@@ -2,6 +2,8 @@ use serde::{Deserialize, Serialize};
 
 use crate::models::types::Snowflake;
 
+use super::guild::PrivacyLevel;
+
 #[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct StageInstance {
@@ -9,8 +11,7 @@ pub struct StageInstance {
 	pub guild_id:                 Snowflake,
 	pub channel_id:               Snowflake,
 	pub topic:                    String,
-	/// https://docs.discord.food/resources/guild#privacy-level
-	pub privacy_level:            u8,
+	pub privacy_level:            PrivacyLevel,
 	pub invite_code:              Option<String>,
 	#[deprecated]
 	pub discoverable_disabled:    bool,

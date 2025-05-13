@@ -19,10 +19,8 @@ pub struct Application {
 	pub icon:                              Option<String>,
 	pub cover_image:                       Option<String>,
 	pub splash:                            String,
-	/// https://docs.discord.sex/resources/application#application-type
-	pub r#type:                            Option<u8>,
-	/// https://docs.discord.sex/resources/application#application-flags
-	pub flags:                             u64,
+	pub r#type:                            Option<ApplicationType>,
+	pub flags:                             ApplicationFlags,
 	pub primary_sku_id:                    Snowflake,
 	pub verify_key:                        String,
 	pub guild_id:                          Snowflake,
@@ -33,8 +31,7 @@ pub struct Application {
 	pub third_party_skus:                  Vec<ApplicationSKU>,
 	pub hook:                              bool,
 	pub overlay:                           bool,
-	/// https://docs.discord.sex/resources/application#overlay-method-flags
-	pub overlay_methods:                   u8,
+	pub overlay_methods:                   ApplicationOverlayMethods,
 	pub overlay_warn:                      bool,
 	pub overlay_compatibility_hook:        bool,
 	pub bot:                               User,
@@ -55,45 +52,33 @@ pub struct Application {
 	pub bot_quarantined:                   bool,
 	pub approximate_guild_count:           u32,
 	pub approximate_user_install_count:    u32,
-	/// https://docs.discord.sex/resources/application#internal-guild-restriction
-	pub internal_guild_restriction:        u8,
+	pub internal_guild_restriction:        ApplicationInternalGuildRestriction,
 	pub terms_of_service_url:              String,
 	pub privacy_policy_url:                String,
 	pub role_connections_verification_url: Option<String>,
 	pub interactions_endpoint_url:         String,
-	/// https://docs.discord.sex/resources/application#application-interactions-version
-	pub interactions_version:              u8,
+	pub interactions_version:              ApplicationInteractionsVersion,
 	pub interactions_event_types:          Vec<String>,
-	/// https://docs.discord.sex/resources/application#event-webhooks-status
-	pub event_webhooks_status:             u8,
+	pub event_webhooks_status:             ApplicationEventWebhookStatus,
 	pub event_webhooks_url:                String,
-	/// https://docs.discord.sex/resources/application#event-webhooks-type
-	pub event_webhooks_types:              Vec<String>,
-	/// https://docs.discord.sex/resources/application#explicit-content-filter-level
-	pub explicit_content_filter:           u8,
+	pub event_webhooks_types:              Vec<ApplicationEventWebhook>,
+	pub explicit_content_filter:           ApplicationExplicitContentFilterLevel,
 	pub tags:                              Vec<String>,
 	pub install_params:                    ApplicationInstallParams,
 	pub custom_install_url:                String,
 	pub integration_types_config:          HashMap<u32, Option<ApplicationIntegrationType>>,
 	pub is_verified:                       bool,
-	/// https://docs.discord.sex/resources/application#application-verification-state
-	pub verification_state:                u8,
-	/// https://docs.discord.sex/resources/application#store-application-state
-	pub store_application_state:           u8,
-	/// https://docs.discord.sex/resources/application#rpc-application-state
-	pub rpc_application_state:             u8,
-	/// https://docs.discord.sex/resources/application#creator-monetization-state
-	pub creator_monetization_state:        u32,
+	pub verification_state:                ApplicationVerificationState,
+	pub store_application_state:           ApplicationStoreState,
+	pub rpc_application_state:             ApplicationRpcState,
+	pub creator_monetization_state:        ApplicationCreatorMonetizationState,
 	pub is_discoverable:                   bool,
-	/// https://docs.discord.sex/resources/application#application-discoverability-state
-	pub discoverability_state:             u8,
-	/// https://docs.discord.sex/resources/application#application-discovery-eligibility-flags
-	pub discovery_eligibility_flags:       u64,
+	pub discoverability_state:             ApplicationDiscoverabilityState,
+	pub discovery_eligibility_flags:       ApplicationDiscoverabilityFlags,
 	pub is_monetized:                      bool,
 	pub storefront_available:              bool,
-	/// https://docs.discord.sex/resources/application#application-monetization-state
-	pub monetization_state:                u8,
-	pub monetization_eligibility_flags:    u64,
+	pub monetization_state:                ApplicationMonetizationState,
+	pub monetization_eligibility_flags:    ApplicationDiscoverabilityFlags,
 	pub max_participants:                  i32,
 	pub embedded_activity_config:          EmbeddedActivityConfig,
 }
@@ -313,8 +298,7 @@ pub struct ApplicationExecutable {
 pub struct ApplicationSKU {
 	pub id:          Option<String>,
 	pub sku:         Option<String>,
-	/// https://docs.discord.sex/resources/application#distributor-type
-	pub distributor: String,
+	pub distributor: DistributorType,
 }
 
 pub enum DistributorType {
@@ -369,17 +353,13 @@ pub struct ApplicationProxyMap {
 pub struct EmbeddedActivityConfig {
 	pub application_id:                        Snowflake,
 	pub activity_preview_video_asset_id:       Option<Snowflake>,
-	/// https://docs.discord.food/resources/application#embedded-activity-platform-type
-	pub supported_platforms:                   Vec<String>,
-	/// https://docs.discord.food/resources/application#embedded-activity-orientation-lock-state-type
-	pub default_orientation_lock_state:        u8,
-	/// https://docs.discord.food/resources/application#embedded-activity-orientation-lock-state-type
-	pub tablet_default_orientation_lock_state: u8,
+	pub supported_platforms:                   Vec<EmbeddedActivitySupportedPlatformType>,
+	pub default_orientation_lock_state:        EmbeddedActivityOrientationLockStateType,
+	pub tablet_default_orientation_lock_state: EmbeddedActivityOrientationLockStateType,
 	pub requires_age_gate:                     bool,
 	pub legacy_responsive_aspect_ratio:        bool,
 	#[deprecated]
-	/// https://docs.discord.food/resources/guild#premium-tier
-	pub premium_tier_requirement:              Option<u8>,
+	pub premium_tier_requirement:              Option<PremiumTier>,
 	#[deprecated]
 	pub free_period_starts_at:                 Option<Timestamp>,
 	#[deprecated]
@@ -407,11 +387,9 @@ pub enum EmbeddedActivityOrientationLockStateType {
 #[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct EmbeddedActivityPlatformConfig {
-	/// https://docs.discord.food/resources/application#embedded-activity-label-type
-	pub label_type:    u8,
+	pub label_type:    EmbeddedActivityLabelType,
 	pub label_until:   Option<Timestamp>,
-	/// https://docs.discord.food/resources/application#embedded-activity-release-phase
-	pub release_phase: String,
+	pub release_phase: EmbeddedActivityReleasePhase,
 }
 
 #[derive(Serialize_repr, Deserialize_repr)]
@@ -434,7 +412,8 @@ pub enum EmbeddedActivityReleasePhase {
 #[serde(default)]
 pub struct ApplicationAsset {
 	pub id:     String,
-	pub r#type: u8, /* kinda useless its either just 1 or 2 and no one knows what its for https://docs.discord.food/resources/application#application-asset-type */
+	/// kinda useless its either just 1 or 2 and no one knows what its for https://docs.discord.food/resources/application#application-asset-type
+	pub r#type: u8,
 	pub name:   String,
 }
 
@@ -458,8 +437,7 @@ pub struct ApplicationRoleConnection {
 #[derive(Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct ApplicationRoleConnectionMetadata {
-	/// https://docs.discord.food/resources/guild#role-connection-operator-type
-	pub r#type:                    u8,
+	pub r#type:                    RoleConnectionOperatorType,
 	pub key:                       String,
 	pub name:                      String,
 	pub name_localizations:        HashMap<String, String>,
@@ -477,8 +455,7 @@ pub struct DetectableApplication {
 	pub themes:                     Vec<String>,
 	pub hook:                       bool,
 	pub overlay:                    bool,
-	/// https://docs.discord.food/resources/application#overlay-method-flags
-	pub overlay_methods:            Option<u8>,
+	pub overlay_methods:            Option<ApplicationOverlayMethods>,
 	pub overlay_warn:               bool,
 	pub overlay_compatibility_hook: bool,
 }

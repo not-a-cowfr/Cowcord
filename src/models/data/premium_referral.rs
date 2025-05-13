@@ -30,8 +30,7 @@ pub struct PremiumReferralEligibility {
 	pub sent_user_ids:              Vec<Snowflake>,
 	pub refresh_at:                 Option<Timestamp>,
 	pub has_eligible_friends:       bool,
-	/// https://docs.discord.food/resources/premium-referral#premium-referral-recipient-status
-	pub recipient_status:           HashMap<Snowflake, u8>,
+	pub recipient_status:           HashMap<Snowflake, PremiumReferralRecipientStatus>,
 	pub is_eligible_for_incentive:  bool,
 	pub is_qualified_for_incentive: bool,
 	/// https://docs.discord.food/resources/premium-referral#premium-referral-incentive-status
