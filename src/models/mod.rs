@@ -2,4 +2,5 @@
 
 pub mod data;
 pub mod endpoints;
+pub mod locales;
 pub mod types;
