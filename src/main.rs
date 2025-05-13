@@ -38,6 +38,9 @@ pub enum Route {
 
     #[route("/register")]
     Register {},
+
+	#[route("/:..segments")]
+    PageNotFound { segments: Vec<String> },
 }
 
 const TAILWIND_CSS: Asset = asset!("/assets/tailwind.css");
