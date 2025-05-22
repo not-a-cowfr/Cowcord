@@ -1,16 +1,19 @@
 use std::error::Error;
 
-use reqwest::{Client, Response, StatusCode};
+use dioxus::prelude::use_navigator;
+use reqwest::{Client, RequestBuilder, Response};
 use serde::Serialize;
 use serde::de::DeserializeOwned;
+
+use super::local_storage::get_value;
 
 pub struct RequestClient {
 	client:   Client,
 	api_base: String,
 }
 
-const DISCORD: &str = "https://discord.com/";
-const API_VERSION: &str = "9";
+pub const DISCORD: &str = "https://discord.com/";
+pub const API_VERSION: &str = "9";
 
 impl RequestClient {
 	pub fn new() -> Self {
@@ -42,60 +45,148 @@ impl RequestClient {
 	pub async fn post<T, R>(
 		&self,
 		endpoint: &str,
-		body: &T,
+		body: Option<&T>,
 	) -> Result<R, Box<dyn Error>>
 	where
 		T: Serialize,
 		R: DeserializeOwned,
 	{
 		let url = format!("{}{}{}", DISCORD, self.api_base, endpoint);
+		let mut request = self.client.post(&url).add_headers()?;
 
-		let response = self
-			.client
-			.post(&url)
-			.json(body)
-			.header("Origin", DISCORD)
-			.send()
-			.await?;
+		if let Some(body) = body {
+			request = request.json(body);
+		}
+
+		let response = request.send().await?;
 
 		Self::handle_response(response).await
 	}
 
-	pub async fn get<R>(
+	pub async fn get<T, R>(
 		&self,
 		endpoint: &str,
+		body: Option<&T>,
 	) -> Result<R, Box<dyn Error>>
 	where
+		T: Serialize,
 		R: DeserializeOwned,
 	{
 		let url = format!("{}{}{}", DISCORD, self.api_base, endpoint);
+		let mut request = self.client.get(&url).add_headers()?;
 
-		let response = self
-			.client
-			.get(&url)
-			.header("Origin", DISCORD)
-			.send()
-			.await?;
+		if let Some(body) = body {
+			request = request.json(body);
+		}
+
+		let response = request.send().await?;
 
 		Self::handle_response(response).await
 	}
 
-	pub async fn delete<R>(
+	pub async fn delete<T, R>(
 		&self,
 		endpoint: &str,
+		body: Option<&T>,
 	) -> Result<R, Box<dyn Error>>
 	where
+		T: Serialize,
 		R: DeserializeOwned,
 	{
 		let url = format!("{}{}{}", DISCORD, self.api_base, endpoint);
+		let mut request = self.client.delete(&url).add_headers()?;
 
-		let response = self
-			.client
-			.delete(&url)
-			.header("Origin", DISCORD)
-			.send()
-			.await?;
+		if let Some(body) = body {
+			request = request.json(body);
+		}
+
+		let response = request.send().await?;
 
 		Self::handle_response(response).await
 	}
+
+	pub async fn put<T, R>(
+		&self,
+		endpoint: &str,
+		body: Option<&T>,
+	) -> Result<R, Box<dyn Error>>
+	where
+		T: Serialize,
+		R: DeserializeOwned,
+	{
+		let url = format!("{}{}{}", DISCORD, self.api_base, endpoint);
+		let mut request = self.client.put(&url).add_headers()?;
+
+		if let Some(body) = body {
+			request = request.json(body);
+		}
+
+		let response = request.send().await?;
+
+		Self::handle_response(response).await
+	}
+
+	pub async fn patch<T, R>(
+		&self,
+		endpoint: &str,
+		body: Option<&T>,
+	) -> Result<R, Box<dyn Error>>
+	where
+		T: Serialize,
+		R: DeserializeOwned,
+	{
+		let url = format!("{}{}{}", DISCORD, self.api_base, endpoint);
+		let mut request = self.client.patch(&url).add_headers()?;
+
+		if let Some(body) = body {
+			request = request.json(body);
+		}
+
+		let response = request.send().await?;
+
+		Self::handle_response(response).await
+	}
+}
+
+pub trait RequestBuilderExt {
+	fn add_headers(self) -> Result<RequestBuilder, Box<dyn Error>>;
+}
+
+impl RequestBuilderExt for RequestBuilder {
+	fn add_headers(self) -> Result<RequestBuilder, Box<dyn Error>> {
+		if let Some(token) = get_value("token") {
+			Ok(self
+				.header("Authorization", token)
+				.header("Origin", DISCORD))
+		} else {
+			use_navigator().replace("/login");
+			Err("Authorization token is missing".into())
+		}
+	}
+}
+
+/// Convert struct to url string query params
+///
+/// eg.
+///
+/// with field(s)
+/// ```rust
+/// let query = MyStruct {
+///     value: "hi",
+///     value_two: None,
+///     value_three: 25
+/// }
+///
+/// assert_eq!(to_string_query(&query), "?value=hi&value_three=25");
+/// ```
+/// without fields
+/// ```rust
+/// let query = MyStruct {}
+///
+/// assert_eq!(to_string_query(&query), "");
+/// ```
+pub fn to_string_query<T: serde::ser::Serialize>(query: &T) -> String {
+	serde_urlencoded::to_string(&query)
+		.map(|q| format!("?{}", q))
+		.unwrap_or_default()
 }
